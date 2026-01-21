@@ -329,6 +329,7 @@ section {
     flex-wrap: wrap;
     gap: 0.75rem;
     list-style: none;
+    padding-left: 0;
 }
 
 .phrase-item {
