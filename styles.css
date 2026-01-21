@@ -199,6 +199,201 @@ article {
     font-weight: 600;
 }
 
+.good-note {
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    margin-top: 1rem;
+    font-style: italic;
+}
+
+/* Chat Comparison Section */
+.chat-comparison {
+    margin-bottom: 6rem;
+}
+
+.comparison-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+}
+
+.chat-scenario {
+    background: var(--bubble-bg);
+    border-radius: 16px;
+    padding: 1.5rem;
+    position: relative;
+}
+
+.scenario-label {
+    font-size: 0.875rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 1rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.bad-label {
+    color: var(--text-light);
+}
+
+.good-label {
+    color: var(--text-color);
+}
+
+.chat-window {
+    min-height: 200px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.chat-message {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    max-width: 95%;
+}
+
+.chat-message.sent {
+    flex-direction: row-reverse;
+    margin-left: auto;
+    text-align: right;
+}
+
+.chat-message.received {
+    margin-right: auto;
+}
+
+.message-time {
+    font-size: 0.75rem;
+    color: var(--text-light);
+    flex-shrink: 0;
+    margin-top: 0.35rem;
+}
+
+.message-text {
+    background: var(--bg-color);
+    padding: 0.625rem 1rem;
+    border-radius: 12px;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    box-shadow: var(--shadow-sm);
+}
+
+.chat-message.sent .message-text {
+    background: var(--text-color);
+    color: var(--bg-color);
+}
+
+.chat-message.received .message-text {
+    background: var(--bg-color);
+    color: var(--text-color);
+}
+
+.message-text code {
+    background: rgba(128, 128, 128, 0.2);
+    padding: 0.1rem 0.35rem;
+    border-radius: 4px;
+    font-family: 'SF Mono', 'Consolas', monospace;
+    font-size: 0.85em;
+}
+
+.scenario-result {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 1.25rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border-color);
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.bad-result {
+    color: var(--text-light);
+}
+
+.good-result {
+    color: var(--text-color);
+}
+
+.result-icon {
+    font-size: 1.1rem;
+}
+
+/* Phrases to Avoid */
+.avoid-phrases {
+    margin-bottom: 6rem;
+}
+
+.phrases-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+}
+
+.phrase-item {
+    background: var(--bubble-bg);
+    padding: 0.625rem 1.25rem;
+    border-radius: 100px;
+    font-size: 0.95rem;
+    color: var(--text-muted);
+    position: relative;
+    text-decoration: line-through;
+    text-decoration-color: var(--text-light);
+}
+
+/* Analogy Section */
+.analogy-section {
+    margin-bottom: 6rem;
+}
+
+.analogy-box {
+    background: var(--bubble-bg);
+    border-radius: 16px;
+    padding: 2.5rem;
+    text-align: center;
+}
+
+.analogy-scenario {
+    font-size: 1.1rem;
+    color: var(--text-muted);
+    margin-bottom: 2rem;
+}
+
+.analogy-conversation {
+    max-width: 280px;
+    margin: 0 auto 2rem;
+    text-align: left;
+}
+
+.analogy-line {
+    padding: 0.5rem 0;
+    font-size: 1.1rem;
+}
+
+.analogy-line.you {
+    color: var(--text-color);
+}
+
+.analogy-line.them {
+    color: var(--text-muted);
+}
+
+.analogy-line.waiting {
+    color: var(--text-light);
+    font-style: italic;
+}
+
+.analogy-conclusion {
+    font-size: 1.1rem;
+    color: var(--text-color);
+    font-weight: 500;
+}
+
 /* Explanation section */
 .explanation {
     margin-top: 6rem;
@@ -369,20 +564,24 @@ summary:focus {
 }
 
 .intro,
-.bad-examples,
+.chat-comparison,
+.avoid-phrases,
 .good-examples,
 .explanation,
+.analogy-section,
 .faq,
 .summary {
     animation: fadeInUp 0.6s ease-out both;
 }
 
 .intro { animation-delay: 0.1s; }
-.bad-examples { animation-delay: 0.2s; }
-.good-examples { animation-delay: 0.3s; }
-.explanation { animation-delay: 0.4s; }
-.faq { animation-delay: 0.5s; }
-.summary { animation-delay: 0.6s; }
+.chat-comparison { animation-delay: 0.2s; }
+.avoid-phrases { animation-delay: 0.3s; }
+.good-examples { animation-delay: 0.4s; }
+.explanation { animation-delay: 0.5s; }
+.analogy-section { animation-delay: 0.6s; }
+.faq { animation-delay: 0.7s; }
+.summary { animation-delay: 0.8s; }
 
 /* Print styles */
 @media print {
@@ -421,6 +620,45 @@ summary:focus {
 
     section {
         margin-bottom: 4rem;
+    }
+
+    .comparison-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+
+    .chat-scenario {
+        padding: 1.25rem;
+    }
+
+    .chat-window {
+        min-height: auto;
+    }
+
+    .chat-message {
+        max-width: 100%;
+    }
+
+    .message-text {
+        font-size: 0.9rem;
+        padding: 0.5rem 0.875rem;
+    }
+
+    .phrases-grid {
+        gap: 0.5rem;
+    }
+
+    .phrase-item {
+        padding: 0.5rem 1rem;
+        font-size: 0.875rem;
+    }
+
+    .analogy-box {
+        padding: 1.5rem;
+    }
+
+    .analogy-conversation {
+        max-width: 100%;
     }
 
     .explanation {

@@ -140,23 +140,47 @@
                 "name": "Meta sual nədir?",
                 "acceptedAnswer": {
                     "@type": "Answer",
-                    "text": "Meta sual, əsl sualınızı vermədən öncə soruşduğunuz suallar deməkdir. Məsələn: 'Sual verə bilərəm?', 'Python bilən varmı?', 'Kimsə kömək edə bilər?' kimi ifadələr meta suallardır."
+                    "text": "Meta sual, əsl sualınızı vermədən öncə soruşduğunuz suallar deməkdir. Məsələn: 'Sual verə bilərəm?', 'Python bilən varmı?', 'Kimsə kömək edə bilər?' kimi ifadələr meta suallardır. Bunlar sualınızı vermək üçün icazə istəyir, amma əsl sualı gecikdirir."
                 }
             },
             {
                 "@type": "Question",
-                "name": "Niyə meta sual vermək pis sayılır?",
+                "name": "Bu qayda bütün çatlara aiddir?",
                 "acceptedAnswer": {
                     "@type": "Answer",
-                    "text": "Meta suallar vaxt itkisinə səbəb olur. Yazışmada cavab gözləmək danışmaqdan çox vaxt alır. Birbaşa sual yazsanız, həmin şəxs sonra qayıtdıqda da cavab verə bilər."
+                    "text": "Bəli, bu qayda Discord, Telegram, Slack, forum və digər onlayn ünsiyyət platformalarına aiddir. İstənilən yazışma mühitində birbaşa sual vermək daha effektivdir."
                 }
             },
             {
                 "@type": "Question",
-                "name": "Çatda düzgün sual necə verilir?",
+                "name": "Bu kobud sayılmırmı?",
                 "acceptedAnswer": {
                     "@type": "Answer",
-                    "text": "Birbaşa sualınızı yazın, lazımi konteksti əlavə edin. Məsələn: 'Python-da faylı necə oxuya bilərəm? open() funksiyası ilə çalışdım, amma Unicode xətası alıram.' Bu cür suallar daha tez cavab alır."
+                    "text": "Xeyr! Əsl nəzakət başqalarının vaxtına hörmət etməkdir. Birbaşa sual vermək həm sizin, həm də kömək edən şəxsin vaxtına qənaət edir. 'Salam' yazmaq nəzakətdir, amma sualınızı da eyni mesajda yazın."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Salamlaşmadan sual versəm?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Salamlaşma ilə birlikdə sual vermək ən yaxşı yoldur. 'Salam! [sualınız]' formatı həm nəzakətli, həm də effektivdir. Sadəcə salamlaşıb dayanmaq problem yaradır."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Bəs əgər sualım çox uzundursa?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Uzun suallar da eyni qaydaya tabedir. Sualınızı bir mesajda yazın, lazım gələrsə parçalara ayırın. Amma 'Salam, uzun sualım var' yazıb gözləməyin — birbaşa yazmağa başlayın."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Qarşı tərəf məşğuldursa nə edim?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Sualınızı yazın və gözləyin. Əgər birbaşa sualınızı yazsanız, həmin şəxs vaxtı olanda cavab verə bilər. 'Burdasan?' yazsanız, o qayıdanda nə istədiyinizi bilməyəcək."
                 }
             }
         ]
@@ -263,29 +287,89 @@
                 </p>
             </section>
 
-            <section class="bad-examples" aria-labelledby="bad-heading">
-                <h2 id="bad-heading">Belə yazmayın:</h2>
-                <div class="examples-list" role="list">
-                    <div class="chat-bubble bad" role="listitem">
-                        <p>Salam, bir sual verə bilərəm?</p>
+            <!-- Timestamped Chat Comparison -->
+            <section class="chat-comparison" aria-labelledby="comparison-heading">
+                <h2 id="comparison-heading">Fərqi görün</h2>
+
+                <div class="comparison-grid">
+                    <!-- Bad Example with Timestamps -->
+                    <div class="chat-scenario bad-scenario">
+                        <h3 class="scenario-label bad-label">Səhv yanaşma</h3>
+                        <div class="chat-window">
+                            <div class="chat-message sent">
+                                <span class="message-time">10:00</span>
+                                <span class="message-text">Salam</span>
+                            </div>
+                            <div class="chat-message received">
+                                <span class="message-time">10:05</span>
+                                <span class="message-text">Salam</span>
+                            </div>
+                            <div class="chat-message sent">
+                                <span class="message-time">10:05</span>
+                                <span class="message-text">Sual verə bilərəm?</span>
+                            </div>
+                            <div class="chat-message received">
+                                <span class="message-time">10:09</span>
+                                <span class="message-text">Bəli, buyurun</span>
+                            </div>
+                            <div class="chat-message sent">
+                                <span class="message-time">10:10</span>
+                                <span class="message-text">Python-da faylı necə oxuya bilərəm?</span>
+                            </div>
+                            <div class="chat-message received">
+                                <span class="message-time">10:15</span>
+                                <span class="message-text">open() funksiyası ilə...</span>
+                            </div>
+                        </div>
+                        <div class="scenario-result bad-result">
+                            <span class="result-icon">⏱</span>
+                            <span class="result-text">15 dəqiqə sərf olundu</span>
+                        </div>
                     </div>
-                    <div class="chat-bubble bad" role="listitem">
-                        <p>Python bilən varmı?</p>
-                    </div>
-                    <div class="chat-bubble bad" role="listitem">
-                        <p>Salam, burdasan?</p>
-                    </div>
-                    <div class="chat-bubble bad" role="listitem">
-                        <p>Mənə kömək edə biləcək kimsə varmı?</p>
+
+                    <!-- Good Example with Timestamps -->
+                    <div class="chat-scenario good-scenario">
+                        <h3 class="scenario-label good-label">Düzgün yanaşma</h3>
+                        <div class="chat-window">
+                            <div class="chat-message sent">
+                                <span class="message-time">10:00</span>
+                                <span class="message-text">Salam! Python-da faylı necə oxuya bilərəm? <code>open()</code> ilə çalışdım, Unicode xətası alıram.</span>
+                            </div>
+                            <div class="chat-message received">
+                                <span class="message-time">10:03</span>
+                                <span class="message-text">encoding='utf-8' parametrini əlavə edin: open('fayl.txt', encoding='utf-8')</span>
+                            </div>
+                        </div>
+                        <div class="scenario-result good-result">
+                            <span class="result-icon">✓</span>
+                            <span class="result-text">3 dəqiqəyə həll olundu</span>
+                        </div>
                     </div>
                 </div>
             </section>
 
-            <section class="good-examples" aria-labelledby="good-heading">
-                <h2 id="good-heading">Belə yazın:</h2>
-                <div class="chat-bubble good">
-                    <p>Salam! Python-da faylı necə oxuya bilərəm? <code>open()</code> funksiyası ilə çalışdım, amma Unicode xətası alıram.</p>
+            <!-- Phrases to Avoid -->
+            <section class="avoid-phrases" aria-labelledby="avoid-heading">
+                <h2 id="avoid-heading">Bu ifadələrdən qaçının:</h2>
+                <div class="phrases-grid">
+                    <div class="phrase-item">Salam</div>
+                    <div class="phrase-item">Burdasan?</div>
+                    <div class="phrase-item">Sual verə bilərəm?</div>
+                    <div class="phrase-item">Python bilən varmı?</div>
+                    <div class="phrase-item">Bir dəqiqən var?</div>
+                    <div class="phrase-item">Kimsə kömək edə bilər?</div>
+                    <div class="phrase-item">Ping</div>
+                    <div class="phrase-item">Onlaynsınız?</div>
                 </div>
+            </section>
+
+            <!-- Good Example -->
+            <section class="good-examples" aria-labelledby="good-heading">
+                <h2 id="good-heading">Əvəzinə belə yazın:</h2>
+                <div class="chat-bubble good">
+                    <p>Salam! Python-da faylı necə oxuya bilərəm? <code>open()</code> funksiyası ilə çalışdım, amma Unicode xətası alıram. Windows istifadə edirəm.</p>
+                </div>
+                <p class="good-note">Salamlaşma + sual + kontekst = tez cavab</p>
             </section>
 
             <section class="explanation" aria-labelledby="why-heading" itemprop="articleBody">
@@ -293,18 +377,38 @@
 
                 <article class="reason">
                     <h3>Vaxt itkisi</h3>
-                    <p>Yazışmada cavab gözləmək danışmaqdan çox vaxt alır. "Sual verə bilərəm?" yazıb cavab gözləmək, sonra sualı yazmaq — ikiqat vaxt itkisidir.</p>
+                    <p>Yazışmada cavab gözləmək danışmaqdan çox vaxt alır. "Sual verə bilərəm?" yazıb cavab gözləmək, sonra sualı yazmaq — ikiqat vaxt itkisidir. Yazı yazmaq danışmaqdan yavaşdır, ona görə "nəzakətli" olmaq əvəzinə qarşı tərəfi gözlətmiş olursunuz.</p>
                 </article>
 
                 <article class="reason">
                     <h3>Asinxron ünsiyyət</h3>
-                    <p>Əgər birbaşa sualınızı yazsanız, həmin şəxs sonra qayıtdıqda cavab verə bilər. Amma sadəcə "Salam" yazsanız, o qayıdanda yalnız "Salam" görəcək — və sizi gözləməli olacaq.</p>
+                    <p>Əgər birbaşa sualınızı yazsanız, həmin şəxs sonra qayıtdıqda cavab verə bilər. Amma sadəcə "Salam" yazsanız, o qayıdanda yalnız "Salam" görəcək — və sizi gözləməli olacaq. Bu isə hər iki tərəf üçün vaxt itkisidir.</p>
                 </article>
 
                 <article class="reason">
                     <h3>Daha çox kömək şansı</h3>
-                    <p>Konkret sual yazsanız, bilən hər kəs cavab verə bilər. "Python bilən varmı?" yazsanız, insanlar sualın nə olduğunu bilmədən cavab verməkdən çəkinə bilər.</p>
+                    <p>Konkret sual yazsanız, bilən hər kəs cavab verə bilər. "Python bilən varmı?" yazsanız, insanlar sualın nə olduğunu bilmədən cavab verməkdən çəkinə bilər. Bəlkə də sizin sualınızı cavablandıra biləcək biri var, amma Python bilmədiyini düşünür.</p>
                 </article>
+
+                <article class="reason phone-analogy">
+                    <h3>Telefon analogiyası</h3>
+                    <p>Bunu belə düşünün: kiməsə zəng edib dərhal gözləməyə qoymaq kimi bir şeydir. Siz zəng edirsiniz, qarşı tərəf cavab verir, siz isə "Salam, bir dəqiqə gözlə" deyirsiniz. Bu, nəzakətsizlik sayılmırmı?</p>
+                </article>
+            </section>
+
+            <!-- Analogy Section -->
+            <section class="analogy-section" aria-labelledby="analogy-heading">
+                <h2 id="analogy-heading">Təsəvvür edin</h2>
+                <div class="analogy-box">
+                    <p class="analogy-scenario">Kiməsə zəng edirsiniz...</p>
+                    <div class="analogy-conversation">
+                        <p class="analogy-line you">— Alo?</p>
+                        <p class="analogy-line them">— Bəli?</p>
+                        <p class="analogy-line you">— Salam, bir dəqiqə gözlə...</p>
+                        <p class="analogy-line them waiting">— ...?</p>
+                    </div>
+                    <p class="analogy-conclusion">Bu, qəribə olardı, elə deyilmi? Çatda da eyni şeydir.</p>
+                </div>
             </section>
 
             <section class="faq" aria-labelledby="faq-heading">
@@ -312,17 +416,32 @@
 
                 <details class="faq-item" open>
                     <summary><strong>Meta sual nədir?</strong></summary>
-                    <p>Meta sual, əsl sualınızı vermədən öncə soruşduğunuz suallar deməkdir. Məsələn: "Sual verə bilərəm?", "Python bilən varmı?", "Kimsə kömək edə bilər?" kimi ifadələr meta suallardır.</p>
+                    <p>Meta sual, əsl sualınızı vermədən öncə soruşduğunuz suallar deməkdir. Məsələn: "Sual verə bilərəm?", "Python bilən varmı?", "Kimsə kömək edə bilər?" kimi ifadələr meta suallardır. Bunlar sualınızı vermək üçün icazə istəyir, amma əsl sualı gecikdirir.</p>
                 </details>
 
                 <details class="faq-item">
                     <summary><strong>Bu qayda bütün çatlara aiddir?</strong></summary>
-                    <p>Bəli, bu qayda Discord, Telegram, Slack, forum və digər onlayn ünsiyyət platformalarına aiddir. İstənilən yazışma mühitində birbaşa sual vermək daha effektivdir.</p>
+                    <p>Bəli, bu qayda Discord, Telegram, Slack, forum və digər onlayn ünsiyyət platformalarına aiddir. İstənilən yazışma mühitində birbaşa sual vermək daha effektivdir. İş çatları, texniki dəstək, proqramlaşdırma forumları — hamısına aiddir.</p>
                 </details>
 
                 <details class="faq-item">
                     <summary><strong>Bu kobud sayılmırmı?</strong></summary>
-                    <p>Xeyr! Əsl nəzakət başqalarının vaxtına hörmət etməkdir. Birbaşa sual vermək həm sizin, həm də kömək edən şəxsin vaxtına qənaət edir.</p>
+                    <p>Xeyr! Əsl nəzakət başqalarının vaxtına hörmət etməkdir. Birbaşa sual vermək həm sizin, həm də kömək edən şəxsin vaxtına qənaət edir. "Salam" yazmaq nəzakətdir, amma sualınızı da eyni mesajda yazın.</p>
+                </details>
+
+                <details class="faq-item">
+                    <summary><strong>Salamlaşmadan sual versəm?</strong></summary>
+                    <p>Salamlaşma ilə birlikdə sual vermək ən yaxşı yoldur. "Salam! [sualınız]" formatı həm nəzakətli, həm də effektivdir. Sadəcə salamlaşıb dayanmaq problem yaradır.</p>
+                </details>
+
+                <details class="faq-item">
+                    <summary><strong>Bəs əgər sualım çox uzundursa?</strong></summary>
+                    <p>Uzun suallar da eyni qaydaya tabedir. Sualınızı bir mesajda yazın, lazım gələrsə parçalara ayırın. Amma "Salam, uzun sualım var" yazıb gözləməyin — birbaşa yazmağa başlayın.</p>
+                </details>
+
+                <details class="faq-item">
+                    <summary><strong>Qarşı tərəf məşğuldursa nə edim?</strong></summary>
+                    <p>Sualınızı yazın və gözləyin. Əgər birbaşa sualınızı yazsanız, həmin şəxs vaxtı olanda cavab verə bilər. "Burdasan?" yazsanız, o qayıdanda nə istədiyinizi bilməyəcək.</p>
                 </details>
             </section>
 
