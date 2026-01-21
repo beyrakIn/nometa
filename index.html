@@ -108,11 +108,11 @@
     <link rel="dns-prefetch" href="https://nometa.xyz">
 
     <!-- Preload critical resources -->
-    <link rel="preload" href="assets/css/styles.css?v=2026012104" as="style" fetchpriority="high">
+    <link rel="preload" href="assets/css/styles.css?v=2026012105" as="style" fetchpriority="high">
     <link rel="prefetch" href="https://nometa.xyz/">
 
     <!-- Stylesheet -->
-    <link rel="stylesheet" href="assets/css/styles.css?v=2026012104">
+    <link rel="stylesheet" href="assets/css/styles.css?v=2026012105">
 
     <!-- JSON-LD Structured Data -->
     <script type="application/ld+json">
@@ -253,6 +253,22 @@
                 "acceptedAnswer": {
                     "@type": "Answer",
                     "text": "Bu sual insanları 'mütəxəssis' etiketini qəbul etməyə məcbur edir - hələ probleminizi bilmədən. Çoxları bu məsuliyyəti götürməkdən çəkinir. Üstəlik, bəlkə Python bilməyən biri ümumi proqramlaşdırma biliyi ilə sizə kömək edə bilərdi."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Cəhdlərimi göstərməliyəm?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Bəli! Nə etdiyinizi göstərmək çox vacibdir. Bu, eyni şeyləri təkrar təklif etməyin qarşısını alır, problemi daha tez başa düşməyə kömək edir və ciddi olduğunuzu göstərir. Misal: Google-da axtardım, Stack Overflow-da baxdım, amma həll tapmadım yazın."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Hansı məlumatları əlavə etməliyəm?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Əməliyyat sistemi (Windows/Mac/Linux), proqram/kitabxana versiyası, tam xəta mesajı (screenshot deyil, mətn kimi), nə etdiyiniz (kod nümunəsi), və nə gözlədiyiniz vs nə baş verdi. Bu məlumatlar kömək edənlərə vaxt qazandırır."
                 }
             }
         ]
@@ -635,6 +651,83 @@
                 </div>
             </section>
 
+            <!-- Show Your Work Section -->
+            <section class="show-work" aria-labelledby="show-work-heading">
+                <h2 id="show-work-heading">Cəhdlərinizi Göstərin</h2>
+
+                <p class="show-work-intro">
+                    Sual verərkən nə etdiyinizi göstərmək çox vacibdir.
+                    Bu, eyni şeyləri təkrar təklif etməyin qarşısını alır və problemi daha tez həll etməyə kömək edir.
+                </p>
+
+                <div class="comparison-grid">
+                    <!-- Bad: No context -->
+                    <div class="chat-scenario bad-scenario">
+                        <h3 class="scenario-label bad-label">Kontekstsiz sual</h3>
+                        <div class="chat-window">
+                            <div class="chat-message sent">
+                                <span class="message-time">11:00</span>
+                                <span class="message-text">Salam, database-ə qoşula bilmirəm. Kömək edə bilərsiniz?</span>
+                            </div>
+                            <div class="chat-message received">
+                                <span class="message-time">11:03</span>
+                                <span class="message-text">Hansı database? Hansı xəta?</span>
+                            </div>
+                            <div class="chat-message sent">
+                                <span class="message-time">11:04</span>
+                                <span class="message-text">PostgreSQL</span>
+                            </div>
+                            <div class="chat-message received">
+                                <span class="message-time">11:06</span>
+                                <span class="message-text">Xəta mesajı nədir?</span>
+                            </div>
+                            <div class="chat-message sent">
+                                <span class="message-time">11:07</span>
+                                <span class="message-text">connection refused</span>
+                            </div>
+                            <div class="chat-message received">
+                                <span class="message-time">11:09</span>
+                                <span class="message-text">Port açıqdır? pg_isready nə deyir?</span>
+                            </div>
+                        </div>
+                        <div class="scenario-result bad-result">
+                            <span class="result-icon">✗</span>
+                            <span class="result-text">10+ mesaj sorğu-sual</span>
+                        </div>
+                    </div>
+
+                    <!-- Good: Full context -->
+                    <div class="chat-scenario good-scenario">
+                        <h3 class="scenario-label good-label">Tam kontekst</h3>
+                        <div class="chat-window">
+                            <div class="chat-message sent">
+                                <span class="message-time">11:00</span>
+                                <span class="message-text">Salam! PostgreSQL-ə qoşulmaq istəyirəm. <code>psql -U postgres</code> yazdım amma "connection refused" xətası alıram. Port 5432 açıqdır, <code>pg_isready</code> cavab vermir. Ubuntu 22.04 istifadə edirəm.</span>
+                            </div>
+                            <div class="chat-message received">
+                                <span class="message-time">11:02</span>
+                                <span class="message-text"><code>sudo systemctl status postgresql</code> yoxlayın - çox güman service işləmir. <code>sudo systemctl start postgresql</code> ilə başladın.</span>
+                            </div>
+                        </div>
+                        <div class="scenario-result good-result">
+                            <span class="result-icon">✓</span>
+                            <span class="result-text">2 dəqiqəyə həll olundu</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="show-work-explanation">
+                    <h3>Nə əlavə etməli?</h3>
+                    <ul>
+                        <li>Əməliyyat sistemi və versiyası</li>
+                        <li>Proqram/kitabxana versiyası</li>
+                        <li>Tam xəta mesajı (mətn kimi)</li>
+                        <li>Nə etdiyiniz (kod nümunəsi)</li>
+                        <li>Nə gözlədiyiniz vs nə baş verdi</li>
+                    </ul>
+                </div>
+            </section>
+
             <!-- Analogy Section -->
             <section class="analogy-section" aria-labelledby="analogy-heading">
                 <h2 id="analogy-heading">Təsəvvür edin</h2>
@@ -692,6 +785,16 @@
                     <summary><strong>Niyə "Python bilən varmı?" pis sualdır?</strong></summary>
                     <p>Bu sual insanları "mütəxəssis" etiketini qəbul etməyə məcbur edir - hələ probleminizi bilmədən. Çoxları bu məsuliyyəti götürməkdən çəkinir. Üstəlik, bəlkə Python bilməyən biri ümumi proqramlaşdırma biliyi ilə sizə kömək edə bilərdi, amma özünü uyğun hesab etmədi.</p>
                 </details>
+
+                <details class="faq-item">
+                    <summary><strong>Cəhdlərimi göstərməliyəm?</strong></summary>
+                    <p>Bəli! Nə etdiyinizi göstərmək çox vacibdir. Bu, eyni şeyləri təkrar təklif etməyin qarşısını alır, problemi daha tez başa düşməyə kömək edir və ciddi olduğunuzu göstərir. Misal: "Google-da axtardım, Stack Overflow-da baxdım, amma həll tapmadım" yazın.</p>
+                </details>
+
+                <details class="faq-item">
+                    <summary><strong>Hansı məlumatları əlavə etməliyəm?</strong></summary>
+                    <p>Əməliyyat sistemi (Windows/Mac/Linux), proqram/kitabxana versiyası, tam xəta mesajı (screenshot deyil, mətn kimi), nə etdiyiniz (kod nümunəsi), və nə gözlədiyiniz vs nə baş verdi. Bu məlumatlar kömək edənlərə vaxt qazandırır.</p>
+                </details>
             </section>
 
             <section class="summary" aria-labelledby="summary-heading">
@@ -710,7 +813,7 @@
             <a href="https://dontasktoask.com" target="_blank" rel="noopener noreferrer">dontasktoask.com</a> saytlarından ilhamlanıb.
         </p>
         <p>
-            <small>Əlavə oxu: <a href="https://stackoverflow.com/help/how-to-ask" target="_blank" rel="noopener noreferrer">Stack Overflow - Yaxşı sual necə verilir?</a></small>
+            <small>Əlavə oxu: <a href="https://stackoverflow.com/help/how-to-ask" target="_blank" rel="noopener noreferrer">Stack Overflow - Yaxşı sual necə verilir?</a> | <a href="http://www.catb.org/~esr/faqs/smart-questions.html" target="_blank" rel="noopener noreferrer" lang="en">Smart Questions (EN)</a></small>
         </p>
         <p>
             <small>Təklifiniz var? <a href="mailto:info@nometa.az">info@nometa.az</a></small>

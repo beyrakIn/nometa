@@ -468,6 +468,49 @@ section {
     color: var(--good-color);
 }
 
+/* Show Your Work Section */
+.show-work {
+    margin-bottom: var(--spacing-3xl);
+}
+
+.show-work-intro {
+    font-size: var(--text-md);
+    color: var(--text-muted);
+    text-align: center;
+    margin-bottom: var(--spacing-xl);
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.show-work-explanation {
+    background: var(--bubble-bg);
+    border-radius: 16px;
+    padding: var(--spacing-lg);
+    margin-top: var(--spacing-xl);
+}
+
+.show-work-explanation h3 {
+    margin-bottom: var(--spacing-sm);
+}
+
+.show-work-explanation ul {
+    list-style: none;
+}
+
+.show-work-explanation li {
+    padding: var(--spacing-xs) 0;
+    padding-left: var(--spacing-md);
+    position: relative;
+}
+
+.show-work-explanation li::before {
+    content: "→";
+    position: absolute;
+    left: 0;
+    color: var(--good-color);
+}
+
 /* FAQ Section */
 .faq {
     margin-top: var(--spacing-3xl);
@@ -624,9 +667,10 @@ summary:focus:not(:focus-visible) {
 .good-examples { --animation-order: 4; }
 .explanation { --animation-order: 5; }
 .xy-problem { --animation-order: 6; }
-.analogy-section { --animation-order: 7; }
-.faq { --animation-order: 8; }
-.summary { --animation-order: 9; }
+.show-work { --animation-order: 7; }
+.analogy-section { --animation-order: 8; }
+.faq { --animation-order: 9; }
+.summary { --animation-order: 10; }
 
 .intro,
 .chat-comparison,
@@ -634,6 +678,7 @@ summary:focus:not(:focus-visible) {
 .good-examples,
 .explanation,
 .xy-problem,
+.show-work,
 .analogy-section,
 .faq,
 .summary {
