@@ -50,8 +50,9 @@
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
     <link rel="manifest" href="/site.webmanifest">
-    <meta name="theme-color" content="#4ecdc4">
-    <meta name="msapplication-TileColor" content="#0f0f0f">
+    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="#0a0a0a" media="(prefers-color-scheme: dark)">
+    <meta name="msapplication-TileColor" content="#ffffff">
 
     <!-- Preconnect for performance -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -178,7 +179,7 @@
     <main class="container" role="main" itemscope itemtype="https://schema.org/Article">
         <meta itemprop="author" content="NoMeta Azerbaijan">
         <meta itemprop="datePublished" content="2024-01-01">
-        <meta itemprop="dateModified" content="2024-01-21">
+        <meta itemprop="dateModified" content="2025-01-21">
 
         <article>
             <h1 itemprop="headline">
@@ -270,8 +271,9 @@
             <a href="https://nohello.com" target="_blank" rel="noopener noreferrer">nohello.com</a> saytlarından ilhamlanıb.
         </p>
         <p class="copyright">
-            <small>&copy; 2024 NoMeta Azerbaijan. Bütün hüquqlar qorunur.</small>
+            <small>&copy; <span id="year"></span> NoMeta Azerbaijan. Bütün hüquqlar qorunur.</small>
         </p>
     </footer>
+    <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
 </body>
 </html>
