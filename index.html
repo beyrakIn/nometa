@@ -1,6 +1,22 @@
 <!DOCTYPE html>
 <html lang="az" dir="ltr" prefix="og: https://ogp.me/ns#">
 <head>
+    <!--
+    DATE UPDATE LOCATIONS (8 total - update all when content changes):
+
+    Dates (6 locations):
+    - Line ~52: article:modified_time meta tag
+    - Line ~61: og:updated_time meta tag
+    - Line ~76: itemprop="dateModified" meta tag
+    - Line ~114: JSON-LD WebPage dateModified
+    - Line ~150: JSON-LD Article dateModified
+    - Line ~409: main article meta itemprop="dateModified"
+
+    CSS Cache Buster (2 locations):
+    - Line ~97: preload link styles.css?v=YYYYMMDDNN
+    - Line ~101: stylesheet link styles.css?v=YYYYMMDDNN
+    -->
+
     <!-- Primary Meta Tags -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
@@ -485,16 +501,16 @@
             <!-- Phrases to Avoid -->
             <section class="avoid-phrases" aria-labelledby="avoid-heading">
                 <h2 id="avoid-heading">Bu ifadələrdən qaçının:</h2>
-                <div class="phrases-grid">
-                    <div class="phrase-item">Salam</div>
-                    <div class="phrase-item">Burdasan?</div>
-                    <div class="phrase-item">Sual verə bilərəm?</div>
-                    <div class="phrase-item">Python bilən varmı?</div>
-                    <div class="phrase-item">Bir dəqiqən var?</div>
-                    <div class="phrase-item">Kimsə kömək edə bilər?</div>
-                    <div class="phrase-item">Ping</div>
-                    <div class="phrase-item">Onlaynsınız?</div>
-                </div>
+                <ul class="phrases-grid">
+                    <li class="phrase-item">Salam</li>
+                    <li class="phrase-item">Burdasan?</li>
+                    <li class="phrase-item">Sual verə bilərəm?</li>
+                    <li class="phrase-item">Python bilən varmı?</li>
+                    <li class="phrase-item">Bir dəqiqən var?</li>
+                    <li class="phrase-item">Kimsə kömək edə bilər?</li>
+                    <li class="phrase-item">Ping</li>
+                    <li class="phrase-item">Onlaynsınız?</li>
+                </ul>
             </section>
 
             <!-- Good Example -->

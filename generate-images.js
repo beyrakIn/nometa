@@ -4,6 +4,18 @@ const path = require('path');
 
 const rootDir = __dirname;
 
+// Configuration for image generation
+const CONFIG = {
+  favicon: {
+    sizes: [16, 32, 192, 512],
+    appleTouchIcon: 180,
+  },
+  ogImage: {
+    width: 1200,
+    height: 630,
+  },
+};
+
 async function generateImages() {
   console.log('Generating PNG images from SVG sources...\n');
 
@@ -11,13 +23,10 @@ async function generateImages() {
   const faviconSvg = fs.readFileSync(path.join(rootDir, 'favicon.svg'));
   const ogImageSvg = fs.readFileSync(path.join(rootDir, 'og-image.svg'));
 
-  // Generate favicon PNGs
+  // Generate favicon PNGs from config
   const faviconSizes = [
-    { name: 'favicon-16x16.png', size: 16 },
-    { name: 'favicon-32x32.png', size: 32 },
-    { name: 'favicon-192x192.png', size: 192 },
-    { name: 'favicon-512x512.png', size: 512 },
-    { name: 'apple-touch-icon.png', size: 180 },
+    ...CONFIG.favicon.sizes.map(size => ({ name: `favicon-${size}x${size}.png`, size })),
+    { name: 'apple-touch-icon.png', size: CONFIG.favicon.appleTouchIcon },
   ];
 
   for (const { name, size } of faviconSizes) {
@@ -28,12 +37,12 @@ async function generateImages() {
     console.log(`Created: ${name} (${size}x${size})`);
   }
 
-  // Generate og-image.png (1200x630)
+  // Generate og-image.png
   await sharp(ogImageSvg)
-    .resize(1200, 630)
+    .resize(CONFIG.ogImage.width, CONFIG.ogImage.height)
     .png()
     .toFile(path.join(rootDir, 'og-image.png'));
-  console.log('Created: og-image.png (1200x630)');
+  console.log(`Created: og-image.png (${CONFIG.ogImage.width}x${CONFIG.ogImage.height})`);
 
   console.log('\nAll images generated successfully!');
 }
