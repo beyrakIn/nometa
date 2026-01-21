@@ -1,4 +1,4 @@
-# NoMeta.az Robots.txt - Updated 2025-01-21
+# NoMeta.az Robots.txt - Updated 2026-01-21
 # Onlayn ünsiyyət qaydaları haqqında təhsil saytı
 
 # Default rules for all bots
