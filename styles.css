@@ -499,9 +499,13 @@ article {
     color: var(--text-muted);
 }
 
-.faq-item summary:focus {
+.faq-item summary:focus-visible {
     outline: 2px solid var(--text-color);
     outline-offset: 4px;
+}
+
+.faq-item summary:focus:not(:focus-visible) {
+    outline: none;
 }
 
 .faq-item p {
@@ -561,17 +565,23 @@ footer a:hover {
     color: var(--text-color);
 }
 
-footer a:focus {
+footer a:focus-visible {
     outline: 2px solid var(--text-color);
     outline-offset: 2px;
 }
 
-/* Focus styles for accessibility */
-a:focus,
-button:focus,
-summary:focus {
+/* Focus styles for accessibility - only show for keyboard navigation */
+a:focus-visible,
+button:focus-visible,
+summary:focus-visible {
     outline: 2px solid var(--text-color);
     outline-offset: 2px;
+}
+
+a:focus:not(:focus-visible),
+button:focus:not(:focus-visible),
+summary:focus:not(:focus-visible) {
+    outline: none;
 }
 
 /* Selection color */
