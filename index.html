@@ -44,6 +44,15 @@
     <meta name="twitter:image" content="https://nometa.az/og-image.png">
     <meta name="twitter:image:alt" content="NoMeta.az - Birbaşa soruşun">
 
+    <!-- Article Meta Tags -->
+    <meta property="article:published_time" content="2024-01-01T00:00:00+04:00">
+    <meta property="article:modified_time" content="2025-01-21T00:00:00+04:00">
+    <meta property="article:author" content="NoMeta Azerbaijan">
+    <meta property="article:section" content="Education">
+    <meta property="article:tag" content="onlayn ünsiyyət">
+    <meta property="article:tag" content="chat etiketi">
+    <meta property="article:tag" content="meta sual">
+
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg">
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
@@ -58,6 +67,9 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="dns-prefetch" href="https://fonts.googleapis.com">
 
+    <!-- Preload critical resources -->
+    <link rel="preload" href="styles.css" as="style">
+
     <!-- Stylesheet -->
     <link rel="stylesheet" href="styles.css">
 
@@ -71,6 +83,12 @@
         "name": "NoMeta.az - Meta Sual Verməyin, Birbaşa Soruşun",
         "description": "Onlayn çatlarda və forumlarda düzgün sual vermə qaydaları. Vaxtınızı və başqalarının vaxtını qənaət edin.",
         "inLanguage": "az",
+        "datePublished": "2024-01-01",
+        "dateModified": "2025-01-21",
+        "speakable": {
+            "@type": "SpeakableSpecification",
+            "cssSelector": [".tagline", ".summary"]
+        },
         "isPartOf": {
             "@type": "WebSite",
             "@id": "https://nometa.az/#website",
@@ -86,12 +104,26 @@
         },
         "mainEntity": {
             "@type": "Article",
+            "@id": "https://nometa.az/#article",
             "headline": "Meta Sual Verməyin - Birbaşa Soruşun",
             "description": "Onlayn çatlarda niyə birbaşa sual vermək lazımdır",
             "inLanguage": "az",
+            "datePublished": "2024-01-01",
+            "dateModified": "2025-01-21",
+            "image": "https://nometa.az/og-image.png",
             "author": {
                 "@type": "Organization",
-                "name": "NoMeta Azerbaijan"
+                "name": "NoMeta Azerbaijan",
+                "url": "https://nometa.az/"
+            },
+            "publisher": {
+                "@type": "Organization",
+                "name": "NoMeta Azerbaijan",
+                "url": "https://nometa.az/",
+                "logo": {
+                    "@type": "ImageObject",
+                    "url": "https://nometa.az/favicon.svg"
+                }
             }
         }
     }
@@ -154,10 +186,47 @@
         "@type": "Organization",
         "name": "NoMeta Azerbaijan",
         "url": "https://nometa.az/",
-        "logo": "https://nometa.az/logo.png",
+        "logo": "https://nometa.az/favicon.svg",
+        "foundingDate": "2024",
         "sameAs": [
             "https://nometa.xyz",
             "https://nohello.com"
+        ],
+        "contactPoint": {
+            "@type": "ContactPoint",
+            "contactType": "customer support",
+            "url": "https://nometa.az/"
+        }
+    }
+    </script>
+
+    <!-- HowTo Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "HowTo",
+        "name": "Onlayn çatda düzgün sual necə verilir",
+        "description": "Onlayn çatlarda və forumlarda effektiv sual vermə qaydaları. Meta sual vermədən birbaşa soruşmağın üstünlükləri.",
+        "totalTime": "PT1M",
+        "step": [
+            {
+                "@type": "HowToStep",
+                "position": 1,
+                "name": "Meta sual verməyin",
+                "text": "\"Sual verə bilərəm?\", \"Python bilən varmı?\", \"Kimsə kömək edə bilər?\" kimi meta suallar yazmayın. Bu suallar vaxt itkisinə səbəb olur."
+            },
+            {
+                "@type": "HowToStep",
+                "position": 2,
+                "name": "Birbaşa sualınızı yazın",
+                "text": "Əsl sualınızı dərhal yazın. Məsələn: \"Python-da faylı necə oxuya bilərəm?\" İcazə istəməyə ehtiyac yoxdur."
+            },
+            {
+                "@type": "HowToStep",
+                "position": 3,
+                "name": "Kontekst əlavə edin",
+                "text": "Sualınıza lazımi konteksti əlavə edin. Nə etdiyinizi, hansı xətanı aldığınızı və nə gözlədiyinizi izah edin. Bu, digərlərinə sizə daha tez kömək etməyə imkan verir."
+            }
         ]
     }
     </script>
