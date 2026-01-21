@@ -12,16 +12,16 @@
         <changefreq>monthly</changefreq>
         <priority>1.0</priority>
         <image:image>
-            <image:loc>https://nometa.az/og-image.png</image:loc>
+            <image:loc>https://nometa.az/assets/images/og-image.png</image:loc>
             <image:title>NoMeta.az - Birbaşa soruşun, meta sual verməyin</image:title>
             <image:caption>Onlayn çatlarda düzgün sual vermə qaydaları - NoMeta Azerbaijan</image:caption>
         </image:image>
         <image:image>
-            <image:loc>https://nometa.az/favicon.svg</image:loc>
+            <image:loc>https://nometa.az/assets/images/favicon.svg</image:loc>
             <image:title>NoMeta.az Logo</image:title>
         </image:image>
         <image:image>
-            <image:loc>https://nometa.az/apple-touch-icon.png</image:loc>
+            <image:loc>https://nometa.az/assets/images/apple-touch-icon.png</image:loc>
             <image:title>NoMeta.az Apple Touch Icon</image:title>
         </image:image>
     </url>
