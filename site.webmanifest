@@ -1,0 +1,25 @@
+{
+    "name": "NoMeta Azerbaijan",
+    "short_name": "NoMeta.az",
+    "description": "Meta sual verməyin, birbaşa soruşun. Onlayn ünsiyyət qaydaları.",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#0f0f0f",
+    "theme_color": "#4ecdc4",
+    "orientation": "portrait-primary",
+    "icons": [
+        {
+            "src": "/favicon-192x192.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "/favicon-512x512.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ],
+    "lang": "az",
+    "dir": "ltr",
+    "categories": ["education", "productivity"]
+}

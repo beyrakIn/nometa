@@ -1,0 +1,9 @@
+# robots.txt for nometa.az
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://nometa.az/sitemap.xml
+
+# Crawl delay (optional, be nice to servers)
+Crawl-delay: 10

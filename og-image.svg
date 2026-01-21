@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0f0f0f"/>
+      <stop offset="100%" style="stop-color:#1a1a2e"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bg-gradient)"/>
+
+  <!-- Decorative elements -->
+  <circle cx="100" cy="100" r="200" fill="#4ecdc4" opacity="0.03"/>
+  <circle cx="1100" cy="530" r="250" fill="#4ecdc4" opacity="0.03"/>
+
+  <!-- Main title -->
+  <text x="600" y="200" font-family="system-ui, -apple-system, sans-serif" font-size="120" font-weight="700" fill="#ffffff" text-anchor="middle">
+    <tspan>no</tspan><tspan fill="#4ecdc4">meta</tspan><tspan fill="#4ecdc4">.az</tspan>
+  </text>
+
+  <!-- Tagline -->
+  <text x="600" y="300" font-family="system-ui, -apple-system, sans-serif" font-size="36" fill="#b0b0b0" text-anchor="middle">
+    Sual vermək üçün icazə istəməyin.
+  </text>
+  <text x="600" y="355" font-family="system-ui, -apple-system, sans-serif" font-size="44" font-weight="600" fill="#4ecdc4" text-anchor="middle">
+    Sadəcə soruşun.
+  </text>
+
+  <!-- Bad example box -->
+  <rect x="150" y="420" width="400" height="80" rx="12" fill="#1a1a1a"/>
+  <rect x="150" y="420" width="5" height="80" rx="2" fill="#ff6b6b"/>
+  <text x="175" y="470" font-family="system-ui, -apple-system, sans-serif" font-size="26" fill="#e0e0e0">
+    "Sual verə bilərəm?"
+  </text>
+  <text x="510" y="470" font-family="system-ui, -apple-system, sans-serif" font-size="28" fill="#ff6b6b">
+    ✗
+  </text>
+
+  <!-- Good example box -->
+  <rect x="650" y="420" width="400" height="80" rx="12" fill="#1a1a1a"/>
+  <rect x="650" y="420" width="5" height="80" rx="2" fill="#51cf66"/>
+  <text x="675" y="470" font-family="system-ui, -apple-system, sans-serif" font-size="26" fill="#e0e0e0">
+    "Python-da faylı necə...?"
+  </text>
+  <text x="1010" y="470" font-family="system-ui, -apple-system, sans-serif" font-size="28" fill="#51cf66">
+    ✓
+  </text>
+
+  <!-- Bottom text -->
+  <text x="600" y="580" font-family="system-ui, -apple-system, sans-serif" font-size="22" fill="#666666" text-anchor="middle">
+    Onlayn ünsiyyətdə düzgün sual vermə qaydaları
+  </text>
+</svg>
