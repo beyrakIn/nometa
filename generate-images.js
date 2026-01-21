@@ -3,6 +3,7 @@ const fs = require('fs');
 const path = require('path');
 
 const rootDir = __dirname;
+const imagesDir = path.join(rootDir, 'assets', 'images');
 
 // Configuration for image generation
 const CONFIG = {
@@ -20,8 +21,8 @@ async function generateImages() {
   console.log('Generating PNG images from SVG sources...\n');
 
   // Read SVG files
-  const faviconSvg = fs.readFileSync(path.join(rootDir, 'favicon.svg'));
-  const ogImageSvg = fs.readFileSync(path.join(rootDir, 'og-image.svg'));
+  const faviconSvg = fs.readFileSync(path.join(imagesDir, 'favicon.svg'));
+  const ogImageSvg = fs.readFileSync(path.join(imagesDir, 'og-image.svg'));
 
   // Generate favicon PNGs from config
   const faviconSizes = [
@@ -33,16 +34,16 @@ async function generateImages() {
     await sharp(faviconSvg)
       .resize(size, size)
       .png()
-      .toFile(path.join(rootDir, name));
-    console.log(`Created: ${name} (${size}x${size})`);
+      .toFile(path.join(imagesDir, name));
+    console.log(`Created: assets/images/${name} (${size}x${size})`);
   }
 
   // Generate og-image.png
   await sharp(ogImageSvg)
     .resize(CONFIG.ogImage.width, CONFIG.ogImage.height)
     .png()
-    .toFile(path.join(rootDir, 'og-image.png'));
-  console.log(`Created: og-image.png (${CONFIG.ogImage.width}x${CONFIG.ogImage.height})`);
+    .toFile(path.join(imagesDir, 'og-image.png'));
+  console.log(`Created: assets/images/og-image.png (${CONFIG.ogImage.width}x${CONFIG.ogImage.height})`);
 
   console.log('\nAll images generated successfully!');
 }
