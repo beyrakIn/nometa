@@ -222,6 +222,14 @@
                     "@type": "Answer",
                     "text": "Sualınızı yazın və gözləyin. Əgər birbaşa sualınızı yazsanız, həmin şəxs vaxtı olanda cavab verə bilər. 'Burdasan?' yazsanız, o qayıdanda nə istədiyinizi bilməyəcək."
                 }
+            },
+            {
+                "@type": "Question",
+                "name": "XY problemi nədir?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "XY problemi, əsl problemini (X) soruşmaq əvəzinə, özünün tapdığı həll yolu (Y) haqqında sual verməkdir. Bu, kömək edənləri çaşdırır və vaxt itkisinə səbəb olur."
+                }
             }
         ]
     }
@@ -378,7 +386,6 @@
     </script>
 </head>
 <body>
-    <a href="#main" class="skip-link">Əsas məzmuna keç</a>
     <header class="visually-hidden">
         <nav aria-label="Breadcrumb">
             <ol itemscope itemtype="https://schema.org/BreadcrumbList">
@@ -519,6 +526,81 @@
                 </article>
             </section>
 
+            <!-- XY Problem Section -->
+            <section class="xy-problem" aria-labelledby="xy-heading">
+                <h2 id="xy-heading">XY Problemi</h2>
+
+                <p class="xy-intro">
+                    Bəzən insanlar əsl problemlərini (X) soruşmaq əvəzinə,
+                    özlərinin tapdığı həll yolu (Y) haqqında sual verirlər.
+                </p>
+
+                <div class="comparison-grid">
+                    <!-- Bad: XY Problem example -->
+                    <div class="chat-scenario bad-scenario">
+                        <h3 class="scenario-label bad-label">XY Problemi</h3>
+                        <div class="chat-window">
+                            <div class="chat-message sent">
+                                <span class="message-time">14:00</span>
+                                <span class="message-text">Salam! Mətn sətirinin son 3 simvolunu necə ala bilərəm?</span>
+                            </div>
+                            <div class="chat-message received">
+                                <span class="message-time">14:02</span>
+                                <span class="message-text"><code>text[-3:]</code> istifadə edin</span>
+                            </div>
+                            <div class="chat-message sent">
+                                <span class="message-time">14:03</span>
+                                <span class="message-text">İşləmir, bəzi fayllar üçün səhv nəticə verir</span>
+                            </div>
+                            <div class="chat-message received">
+                                <span class="message-time">14:05</span>
+                                <span class="message-text">Hansı fayllar? Nə əldə etmək istəyirsiniz?</span>
+                            </div>
+                            <div class="chat-message sent">
+                                <span class="message-time">14:06</span>
+                                <span class="message-text">Fayl uzantısını almaq istəyirəm</span>
+                            </div>
+                            <div class="chat-message received">
+                                <span class="message-time">14:08</span>
+                                <span class="message-text">Onda <code>os.path.splitext()</code> istifadə edin, uzantılar həmişə 3 simvol olmur</span>
+                            </div>
+                        </div>
+                        <div class="scenario-result bad-result">
+                            <span class="result-icon">✗</span>
+                            <span class="result-text">8 dəqiqə, əlavə sorğu-sual</span>
+                        </div>
+                    </div>
+
+                    <!-- Good: Direct X approach -->
+                    <div class="chat-scenario good-scenario">
+                        <h3 class="scenario-label good-label">Düzgün yanaşma</h3>
+                        <div class="chat-window">
+                            <div class="chat-message sent">
+                                <span class="message-time">14:00</span>
+                                <span class="message-text">Salam! Python-da faylın uzantısını necə ala bilərəm? <code>.tar.gz</code> kimi uzantıları da düzgün almaq istəyirəm.</span>
+                            </div>
+                            <div class="chat-message received">
+                                <span class="message-time">14:02</span>
+                                <span class="message-text"><code>pathlib</code> istifadə edin: <code>Path(fayl).suffixes</code> birləşmiş uzantıları qaytarır</span>
+                            </div>
+                        </div>
+                        <div class="scenario-result good-result">
+                            <span class="result-icon">✓</span>
+                            <span class="result-text">2 dəqiqəyə həll olundu</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="xy-explanation">
+                    <h3>Necə qaçınmalı?</h3>
+                    <ul>
+                        <li>Əsl məqsədinizi izah edin</li>
+                        <li>Nə etmək istədiyinizi, niyə istədiyinizi yazın</li>
+                        <li>Sınadığınız həlləri və nəticələri qeyd edin</li>
+                    </ul>
+                </div>
+            </section>
+
             <!-- Analogy Section -->
             <section class="analogy-section" aria-labelledby="analogy-heading">
                 <h2 id="analogy-heading">Təsəvvür edin</h2>
@@ -566,6 +648,11 @@
                     <summary><strong>Qarşı tərəf məşğuldursa nə edim?</strong></summary>
                     <p>Sualınızı yazın və gözləyin. Əgər birbaşa sualınızı yazsanız, həmin şəxs vaxtı olanda cavab verə bilər. "Burdasan?" yazsanız, o qayıdanda nə istədiyinizi bilməyəcək.</p>
                 </details>
+
+                <details class="faq-item">
+                    <summary><strong>XY problemi nədir?</strong></summary>
+                    <p>XY problemi, əsl problemini (X) soruşmaq əvəzinə, özünün tapdığı həll yolu (Y) haqqında sual verməkdir. Məsələn, fayl uzantısını almaq istəyən biri "son 3 simvolu necə alım?" deyə soruşur. Bu, kömək edənləri çaşdırır. Həmişə əsl məqsədinizi izah edin.</p>
+                </details>
             </section>
 
             <section class="summary" aria-labelledby="summary-heading">
@@ -578,8 +665,9 @@
 
     <footer role="contentinfo">
         <p>
-            <a href="https://nometa.xyz" target="_blank" rel="noopener noreferrer">nometa.xyz</a> və
-            <a href="https://nohello.com" target="_blank" rel="noopener noreferrer">nohello.com</a> saytlarından ilhamlanıb.
+            <a href="https://nometa.xyz" target="_blank" rel="noopener noreferrer">nometa.xyz</a>,
+            <a href="https://nohello.com" target="_blank" rel="noopener noreferrer">nohello.com</a> və
+            <a href="https://xyproblem.info" target="_blank" rel="noopener noreferrer">xyproblem.info</a> saytlarından ilhamlanıb.
         </p>
         <p class="copyright">
             <small>&copy; <span id="year"></span> NoMeta Azerbaijan. Bütün hüquqlar qorunur.</small>
