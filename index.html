@@ -22,7 +22,9 @@
 
     <!-- Alternate languages (hreflang) -->
     <link rel="alternate" hreflang="az" href="https://nometa.az/">
+    <link rel="alternate" hreflang="en" href="https://nometa.xyz/">
     <link rel="alternate" hreflang="x-default" href="https://nometa.az/">
+    <meta http-equiv="content-language" content="az">
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
@@ -34,6 +36,7 @@
     <meta property="og:image:height" content="630">
     <meta property="og:image:alt" content="NoMeta.az - Birbaşa soruşun, meta sual verməyin">
     <meta property="og:locale" content="az_AZ">
+    <meta property="og:locale:alternate" content="en_US">
     <meta property="og:site_name" content="NoMeta Azerbaijan">
 
     <!-- Twitter Card -->
@@ -53,6 +56,23 @@
     <meta property="article:tag" content="chat etiketi">
     <meta property="article:tag" content="meta sual">
 
+    <!-- Enhanced Open Graph -->
+    <meta property="og:updated_time" content="2025-01-21T00:00:00+04:00">
+    <meta property="og:see_also" content="https://nometa.xyz/">
+    <meta property="og:see_also" content="https://nohello.com/">
+
+    <!-- Dublin Core Meta Tags -->
+    <meta name="DC.title" content="NoMeta.az - Meta Sual Verməyin">
+    <meta name="DC.creator" content="NoMeta Azerbaijan">
+    <meta name="DC.subject" content="Online Communication Etiquette, Chat Etiquette, Meta Questions">
+    <meta name="DC.description" content="Onlayn çatlarda düzgün sual vermə qaydaları">
+    <meta name="DC.language" content="az">
+    <meta name="DC.type" content="Text">
+    <meta name="DC.format" content="text/html">
+
+    <!-- Schema.org Meta Tags -->
+    <meta itemprop="dateModified" content="2025-01-21">
+
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg">
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
@@ -63,12 +83,17 @@
     <meta name="theme-color" content="#0a0a0a" media="(prefers-color-scheme: dark)">
     <meta name="msapplication-TileColor" content="#ffffff">
 
+    <!-- Performance & Cache hints -->
+    <meta http-equiv="Cache-Control" content="public, max-age=604800">
+
     <!-- Preconnect for performance -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+    <link rel="dns-prefetch" href="https://nometa.xyz">
 
     <!-- Preload critical resources -->
-    <link rel="preload" href="styles.css" as="style">
+    <link rel="preload" href="styles.css" as="style" fetchpriority="high">
+    <link rel="prefetch" href="https://nometa.xyz/">
 
     <!-- Stylesheet -->
     <link rel="stylesheet" href="styles.css">
@@ -89,13 +114,23 @@
             "@type": "SpeakableSpecification",
             "cssSelector": [".tagline", ".summary"]
         },
+        "educationalLevel": "Beginner",
+        "learningResourceType": "Article",
+        "audience": {
+            "@type": "Audience",
+            "audienceType": "Software developers, IT professionals, Online community members"
+        },
         "isPartOf": {
             "@type": "WebSite",
             "@id": "https://nometa.az/#website",
             "url": "https://nometa.az/",
             "name": "NoMeta Azerbaijan",
             "description": "Azərbaycan dilində onlayn ünsiyyət qaydaları",
-            "inLanguage": "az"
+            "inLanguage": "az",
+            "potentialAction": {
+                "@type": "ReadAction",
+                "target": "https://nometa.az/"
+            }
         },
         "about": {
             "@type": "Thing",
@@ -108,9 +143,14 @@
             "headline": "Meta Sual Verməyin - Birbaşa Soruşun",
             "description": "Onlayn çatlarda niyə birbaşa sual vermək lazımdır",
             "inLanguage": "az",
+            "dateCreated": "2024-01-01",
             "datePublished": "2024-01-01",
             "dateModified": "2025-01-21",
             "image": "https://nometa.az/og-image.png",
+            "audience": {
+                "@type": "Audience",
+                "audienceType": "Software developers, IT professionals"
+            },
             "author": {
                 "@type": "Organization",
                 "name": "NoMeta Azerbaijan",
@@ -254,8 +294,91 @@
         ]
     }
     </script>
+
+    <!-- EducationalOrganization Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "EducationalOrganization",
+        "@id": "https://nometa.az/#educational-org",
+        "name": "NoMeta Azerbaijan",
+        "url": "https://nometa.az/",
+        "description": "Azərbaycan dilində onlayn ünsiyyət qaydaları və etiketi haqqında təhsil platforması",
+        "educationalCredentialAwarded": "Onlayn Ünsiyyət Bacarıqları",
+        "sameAs": [
+            "https://nometa.xyz",
+            "https://nohello.com"
+        ]
+    }
+    </script>
+
+    <!-- Course/LearningResource Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Course",
+        "@id": "https://nometa.az/#course",
+        "name": "Onlayn Ünsiyyət Qaydaları",
+        "description": "Çatlarda və forumlarda düzgün sual vermə və effektiv ünsiyyət qaydaları kursu",
+        "provider": {
+            "@type": "Organization",
+            "name": "NoMeta Azerbaijan",
+            "url": "https://nometa.az/"
+        },
+        "educationalLevel": "Beginner",
+        "inLanguage": "az",
+        "isAccessibleForFree": true,
+        "hasCourseInstance": {
+            "@type": "CourseInstance",
+            "courseMode": "online",
+            "courseWorkload": "PT5M"
+        },
+        "teaches": [
+            "Onlayn ünsiyyət etiketi",
+            "Effektiv sual vermə",
+            "Vaxtı qənaət etmə"
+        ],
+        "audience": {
+            "@type": "Audience",
+            "audienceType": "Developers, IT specialists, Online community members"
+        }
+    }
+    </script>
+
+    <!-- ItemList Structured Data for Steps -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "ItemList",
+        "@id": "https://nometa.az/#steps-list",
+        "name": "Meta sual verməmək üçün addımlar",
+        "description": "Onlayn çatda düzgün sual vermənin 3 əsas addımı",
+        "numberOfItems": 3,
+        "itemListElement": [
+            {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Meta sual verməyin",
+                "description": "\"Sual verə bilərəm?\", \"Python bilən varmı?\" kimi meta suallar yazmayın"
+            },
+            {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Birbaşa soruşun",
+                "description": "Əsl sualınızı dərhal yazın, icazə istəməyə ehtiyac yoxdur"
+            },
+            {
+                "@type": "ListItem",
+                "position": 3,
+                "name": "Kontekst əlavə edin",
+                "description": "Sualınıza lazımi konteksti, xəta mesajlarını və gözləntinizi əlavə edin"
+            }
+        ]
+    }
+    </script>
 </head>
 <body>
+    <a href="#main" class="skip-link">Əsas məzmuna keç</a>
     <header class="visually-hidden">
         <nav aria-label="Breadcrumb">
             <ol itemscope itemtype="https://schema.org/BreadcrumbList">
@@ -269,7 +392,7 @@
         </nav>
     </header>
 
-    <main class="container" role="main" itemscope itemtype="https://schema.org/Article">
+    <main id="main" class="container" role="main" itemscope itemtype="https://schema.org/Article">
         <meta itemprop="author" content="NoMeta Azerbaijan">
         <meta itemprop="datePublished" content="2024-01-01">
         <meta itemprop="dateModified" content="2025-01-21">

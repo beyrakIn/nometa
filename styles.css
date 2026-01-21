@@ -10,8 +10,8 @@
     --text-muted: #666666;
     --text-light: #999999;
     --border-color: #e5e5e5;
-    --bad-color: #111111;
-    --good-color: #111111;
+    --bad-color: #9a3a3a;
+    --good-color: #2d7a4f;
     --bubble-bg: #fafafa;
     --bubble-bg-good: #ffffff;
     --code-bg: #f5f5f5;
@@ -236,11 +236,11 @@ article {
 }
 
 .bad-label {
-    color: var(--text-light);
+    color: var(--bad-color);
 }
 
 .good-label {
-    color: var(--text-color);
+    color: var(--good-color);
 }
 
 .chat-window {
@@ -313,11 +313,11 @@ article {
 }
 
 .bad-result {
-    color: var(--text-light);
+    color: var(--bad-color);
 }
 
 .good-result {
-    color: var(--text-color);
+    color: var(--good-color);
 }
 
 .result-icon {
@@ -702,8 +702,8 @@ summary:focus {
         --text-muted: #a0a0a0;
         --text-light: #666666;
         --border-color: #222222;
-        --bad-color: #fafafa;
-        --good-color: #fafafa;
+        --bad-color: #e57373;
+        --good-color: #66bb6a;
         --bubble-bg: #141414;
         --bubble-bg-good: #1a1a1a;
         --code-bg: #1f1f1f;

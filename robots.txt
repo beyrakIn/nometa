@@ -1,9 +1,52 @@
-# robots.txt for nometa.az
+# NoMeta.az Robots.txt - Updated 2025-01-21
+# Onlayn ünsiyyət qaydaları haqqında təhsil saytı
+
+# Default rules for all bots
 User-agent: *
 Allow: /
+Crawl-delay: 5
 
 # Sitemap location
 Sitemap: https://nometa.az/sitemap.xml
 
-# Crawl delay (optional, be nice to servers)
-Crawl-delay: 10
+# Allow search engines full access
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: Yandex
+Allow: /
+
+User-agent: DuckDuckBot
+Allow: /
+
+# Block aggressive SEO analysis bots (with delay)
+User-agent: AhrefsBot
+Crawl-delay: 30
+
+User-agent: SemrushBot
+Crawl-delay: 30
+
+User-agent: MJ12bot
+Crawl-delay: 30
+
+User-agent: DotBot
+Crawl-delay: 30
+
+# Block AI training bots
+User-agent: GPTBot
+Disallow: /
+
+User-agent: CCBot
+Disallow: /
+
+User-agent: anthropic-ai
+Disallow: /
+
+User-agent: Claude-Web
+Disallow: /
+
+# Host directive (for Yandex)
+Host: https://nometa.az
