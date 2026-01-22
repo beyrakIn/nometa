@@ -21,3 +21,5 @@ content/nometa.db-shm
 *.swp
 *.swo
 admin/
+scripts/
+templates/
