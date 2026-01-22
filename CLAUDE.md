@@ -44,8 +44,8 @@ Key component patterns:
 ### SEO & Structured Data
 The HTML head contains extensive JSON-LD Schema.org markup (WebPage, FAQPage, Course, HowTo, etc.). When modifying content:
 - Keep FAQ structured data in sync with HTML `<details>` elements
-- Update `dateModified` timestamps in schema.org markup
 - Update meta tags when changing descriptions
+- **Date updates**: When content changes, update `dateModified` in 6 locations and CSS cache buster in 2 locations (see HTML comment at top of `index.html` for exact line numbers)
 
 ## Key Conventions
 
@@ -53,4 +53,4 @@ The HTML head contains extensive JSON-LD Schema.org markup (WebPage, FAQPage, Co
 2. **Accessibility**: Maintain ARIA labels, focus-visible patterns, and reduced-motion support
 3. **Responsive**: Mobile breakpoint at 600px; test at both mobile and desktop widths
 4. **No frameworks**: Keep it vanilla HTML/CSS/JS - minimal JavaScript for dynamic year only
-5. **robots.txt**: Blocks AI training bots (GPTBot, CCBot, Claude-Web, anthropic-ai)
+5. **robots.txt**: Currently allows all bots (`Allow: /`)
