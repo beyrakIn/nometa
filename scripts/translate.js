@@ -3,7 +3,7 @@
  * Supports: Claude API, OpenAI API, Claude Code CLI
  */
 
-const { execSync } = require('child_process');
+const { exec, execSync } = require('child_process');
 const fs = require('fs');
 const path = require('path');
 const db = require('./db');
@@ -109,25 +109,24 @@ async function translateWithClaudeCLI(text, title) {
 
         console.log('  Sending to Claude Code CLI...');
 
-        try {
-            // Use claude CLI with the prompt
-            const result = execSync(`cat "${tempFile}" | claude --print`, {
-                encoding: 'utf-8',
-                maxBuffer: 10 * 1024 * 1024, // 10MB buffer
-                timeout: 300000 // 5 minute timeout
-            });
-
+        // Use async exec to avoid blocking the event loop
+        exec(`cat "${tempFile}" | claude --print`, {
+            encoding: 'utf-8',
+            maxBuffer: 10 * 1024 * 1024, // 10MB buffer
+            timeout: 300000 // 5 minute timeout
+        }, (error, stdout, stderr) => {
             // Clean up temp file
-            fs.unlinkSync(tempFile);
-
-            resolve(result.trim());
-        } catch (error) {
-            // Clean up temp file on error
             if (fs.existsSync(tempFile)) {
                 fs.unlinkSync(tempFile);
             }
-            reject(new Error(`Claude CLI error: ${error.message}`));
-        }
+
+            if (error) {
+                reject(new Error(`Claude CLI error: ${error.message}`));
+                return;
+            }
+
+            resolve(stdout.trim());
+        });
     });
 }
 
