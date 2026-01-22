@@ -17,7 +17,6 @@ A meta question is asking for permission to ask, instead of just asking directly
 ## Language
 
 - Azerbaijani (this site)
-- English: [nometa.xyz](https://nometa.xyz)
 
 ## Related Resources
 
