@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="az" dir="ltr" prefix="og: https://ogp.me/ns# article: https://ogp.me/ns/article#">
+<head>
+    <!--
+    SEO OPTIMIZED ARTICLE TEMPLATE
+    - Full Schema.org Article markup
+    - Open Graph article tags
+    - Twitter Card summary_large_image
+    - Canonical URLs
+    - Breadcrumb navigation
+    - Reading time estimation
+    - AI translation disclosure
+    -->
+
+    <!-- Primary Meta Tags -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>Binja: Nəhayət, Bun üçün Sürətli Jinja2/Django Şablon Mühərriki | NoMeta.az Xəbərlər</title>
+    <meta name="title" content="Binja: Nəhayət, Bun üçün Sürətli Jinja2/Django Şablon Mühərriki | NoMeta.az Xəbərlər">
+    <meta name="description" content="Binja: Nəhayət, Bun üçün Sürətli Jinja2/Django Şablon Mühərriki JavaScript ekosistemində Django üslublu şablonlardan istifadə etməyə çalışmısınızsa, bu ağrını...">
+    <meta name="keywords" content="Dev.to, JavaScript, AI, texnologiya, proqramlaşdırma, mühəndislik, Dev.to, Azərbaycan">
+    <meta name="author" content="Dev.to (NoMeta.az tərəfindən tərcümə)">
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+    <meta name="googlebot" content="index, follow">
+    <meta name="language" content="Azerbaijani">
+    <meta name="revisit-after" content="7 days">
+    <meta name="rating" content="general">
+    <meta name="generator" content="NoMeta.az Blog Generator">
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://nometa.az/news/binja-finally-a-fast-jinja2django-template-engine-for-bun/">
+
+    <!-- Alternate Languages -->
+    <link rel="alternate" hreflang="az" href="https://nometa.az/news/binja-finally-a-fast-jinja2django-template-engine-for-bun/">
+    <link rel="alternate" hreflang="en" href="https://dev.to/egeominotti/binja-finally-a-fast-jinja2django-template-engine-for-bun-1li4">
+    <link rel="alternate" hreflang="x-default" href="https://nometa.az/news/binja-finally-a-fast-jinja2django-template-engine-for-bun/">
+    <meta http-equiv="content-language" content="az">
+
+    <!-- Open Graph / Facebook - Article Type -->
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://nometa.az/news/binja-finally-a-fast-jinja2django-template-engine-for-bun/">
+    <meta property="og:title" content="Binja: Nəhayət, Bun üçün Sürətli Jinja2/Django Şablon Mühərriki">
+    <meta property="og:description" content="Binja: Nəhayət, Bun üçün Sürətli Jinja2/Django Şablon Mühərriki JavaScript ekosistemində Django üslublu şablonlardan istifadə etməyə çalışmısınızsa, bu ağrını...">
+    <meta property="og:image" content="https://nometa.az/assets/images/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="Binja: Nəhayət, Bun üçün Sürətli Jinja2/Django Şablon Mühərriki - NoMeta.az">
+    <meta property="og:locale" content="az_AZ">
+    <meta property="og:locale:alternate" content="en_US">
+    <meta property="og:site_name" content="NoMeta Azerbaijan">
+    <meta property="og:see_also" content="https://dev.to/egeominotti/binja-finally-a-fast-jinja2django-template-engine-for-bun-1li4">
+
+    <!-- Article Specific Open Graph -->
+    <meta property="article:published_time" content="2026-01-22T00:00:00+04:00">
+    <meta property="article:modified_time" content="2026-01-22T00:00:00+04:00">
+    <meta property="article:author" content="Dev.to">
+    <meta property="article:section" content="Technology">
+    <meta property="article:tag" content="texnologiya">
+    <meta property="article:tag" content="proqramlaşdırma">
+    <meta property="article:tag" content="Dev.to">
+
+    <!-- Twitter Card - Large Image -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://nometa.az/news/binja-finally-a-fast-jinja2django-template-engine-for-bun/">
+    <meta name="twitter:title" content="Binja: Nəhayət, Bun üçün Sürətli Jinja2/Django Şablon Mühərriki">
+    <meta name="twitter:description" content="Binja: Nəhayət, Bun üçün Sürətli Jinja2/Django Şablon Mühərriki JavaScript ekosistemində Django üslublu şablonlardan istifadə etməyə çalışmısınızsa, bu ağrını...">
+    <meta name="twitter:image" content="https://nometa.az/assets/images/og-image.png">
+    <meta name="twitter:image:alt" content="Binja: Nəhayət, Bun üçün Sürətli Jinja2/Django Şablon Mühərriki">
+    <meta name="twitter:site" content="@nometa_az">
+    <meta name="twitter:creator" content="@nometa_az">
+    <meta name="twitter:label1" content="Mənbə">
+    <meta name="twitter:data1" content="Dev.to">
+    <meta name="twitter:label2" content="Oxuma müddəti">
+    <meta name="twitter:data2" content="4 dəqiqə">
+
+    <!-- Dublin Core Metadata -->
+    <meta name="DC.title" content="Binja: Nəhayət, Bun üçün Sürətli Jinja2/Django Şablon Mühərriki">
+    <meta name="DC.creator" content="Dev.to">
+    <meta name="DC.subject" content="Technology, Software Engineering, Dev.to">
+    <meta name="DC.description" content="Binja: Nəhayət, Bun üçün Sürətli Jinja2/Django Şablon Mühərriki JavaScript ekosistemində Django üslublu şablonlardan istifadə etməyə çalışmısınızsa, bu ağrını...">
+    <meta name="DC.publisher" content="NoMeta Azerbaijan">
+    <meta name="DC.contributor" content="Claude AI">
+    <meta name="DC.date" content="2026-01-22">
+    <meta name="DC.type" content="Text">
+    <meta name="DC.format" content="text/html">
+    <meta name="DC.identifier" content="https://nometa.az/news/binja-finally-a-fast-jinja2django-template-engine-for-bun/">
+    <meta name="DC.source" content="https://dev.to/egeominotti/binja-finally-a-fast-jinja2django-template-engine-for-bun-1li4">
+    <meta name="DC.language" content="az">
+    <meta name="DC.relation" content="https://dev.to/egeominotti/binja-finally-a-fast-jinja2django-template-engine-for-bun-1li4">
+    <meta name="DC.rights" content="Original content © Dev.to. Translation by NoMeta.az">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="../../assets/images/favicon.svg">
+    <link rel="icon" type="image/png" sizes="32x32" href="../../assets/images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../../assets/images/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="../../assets/images/apple-touch-icon.png">
+    <link rel="manifest" href="../../site.webmanifest">
+    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="#0a0a0a" media="(prefers-color-scheme: dark)">
+    <meta name="msapplication-TileColor" content="#ffffff">
+
+    <!-- Performance Hints -->
+    <link rel="dns-prefetch" href="//nometa.az">
+    <link rel="preconnect" href="https://nometa.az">
+
+    <!-- Stylesheet -->
+    <link rel="preload" href="../../assets/css/styles.css?v=2026012203" as="style" fetchpriority="high">
+    <link rel="stylesheet" href="../../assets/css/styles.css?v=2026012203">
+
+    <!-- JSON-LD: Main Article Schema -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "TechArticle",
+        "@id": "https://nometa.az/news/binja-finally-a-fast-jinja2django-template-engine-for-bun/#article",
+        "headline": "Binja: Nəhayət, Bun üçün Sürətli Jinja2/Django Şablon Mühərriki",
+        "alternativeHeadline": "Binja: Finally, a Fast Jinja2/Django Template Engine for Bun",
+        "description": "Binja: Nəhayət, Bun üçün Sürətli Jinja2/Django Şablon Mühərriki JavaScript ekosistemində Django üslublu şablonlardan istifadə etməyə çalışmısınızsa, bu ağrını...",
+        "image": {
+            "@type": "ImageObject",
+            "url": "https://nometa.az/assets/images/og-image.png",
+            "width": 1200,
+            "height": 630
+        },
+        "datePublished": "2026-01-22T00:00:00+04:00",
+        "dateModified": "2026-01-22T00:00:00+04:00",
+        "dateCreated": "2026-01-22T00:00:00+04:00",
+        "inLanguage": "az",
+        "wordCount": 628,
+        "timeRequired": "PT4M",
+        "articleBody": "Binja: Nəhayət, Bun üçün Sürətli Jinja2/Django Şablon Mühərriki JavaScript ekosistemində Django üslublu şablonlardan istifadə etməyə çalışmısınızsa, bu ağrını bilirsiniz. Nunjucks əsas seçimdir, lakin yavaşdır və funksiyaları çatışmır. Bun layihəsi üçün daha yaxşı bir şeyə ehtiyacım var idi, ona görə də binja yaratdım. Problem Django tətbiqini Bun/Elysia-ya köçürürdüm və divara dirəndim: şablonlarım Nunjucks-un ya dəstəkləmədiyi, ya da zəif işlədiyi Django Template Language xüsusiyyətlərinə çox güvənirdi. Şablon varisliliyi işləyirdi, lakin bir çox filtr çatışmırdı və performans yaxşı deyildi. binja Nəyi Fərqli Edir Runtime renderinq bütün benchmarklarda Nunjucks-dan 2-4 dəfə sürətlidir: Benchmark binja Nunjucks Sadə Şablon 371K ops/s 96K ops/s HTML Escape 985K ops/s 242K ops/s İç-içə Döngülər 76K ops/s 26K ops/s Lakin əsl qələbə AOT kompilyasiyasıdır . Şablonlarınızı server başlanğıcında əvvəlcədən kompilyasiya edin və renderinq sinxron və inanılmaz dərəcədə sürətli olur: import {...",
+        "articleSection": "Technology",
+        "keywords": ["texnologiya", "proqramlaşdırma", "mühəndislik", "Dev.to"],
+        "author": {
+            "@type": "Organization",
+            "@id": "https://dev.to/#organization",
+            "name": "Dev.to",
+            "url": "https://dev.to"
+        },
+        "translator": {
+            "@type": "SoftwareApplication",
+            "name": "Claude AI",
+            "applicationCategory": "AI Translation"
+        },
+        "publisher": {
+            "@type": "Organization",
+            "@id": "https://nometa.az/#organization",
+            "name": "NoMeta Azerbaijan",
+            "url": "https://nometa.az/",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "https://nometa.az/assets/images/favicon.svg",
+                "width": 512,
+                "height": 512
+            }
+        },
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https://nometa.az/news/binja-finally-a-fast-jinja2django-template-engine-for-bun/"
+        },
+        "isAccessibleForFree": true,
+        "isBasedOn": {
+            "@type": "Article",
+            "url": "https://dev.to/egeominotti/binja-finally-a-fast-jinja2django-template-engine-for-bun-1li4",
+            "name": "Binja: Finally, a Fast Jinja2/Django Template Engine for Bun",
+            "inLanguage": "en",
+            "author": {
+                "@type": "Organization",
+                "name": "Dev.to"
+            }
+        },
+        "isPartOf": {
+            "@type": "Blog",
+            "@id": "https://nometa.az/news/#blog",
+            "name": "NoMeta.az Xəbərlər",
+            "url": "https://nometa.az/news/"
+        },
+        "copyrightHolder": {
+            "@type": "Organization",
+            "name": "Dev.to",
+            "url": "https://dev.to"
+        },
+        "copyrightYear": "2026",
+        "license": "https://dev.to/egeominotti/binja-finally-a-fast-jinja2django-template-engine-for-bun-1li4",
+        "speakable": {
+            "@type": "SpeakableSpecification",
+            "cssSelector": [".article-content p:first-of-type", ".article-header h1"]
+        },
+        "potentialAction": [
+            {
+                "@type": "ReadAction",
+                "target": "https://nometa.az/news/binja-finally-a-fast-jinja2django-template-engine-for-bun/"
+            },
+            {
+                "@type": "ShareAction",
+                "target": "https://nometa.az/news/binja-finally-a-fast-jinja2django-template-engine-for-bun/"
+            }
+        ]
+    }
+    </script>
+
+    <!-- JSON-LD: BreadcrumbList -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Ana səhifə",
+                "item": "https://nometa.az/"
+            },
+            {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Xəbərlər",
+                "item": "https://nometa.az/news/"
+            },
+            {
+                "@type": "ListItem",
+                "position": 3,
+                "name": "Binja: Nəhayət, Bun üçün Sürətli Jinja2/Django Şablon Mühərriki",
+                "item": "https://nometa.az/news/binja-finally-a-fast-jinja2django-template-engine-for-bun/"
+            }
+        ]
+    }
+    </script>
+
+    <!-- JSON-LD: WebPage -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebPage",
+        "@id": "https://nometa.az/news/binja-finally-a-fast-jinja2django-template-engine-for-bun/#webpage",
+        "url": "https://nometa.az/news/binja-finally-a-fast-jinja2django-template-engine-for-bun/",
+        "name": "Binja: Nəhayət, Bun üçün Sürətli Jinja2/Django Şablon Mühərriki | NoMeta.az",
+        "description": "Binja: Nəhayət, Bun üçün Sürətli Jinja2/Django Şablon Mühərriki JavaScript ekosistemində Django üslublu şablonlardan istifadə etməyə çalışmısınızsa, bu ağrını...",
+        "inLanguage": "az",
+        "isPartOf": {
+            "@type": "WebSite",
+            "@id": "https://nometa.az/#website"
+        },
+        "about": {
+            "@type": "Thing",
+            "name": "Dev.to Engineering"
+        },
+        "breadcrumb": {
+            "@id": "https://nometa.az/news/binja-finally-a-fast-jinja2django-template-engine-for-bun/#breadcrumb"
+        },
+        "primaryImageOfPage": {
+            "@type": "ImageObject",
+            "url": "https://nometa.az/assets/images/og-image.png"
+        },
+        "datePublished": "2026-01-22",
+        "dateModified": "2026-01-22",
+        "speakable": {
+            "@type": "SpeakableSpecification",
+            "cssSelector": [".article-header h1", ".article-content"]
+        }
+    }
+    </script>
+
+    <!-- JSON-LD: Organization (Publisher) -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "@id": "https://nometa.az/#organization",
+        "name": "NoMeta Azerbaijan",
+        "url": "https://nometa.az/",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://nometa.az/assets/images/favicon.svg",
+            "width": 512,
+            "height": 512
+        },
+        "sameAs": [
+            "https://nometa.xyz"
+        ]
+    }
+    </script>
+</head>
+<body>
+    <header class="blog-header">
+        <nav class="blog-nav" aria-label="Əsas naviqasiya">
+            <a href="/" class="nav-brand" title="NoMeta.az Ana Səhifə">
+                <span class="brand">nometa</span><span class="domain">.az</span>
+            </a>
+            <a href="/news/" class="nav-link" title="Bütün xəbərlər">Xəbərlər</a>
+        </nav>
+    </header>
+
+    <!-- Breadcrumb Navigation -->
+    <nav class="breadcrumb" aria-label="Breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList">
+        <div class="breadcrumb-container">
+            <span itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+                <a itemprop="item" href="/">
+                    <span itemprop="name">Ana səhifə</span>
+                </a>
+                <meta itemprop="position" content="1">
+            </span>
+            <span class="breadcrumb-separator" aria-hidden="true">/</span>
+            <span itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+                <a itemprop="item" href="/news/">
+                    <span itemprop="name">Xəbərlər</span>
+                </a>
+                <meta itemprop="position" content="2">
+            </span>
+            <span class="breadcrumb-separator" aria-hidden="true">/</span>
+            <span itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+                <span itemprop="name" class="breadcrumb-current">Binja: Nəhayət, Bun üçün Sürətli Jinja2/Django...</span>
+                <meta itemprop="position" content="3">
+            </span>
+        </div>
+    </nav>
+
+    <main class="blog-container" role="main">
+        <article class="blog-article" itemscope itemtype="https://schema.org/TechArticle">
+            <meta itemprop="mainEntityOfPage" content="https://nometa.az/news/binja-finally-a-fast-jinja2django-template-engine-for-bun/">
+            <meta itemprop="inLanguage" content="az">
+            <meta itemprop="wordCount" content="628">
+
+            <header class="article-header">
+                <div class="article-meta">
+                    <a href="https://dev.to" target="_blank" rel="noopener noreferrer" class="article-source" itemprop="author" itemscope itemtype="https://schema.org/Organization">
+                        <span itemprop="name">Dev.to</span>
+                    </a>
+                    <span class="article-date">
+                        <time datetime="2026-01-22" itemprop="datePublished">22 Yanvar 2026</time>
+                    </span>
+                    <span class="article-reading-time" title="Təxmini oxuma müddəti">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                        4 dəq oxuma
+                    </span>
+                </div>
+                <h1 itemprop="headline">Binja: Nəhayət, Bun üçün Sürətli Jinja2/Django Şablon Mühərriki</h1>
+                <meta itemprop="dateModified" content="2026-01-22">
+                <div itemprop="image" itemscope itemtype="https://schema.org/ImageObject" style="display:none;">
+                    <meta itemprop="url" content="https://nometa.az/assets/images/og-image.png">
+                    <meta itemprop="width" content="1200">
+                    <meta itemprop="height" content="630">
+                </div>
+                <div itemprop="publisher" itemscope itemtype="https://schema.org/Organization" style="display:none;">
+                    <meta itemprop="name" content="NoMeta Azerbaijan">
+                    <meta itemprop="url" content="https://nometa.az/">
+                    <div itemprop="logo" itemscope itemtype="https://schema.org/ImageObject">
+                        <meta itemprop="url" content="https://nometa.az/assets/images/favicon.svg">
+                    </div>
+                </div>
+            </header>
+
+            <div class="article-content" itemprop="articleBody">
+                <p>JavaScript ekosistemində Django üslublu şablonlardan istifadə etməyə çalışmısınızsa, bu ağrını bilirsiniz. Nunjucks əsas seçimdir, lakin yavaşdır və funksiyaları çatışmır. Bun layihəsi üçün daha yaxşı bir şeyə ehtiyacım var idi, ona görə də <strong>binja</strong> yaratdım.</p>
+
+<h2>
+  
+  
+<p>  Problem</p>
+</h2>
+
+<p>Django tətbiqini Bun/Elysia-ya köçürürdüm və divara dirəndim: şablonlarım Nunjucks-un ya dəstəkləmədiyi, ya da zəif işlədiyi Django Template Language xüsusiyyətlərinə çox güvənirdi. Şablon varisliliyi işləyirdi, lakin bir çox filtr çatışmırdı və performans yaxşı deyildi.</p>
+
+<h2>
+  
+  
+<p>  binja Nəyi Fərqli Edir</p>
+</h2>
+
+<p><strong>Runtime renderinq</strong> bütün benchmarklarda Nunjucks-dan 2-4 dəfə sürətlidir:</p>
+
+<div class="table-wrapper-paragraph"><table>
+<thead>
+<tr>
+<th>Benchmark</th>
+<th>binja</th>
+<th>Nunjucks</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Sadə Şablon</td>
+<td>371K ops/s</td>
+<td>96K ops/s</td>
+</tr>
+<tr>
+<td>HTML Escape</td>
+<td>985K ops/s</td>
+<td>242K ops/s</td>
+</tr>
+<tr>
+<td>İç-içə Döngülər</td>
+<td>76K ops/s</td>
+<td>26K ops/s</td>
+</tr>
+</tbody>
+</table></div>
+
+<p>Lakin əsl qələbə <strong>AOT kompilyasiyasıdır</strong>. Şablonlarınızı server başlanğıcında əvvəlcədən kompilyasiya edin və renderinq sinxron və inanılmaz dərəcədə sürətli olur:<br>
+</p>
+
+<div class="highlight js-code-highlight">
+<pre class="highlight javascript"><code><span class="k">import</span> <span class="p">{</span> <span class="nx">compile</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">binja</span><span class="dl">'</span>
+
+<p><span class="c1">// Başlanğıcda bir dəfə kompilyasiya edin</span>
+<span class="kd">const</span> <span class="nx">templates</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">home</span><span class="p">:</span> <span class="nf">compile</span><span class="p">(</span><span class="k">await</span> <span class="nx">Bun</span><span class="p">.</span><span class="nf">file</span><span class="p">(</span><span class="dl">&#39;</span><span class="s1">./views/home.html</span><span class="dl">&#39;</span><span class="p">).</span><span class="nf">text</span><span class="p">()),</span>
+  <span class="na">user</span><span class="p">:</span> <span class="nf">compile</span><span class="p">(</span><span class="k">await</span> <span class="nx">Bun</span><span class="p">.</span><span class="nf">file</span><span class="p">(</span><span class="dl">&#39;</span><span class="s1">./views/user.html</span><span class="dl">&#39;</span><span class="p">).</span><span class="nf">text</span><span class="p">()),</span>
+<span class="p">}</span></p>
+<p><span class="c1">// Sinxron renderinq - await lazım deyil</span>
+<span class="nx">app</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="dl">&#39;</span><span class="s1">/</span><span class="dl">&#39;</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="nx">templates</span><span class="p">.</span><span class="nf">home</span><span class="p">({</span> <span class="na">title</span><span class="p">:</span> <span class="dl">&#39;</span><span class="s1">Welcome</span><span class="dl">&#39;</span> <span class="p">}))</span>
+</code></pre></p>
+</div>
+
+
+
+<p>AOT-kompilyasiya edilmiş şablonlar sadə şablonlar üçün saniyədə 14+ milyon əməliyyat sürəti ilə işləyir. Bu Nunjucks-dan ~160 dəfə sürətlidir.</p>
+
+<h2>
+  
+  
+<p>  Tam Django/Jinja2 Uyğunluğu</p>
+</h2>
+
+<p>Bu mənim əsas məqsədim idi. binja bunları əhatə edir:</p>
+
+<ul>
+<li>Həm Jinja2, həm də Django-nu əhatə edən <strong>84 daxili filtr</strong>
+</li>
+<li>
+<strong>28 daxili test</strong> (<code>is even</code>, <code>is defined</code> və s.)</li>
+<li>Bütün Django döngü dəyişənləri (<code>forloop.counter</code>, <code>forloop.first</code>, <code>forloop.parentloop</code>)</li>
+<li>Django-ya xas teqlər: <code>{% csrf_token %}</code>, <code>{% cycle %}</code>, <code>{% regroup %}</code>, <code>{% lorem %}</code>
+</li>
+<li>
+<code>{% extends %}</code> və <code>{% block %}</code> ilə şablon varisliliyi</li>
+<li>Defolt olaraq autoescape aktivdir</li>
+</ul>
+
+<p>Django şablonlarını köçürürsünüzsə, əksəriyyəti dəyişiklik olmadan işləməlidir.</p>
+
+<h2>
+  
+  
+<p>  Çox Mühərrikli Dəstək</p>
+</h2>
+
+<p>Ehtiyac duyacağımı gözləmədiyim, lakin sevdiyim bir xüsusiyyət: binja həmçinin Handlebars, Liquid və Twig sintaksisini də təhlil edə bilir.<br>
+</p>
+
+<div class="highlight js-code-highlight">
+<pre class="highlight javascript"><code><span class="k">import</span> <span class="o">*</span> <span class="k">as</span> <span class="nx">handlebars</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">binja/engines/handlebars</span><span class="dl">'</span>
+<span class="k">import</span> <span class="o">*</span> <span class="k">as</span> <span class="nx">liquid</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">binja/engines/liquid</span><span class="dl">'</span>
+
+<p><span class="k">await</span> <span class="nx">handlebars</span><span class="p">.</span><span class="nf">render</span><span class="p">(</span><span class="dl">&#39;</span><span class="s1">{{#each items}}{{this}}{{/each}}</span><span class="dl">&#39;</span><span class="p">,</span> <span class="p">{</span> <span class="na">items</span><span class="p">:</span> <span class="p">[</span><span class="dl">&#39;</span><span class="s1">a</span><span class="dl">&#39;</span><span class="p">,</span> <span class="dl">&#39;</span><span class="s1">b</span><span class="dl">&#39;</span><span class="p">]</span> <span class="p">})</span>
+<span class="k">await</span> <span class="nx">liquid</span><span class="p">.</span><span class="nf">render</span><span class="p">(</span><span class="dl">&#39;</span><span class="s1">{% for item in items %}{{ item }}{% endfor %}</span><span class="dl">&#39;</span><span class="p">,</span> <span class="p">{</span> <span class="na">items</span><span class="p">:</span> <span class="p">[</span><span class="dl">&#39;</span><span class="s1">a</span><span class="dl">&#39;</span><span class="p">,</span> <span class="dl">&#39;</span><span class="s1">b</span><span class="dl">&#39;</span><span class="p">]</span> <span class="p">})</span>
+</code></pre></p>
+</div>
+
+
+
+<p>Bütün mühərriklər eyni optimallaşdırılmış runtime-ı paylaşır, beləliklə sintaksisdən asılı olmayaraq ardıcıl performans əldə edirsiniz.</p>
+
+<h2>
+  
+  
+<p>  Framework İnteqrasiyası</p>
+</h2>
+
+<p>Hono və Elysia üçün birinci dərəcəli adapterlər:<br>
+</p>
+
+<div class="highlight js-code-highlight">
+<pre class="highlight javascript"><code><span class="k">import</span> <span class="p">{</span> <span class="nx">Elysia</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">elysia</span><span class="dl">'</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">binja</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">binja/elysia</span><span class="dl">'</span>
+
+<p><span class="kd">const</span> <span class="nx">app</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Elysia</span><span class="p">()</span>
+  <span class="p">.</span><span class="nf">use</span><span class="p">(</span><span class="nf">binja</span><span class="p">({</span> <span class="na">root</span><span class="p">:</span> <span class="dl">&#39;</span><span class="s1">./views</span><span class="dl">&#39;</span><span class="p">,</span> <span class="na">cache</span><span class="p">:</span> <span class="kc">true</span> <span class="p">}))</span>
+  <span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="dl">&#39;</span><span class="s1">/</span><span class="dl">&#39;</span><span class="p">,</span> <span class="p">({</span> <span class="nx">render</span> <span class="p">})</span> <span class="o">=&gt;</span> <span class="nf">render</span><span class="p">(</span><span class="dl">&#39;</span><span class="s1">index</span><span class="dl">&#39;</span><span class="p">,</span> <span class="p">{</span> <span class="na">title</span><span class="p">:</span> <span class="dl">&#39;</span><span class="s1">Home</span><span class="dl">&#39;</span> <span class="p">}))</span>
+  <span class="p">.</span><span class="nf">listen</span><span class="p">(</span><span class="mi">3000</span><span class="p">)</span>
+</code></pre></p>
+</div>
+
+
+
+<h2>
+  
+  
+<p>  Başlamaq</p>
+</h2>
+
+
+
+<div class="highlight js-code-highlight">
+<pre class="highlight shell"><code>bun add binja
+</code></pre>
+
+</div>
+
+
+
+<p>Əsas istifadə:<br>
+</p>
+
+<div class="highlight js-code-highlight">
+<pre class="highlight javascript"><code><span class="k">import</span> <span class="p">{</span> <span class="nx">render</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">binja</span><span class="dl">'</span>
+
+<p><span class="kd">const</span> <span class="nx">html</span> <span class="o">=</span> <span class="k">await</span> <span class="nf">render</span><span class="p">(</span><span class="dl">&#39;</span><span class="s1">Hello, {{ name|title }}!</span><span class="dl">&#39;</span><span class="p">,</span> <span class="p">{</span> <span class="na">name</span><span class="p">:</span> <span class="dl">&#39;</span><span class="s1">world</span><span class="dl">&#39;</span> <span class="p">})</span>
+<span class="c1">// Çıxış: Hello, World!</span>
+</code></pre></p>
+</div>
+
+
+
+<p>Şablon varisliliyi üçün environment ilə:<br>
+</p>
+
+<div class="highlight js-code-highlight">
+<pre class="highlight javascript"><code><span class="k">import</span> <span class="p">{</span> <span class="nx">Environment</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">binja</span><span class="dl">'</span>
+
+<p><span class="kd">const</span> <span class="nx">env</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Environment</span><span class="p">({</span>
+  <span class="na">templates</span><span class="p">:</span> <span class="dl">&#39;</span><span class="s1">./templates</span><span class="dl">&#39;</span><span class="p">,</span>
+  <span class="na">autoescape</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+<span class="p">})</span></p>
+<p><span class="kd">const</span> <span class="nx">html</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">env</span><span class="p">.</span><span class="nf">render</span><span class="p">(</span><span class="dl">&#39;</span><span class="s1">pages/home.html</span><span class="dl">&#39;</span><span class="p">,</span> <span class="p">{</span> <span class="nx">user</span> <span class="p">})</span>
+</code></pre></p>
+</div>
+
+
+
+<h2>
+  
+  
+<p>  binja-nı Nə Vaxt İstifadə Etməli</p>
+</h2>
+
+<ul>
+<li>Django/Flask tətbiqlərini Bun-a köçürərkən</li>
+<li>Yüksək performanslı server tərəfi renderinq lazım olanda</li>
+<li>Çoxlu sintaksisləri idarə edən tək şablon mühərriki istəyəndə</li>
+<li>Hono və ya Elysia ilə inkişaf etdirib düzgün şablon dəstəyinə ehtiyac duyanda</li>
+</ul>
+
+<p>Baxın:</p>
+
+<ul>
+<li>
+<strong>GitHub</strong>: <a href="https://github.com/egeominotti/binja" rel="noopener noreferrer">github.com/egeominotti/binja</a>
+</li>
+<li>
+<strong>npm</strong>: <a href="https://www.npmjs.com/package/binja" rel="noopener noreferrer">npmjs.com/package/binja</a>
+</li>
+</ul>
+
+<p>PR-lar xoş qarşılanır.</p>
+
+
+
+
+<p><em>Bun ilə hansı şablon mühərrikindən istifadə edirsiniz? Quraşdırmanız haqqında eşitmək maraqlı olardı.</em></p>
+            </div>
+
+            <aside class="attribution-box" role="complementary" aria-label="Mənbə məlumatı">
+                <div class="attribution-header">
+                    <span class="ai-badge" title="AI ilə tərcümə edilib">AI</span>
+                    <span class="attribution-title">Tərcümə və Mənbə Məlumatı</span>
+                </div>
+                <p class="attribution-source">
+                    <strong>Orijinal məqalə:</strong>
+                    <a href="https://dev.to/egeominotti/binja-finally-a-fast-jinja2django-template-engine-for-bun-1li4" target="_blank" rel="noopener noreferrer" title="Orijinal məqaləni oxuyun">
+                        Dev.to - "Binja: Finally, a Fast Jinja2/Django Template Engine for Bun"
+                    </a>
+                </p>
+                <p class="ai-notice">
+                    <strong>Tərcümə:</strong> Bu məqalə Claude AI tərəfindən avtomatik tərcümə edilmişdir.
+                    Texniki terminlər orijinal (İngilis) dilində saxlanılmışdır.
+                </p>
+                <p class="attribution-copyright">
+                    <small>&copy; 2026 Dev.to. Orijinal məzmunun bütün hüquqları müəllifə məxsusdur.</small>
+                </p>
+            </aside>
+
+            <!-- Share Buttons -->
+            <div class="share-buttons" aria-label="Paylaşma düymələri">
+                <span class="share-label">Paylaş:</span>
+                <a href="https://twitter.com/intent/tweet?url=https://nometa.az/news/binja-finally-a-fast-jinja2django-template-engine-for-bun/&text=Binja%3A%20N%C9%99hay%C9%99t%2C%20Bun%20%C3%BC%C3%A7%C3%BCn%20S%C3%BCr%C9%99tli%20Jinja2%2FDjango%20%C5%9Eablon%20M%C3%BCh%C9%99rriki"
+                   target="_blank" rel="noopener noreferrer" class="share-btn share-twitter" title="Twitter-da paylaş">
+                    Twitter
+                </a>
+                <a href="https://www.linkedin.com/sharing/share-offsite/?url=https://nometa.az/news/binja-finally-a-fast-jinja2django-template-engine-for-bun/"
+                   target="_blank" rel="noopener noreferrer" class="share-btn share-linkedin" title="LinkedIn-də paylaş">
+                    LinkedIn
+                </a>
+                <a href="https://t.me/share/url?url=https://nometa.az/news/binja-finally-a-fast-jinja2django-template-engine-for-bun/&text=Binja%3A%20N%C9%99hay%C9%99t%2C%20Bun%20%C3%BC%C3%A7%C3%BCn%20S%C3%BCr%C9%99tli%20Jinja2%2FDjango%20%C5%9Eablon%20M%C3%BCh%C9%99rriki"
+                   target="_blank" rel="noopener noreferrer" class="share-btn share-telegram" title="Telegram-da paylaş">
+                    Telegram
+                </a>
+            </div>
+
+            <nav class="article-nav" aria-label="Məqalə naviqasiyası">
+                <a href="/news/" class="back-to-list">&larr; Bütün məqalələr</a>
+                <a href="https://dev.to/egeominotti/binja-finally-a-fast-jinja2django-template-engine-for-bun-1li4" target="_blank" rel="noopener noreferrer" class="view-original">
+                    Orijinalı oxu (EN) &rarr;
+                </a>
+            </nav>
+        </article>
+    </main>
+
+    <footer role="contentinfo">
+        <p>
+            <a href="https://nometa.xyz" target="_blank" rel="me noopener noreferrer">nometa.xyz</a>,
+            <a href="https://nohello.com" target="_blank" rel="noopener noreferrer">nohello.com</a>,
+            <a href="https://xyproblem.info" target="_blank" rel="noopener noreferrer">xyproblem.info</a> və
+            <a href="https://dontasktoask.com" target="_blank" rel="noopener noreferrer">dontasktoask.com</a> saytlarından ilhamlanıb.
+        </p>
+        <p class="copyright">
+            <small>&copy; <span id="year"></span> NoMeta Azərbaycan. Bütün hüquqlar qorunur.</small>
+        </p>
+    </footer>
+    <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>

@@ -5,9 +5,25 @@
     <link>https://nometa.az/news/</link>
     <description>Texnologiya şirkətlərinin mühəndislik bloqlarından Azərbaycan dilinə tərcümə edilmiş məqalələr.</description>
     <language>az</language>
-    <lastBuildDate>Thu, 22 Jan 2026 18:20:05 GMT</lastBuildDate>
+    <lastBuildDate>Thu, 22 Jan 2026 18:34:59 GMT</lastBuildDate>
     <atom:link href="https://nometa.az/news/feed.xml" rel="self" type="application/rss+xml"/>
     
+    <item>
+      <title><![CDATA[Binja: Nəhayət, Bun üçün Sürətli Jinja2/Django Şablon Mühərriki]]></title>
+      <link>https://nometa.az/news/binja-finally-a-fast-jinja2django-template-engine-for-bun/</link>
+      <guid>https://nometa.az/news/binja-finally-a-fast-jinja2django-template-engine-for-bun/</guid>
+      <pubDate>Thu, 22 Jan 2026 18:18:46 GMT</pubDate>
+      <description><![CDATA[Binja: Nəhayət, Bun üçün Sürətli Jinja2/Django Şablon Mühərriki JavaScript ekosistemində Django üslublu şablonlardan istifadə etməyə çalışmısınızsa, bu ağrını bilirsiniz. Nunjucks əsas seçimdir, lakin yavaşdır və funksiyaları çatışmır. Bun layihəsi üçün daha yaxşı bir şeyə ehtiyacım var idi, ona...]]></description>
+      <source url="https://dev.to">Dev.to</source>
+    </item>
+    <item>
+      <title><![CDATA[# Statikdən Ağıllıya: Renderer, Gemini və MCP ilə AI-First Developer Portfoliosu Dizayn Etmək 🚀🚀]]></title>
+      <link>https://nometa.az/news/from-static-to-smart-designing-an-ai-first-developer-portfolio-with-renderer-gem/</link>
+      <guid>https://nometa.az/news/from-static-to-smart-designing-an-ai-first-developer-portfolio-with-renderer-gem/</guid>
+      <pubDate>Thu, 22 Jan 2026 18:16:15 GMT</pubDate>
+      <description><![CDATA[Başlıq: Statikdən Ağıllıya: Renderer, Gemini və MCP ilə Süni İntellekt Əsaslı Developer Portfoliosu Dizaynı 🚀🚀 Google Gemini AI və Model Context Protocol ilə portfolio yaradılmasının transformasiyası https://www.youtube.com/watch?v=Txzplqg6oJo 🚀 İcmal Xülasəsi Renderer developerlərin onlayn...]]></description>
+      <source url="https://dev.to">Dev.to</source>
+    </item>
     <item>
       <title><![CDATA[MongoDB-ni Bilməməyin Dəyəri – Giriş]]></title>
       <link>https://nometa.az/news/the-cost-of-not-knowing-mongodb-introduction/</link>
