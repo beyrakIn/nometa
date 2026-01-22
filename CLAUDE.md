@@ -13,11 +13,12 @@ NoMeta.az is an educational static website teaching developers to avoid "meta qu
 ## Development Commands
 
 ```bash
-# Generate favicon and OG images from SVG sources
-node generate-images.js
-
 # Local development - just open index.html in a browser
 # No build step required
+
+# Generate favicon and OG images from SVG sources (requires npm install first)
+npm install  # installs sharp, png-to-ico
+node generate-images.js
 ```
 
 There is no test framework or linting configured. The project intentionally avoids build complexity.
@@ -45,7 +46,7 @@ Key component patterns:
 The HTML head contains extensive JSON-LD Schema.org markup (WebPage, FAQPage, Course, HowTo, etc.). When modifying content:
 - Keep FAQ structured data in sync with HTML `<details>` elements
 - Update meta tags when changing descriptions
-- **Date updates**: When content changes, update `dateModified` in 6 locations and CSS cache buster in 2 locations (see HTML comment at top of `index.html` for exact line numbers)
+- **Date updates**: When content changes, update all 8 locations listed in the HTML comment at top of `index.html` (6 date fields + 2 CSS cache busters with exact line numbers)
 
 ## Key Conventions
 
