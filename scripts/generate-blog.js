@@ -13,7 +13,7 @@ const NEWS_DIR = path.join(__dirname, '..', 'news');
 const SITEMAP_FILE = path.join(__dirname, '..', 'sitemap.xml');
 
 // Current CSS version for cache busting (format: YYYYMMDDNN)
-const CSS_VERSION = '2026012202';
+const CSS_VERSION = '2026012203';
 
 /**
  * Load template file
