@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="az">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NoMeta.az Admin - Blog Management</title>
+    <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+    <div class="admin-container">
+        <header class="admin-header">
+            <h1>NoMeta.az Admin</h1>
+            <p class="subtitle">Blog Management Panel</p>
+        </header>
+
+        <!-- Stats Bar -->
+        <div id="stats-bar" class="stats-bar">
+            <div class="stat-item">
+                <span class="stat-value" id="stat-total">0</span>
+                <span class="stat-label">Total</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-value" id="stat-pending">0</span>
+                <span class="stat-label">Pending</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-value" id="stat-translated">0</span>
+                <span class="stat-label">Translated</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-value" id="stat-published">0</span>
+                <span class="stat-label">Published</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-value" id="stat-disabled">0</span>
+                <span class="stat-label">Disabled</span>
+            </div>
+        </div>
+
+        <nav class="admin-nav">
+            <button class="nav-btn active" data-view="articles">Articles</button>
+            <button class="nav-btn" data-view="translated">Translated</button>
+            <button class="nav-btn" data-view="settings">Settings</button>
+        </nav>
+
+        <!-- Articles View -->
+        <section id="articles-view" class="view active">
+            <div class="view-header">
+                <h2>Fetched Articles</h2>
+                <div class="actions">
+                    <select id="status-filter">
+                        <option value="">All Status</option>
+                        <option value="pending">Pending</option>
+                        <option value="translated">Translated</option>
+                        <option value="published">Published</option>
+                        <option value="disabled">Disabled</option>
+                    </select>
+                    <select id="source-filter">
+                        <option value="">All Sources</option>
+                    </select>
+                    <button id="fetch-btn" class="btn btn-primary">Fetch New</button>
+                </div>
+            </div>
+
+            <!-- Bulk Actions Bar -->
+            <div id="bulk-actions-bar" class="bulk-actions-bar hidden">
+                <div class="select-all-wrapper">
+                    <div class="checkbox-wrapper">
+                        <input type="checkbox" id="select-all-checkbox">
+                    </div>
+                    <label for="select-all-checkbox">Select All</label>
+                </div>
+                <span id="selection-count" class="selection-count">0 selected</span>
+                <div class="bulk-actions">
+                    <button id="bulk-disable-btn" class="btn btn-secondary btn-sm">Disable Selected</button>
+                    <button id="bulk-enable-btn" class="btn btn-secondary btn-sm">Enable Selected</button>
+                    <button id="bulk-delete-btn" class="btn btn-danger btn-sm">Delete Selected</button>
+                </div>
+            </div>
+
+            <div id="articles-list" class="articles-list">
+                <p class="loading">Loading articles...</p>
+            </div>
+        </section>
+
+        <!-- Translated View -->
+        <section id="translated-view" class="view">
+            <div class="view-header">
+                <h2>Translated Articles</h2>
+                <div class="actions">
+                    <button id="generate-btn" class="btn btn-primary">Generate Blog</button>
+                </div>
+            </div>
+
+            <div id="translated-list" class="articles-list">
+                <p class="loading">Loading translated articles...</p>
+            </div>
+        </section>
+
+        <!-- Settings View -->
+        <section id="settings-view" class="view">
+            <div class="view-header">
+                <h2>Settings</h2>
+            </div>
+
+            <div class="settings-panel">
+                <div class="setting-group">
+                    <h3>Translation Providers</h3>
+                    <div id="providers-status" class="providers-list">
+                        <p class="loading">Checking available providers...</p>
+                    </div>
+                </div>
+
+                <div class="setting-group">
+                    <h3>Default Provider</h3>
+                    <select id="default-provider">
+                        <option value="claude-api">Claude API</option>
+                        <option value="openai">OpenAI</option>
+                        <option value="claude-cli">Claude Code CLI</option>
+                    </select>
+                </div>
+
+                <div class="setting-group">
+                    <h3>RSS Sources</h3>
+                    <div id="rss-sources" class="sources-list">
+                        <!-- Populated by JS -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Article Detail Modal -->
+        <div id="article-modal" class="modal">
+            <div class="modal-content">
+                <button class="modal-close">&times;</button>
+
+                <div class="modal-header">
+                    <h2 id="modal-title">Article Title</h2>
+                    <div class="modal-meta">
+                        <span id="modal-source">Source</span>
+                        <span id="modal-date">Date</span>
+                        <span id="modal-status"></span>
+                    </div>
+                </div>
+
+                <div class="modal-body">
+                    <div class="original-content">
+                        <h3>Original Content <span id="content-length" class="content-length"></span></h3>
+                        <div class="content-actions">
+                            <button id="fetch-content-btn" class="btn btn-secondary btn-sm">Fetch Full Content</button>
+                        </div>
+                        <div id="modal-content" class="content-preview"></div>
+                    </div>
+
+                    <div class="translation-panel" id="translation-panel">
+                        <h3>Translation</h3>
+
+                        <div class="translate-options">
+                            <label>
+                                Provider:
+                                <select id="translate-provider">
+                                    <option value="claude-api">Claude API</option>
+                                    <option value="openai">OpenAI</option>
+                                    <option value="claude-cli">Claude Code CLI</option>
+                                </select>
+                            </label>
+                            <button id="translate-btn" class="btn btn-primary">Translate</button>
+                        </div>
+
+                        <div id="translation-status" class="translation-status"></div>
+
+                        <div id="translated-content" class="content-preview translated"></div>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <div class="modal-footer-left">
+                        <a id="modal-original-link" href="#" target="_blank" class="btn btn-secondary">View Original</a>
+                        <button id="modal-disable-btn" class="btn btn-secondary">Disable</button>
+                        <button id="modal-delete-btn" class="btn btn-danger">Delete</button>
+                    </div>
+                    <div class="modal-footer-right">
+                        <button id="publish-btn" class="btn btn-success" disabled>Publish</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Confirm Dialog -->
+        <div id="confirm-dialog" class="confirm-dialog">
+            <div class="confirm-dialog-content">
+                <h3 id="confirm-title">Confirm Action</h3>
+                <p id="confirm-message">Are you sure you want to proceed?</p>
+                <div class="confirm-dialog-actions">
+                    <button id="confirm-cancel" class="btn btn-secondary">Cancel</button>
+                    <button id="confirm-ok" class="btn btn-danger">Confirm</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Toast Notifications -->
+        <div id="toast-container"></div>
+
+        <!-- Keyboard Shortcuts Hint -->
+        <div class="shortcuts-hint">
+            Press <kbd>?</kbd> for keyboard shortcuts
+        </div>
+    </div>
+
+    <script src="admin.js"></script>
+</body>
+</html>

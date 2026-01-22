@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="az" dir="ltr" prefix="og: https://ogp.me/ns# article: https://ogp.me/ns/article#">
+<head>
+    <!--
+    SEO OPTIMIZED ARTICLE TEMPLATE
+    - Full Schema.org Article markup
+    - Open Graph article tags
+    - Twitter Card summary_large_image
+    - Canonical URLs
+    - Breadcrumb navigation
+    - Reading time estimation
+    - AI translation disclosure
+    -->
+
+    <!-- Primary Meta Tags -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>{{title}} | NoMeta.az Xəbərlər</title>
+    <meta name="title" content="{{title}} | NoMeta.az Xəbərlər">
+    <meta name="description" content="{{description}}">
+    <meta name="keywords" content="{{keywords}}, texnologiya, proqramlaşdırma, mühəndislik, {{source}}, Azərbaycan">
+    <meta name="author" content="{{source}} (NoMeta.az tərəfindən tərcümə)">
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+    <meta name="googlebot" content="index, follow">
+    <meta name="language" content="Azerbaijani">
+    <meta name="revisit-after" content="7 days">
+    <meta name="rating" content="general">
+    <meta name="generator" content="NoMeta.az Blog Generator">
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://nometa.az/news/{{slug}}/">
+
+    <!-- Alternate Languages -->
+    <link rel="alternate" hreflang="az" href="https://nometa.az/news/{{slug}}/">
+    <link rel="alternate" hreflang="en" href="{{originalUrl}}">
+    <link rel="alternate" hreflang="x-default" href="https://nometa.az/news/{{slug}}/">
+    <meta http-equiv="content-language" content="az">
+
+    <!-- Open Graph / Facebook - Article Type -->
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://nometa.az/news/{{slug}}/">
+    <meta property="og:title" content="{{title}}">
+    <meta property="og:description" content="{{description}}">
+    <meta property="og:image" content="{{ogImage}}">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="{{title}} - NoMeta.az">
+    <meta property="og:locale" content="az_AZ">
+    <meta property="og:locale:alternate" content="en_US">
+    <meta property="og:site_name" content="NoMeta Azerbaijan">
+    <meta property="og:see_also" content="{{originalUrl}}">
+
+    <!-- Article Specific Open Graph -->
+    <meta property="article:published_time" content="{{publishedDate}}T00:00:00+04:00">
+    <meta property="article:modified_time" content="{{modifiedDate}}T00:00:00+04:00">
+    <meta property="article:author" content="{{source}}">
+    <meta property="article:section" content="Technology">
+    <meta property="article:tag" content="texnologiya">
+    <meta property="article:tag" content="proqramlaşdırma">
+    <meta property="article:tag" content="{{source}}">
+
+    <!-- Twitter Card - Large Image -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://nometa.az/news/{{slug}}/">
+    <meta name="twitter:title" content="{{title}}">
+    <meta name="twitter:description" content="{{description}}">
+    <meta name="twitter:image" content="{{ogImage}}">
+    <meta name="twitter:image:alt" content="{{title}}">
+    <meta name="twitter:site" content="@nometa_az">
+    <meta name="twitter:creator" content="@nometa_az">
+    <meta name="twitter:label1" content="Mənbə">
+    <meta name="twitter:data1" content="{{source}}">
+    <meta name="twitter:label2" content="Oxuma müddəti">
+    <meta name="twitter:data2" content="{{readingTime}} dəqiqə">
+
+    <!-- Dublin Core Metadata -->
+    <meta name="DC.title" content="{{title}}">
+    <meta name="DC.creator" content="{{source}}">
+    <meta name="DC.subject" content="Technology, Software Engineering, {{source}}">
+    <meta name="DC.description" content="{{description}}">
+    <meta name="DC.publisher" content="NoMeta Azerbaijan">
+    <meta name="DC.contributor" content="{{translationProvider}}">
+    <meta name="DC.date" content="{{publishedDate}}">
+    <meta name="DC.type" content="Text">
+    <meta name="DC.format" content="text/html">
+    <meta name="DC.identifier" content="https://nometa.az/news/{{slug}}/">
+    <meta name="DC.source" content="{{originalUrl}}">
+    <meta name="DC.language" content="az">
+    <meta name="DC.relation" content="{{originalUrl}}">
+    <meta name="DC.rights" content="Original content © {{source}}. Translation by NoMeta.az">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="../../assets/images/favicon.svg">
+    <link rel="icon" type="image/png" sizes="32x32" href="../../assets/images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../../assets/images/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="../../assets/images/apple-touch-icon.png">
+    <link rel="manifest" href="../../site.webmanifest">
+    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="#0a0a0a" media="(prefers-color-scheme: dark)">
+    <meta name="msapplication-TileColor" content="#ffffff">
+
+    <!-- Performance Hints -->
+    <link rel="dns-prefetch" href="//nometa.az">
+    <link rel="preconnect" href="https://nometa.az">
+
+    <!-- Stylesheet -->
+    <link rel="preload" href="../../assets/css/styles.css?v={{cssVersion}}" as="style" fetchpriority="high">
+    <link rel="stylesheet" href="../../assets/css/styles.css?v={{cssVersion}}">
+
+    <!-- JSON-LD: Main Article Schema -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "TechArticle",
+        "@id": "https://nometa.az/news/{{slug}}/#article",
+        "headline": "{{title}}",
+        "alternativeHeadline": "{{originalTitle}}",
+        "description": "{{description}}",
+        "image": {
+            "@type": "ImageObject",
+            "url": "{{ogImage}}",
+            "width": 1200,
+            "height": 630
+        },
+        "datePublished": "{{publishedDate}}T00:00:00+04:00",
+        "dateModified": "{{modifiedDate}}T00:00:00+04:00",
+        "dateCreated": "{{publishedDate}}T00:00:00+04:00",
+        "inLanguage": "az",
+        "wordCount": {{wordCount}},
+        "timeRequired": "PT{{readingTime}}M",
+        "articleBody": "{{articleBodyText}}",
+        "articleSection": "Technology",
+        "keywords": ["texnologiya", "proqramlaşdırma", "mühəndislik", "{{source}}"],
+        "author": {
+            "@type": "Organization",
+            "@id": "{{sourceUrl}}/#organization",
+            "name": "{{source}}",
+            "url": "{{sourceUrl}}"
+        },
+        "translator": {
+            "@type": "SoftwareApplication",
+            "name": "{{translationProvider}}",
+            "applicationCategory": "AI Translation"
+        },
+        "publisher": {
+            "@type": "Organization",
+            "@id": "https://nometa.az/#organization",
+            "name": "NoMeta Azerbaijan",
+            "url": "https://nometa.az/",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "https://nometa.az/assets/images/favicon.svg",
+                "width": 512,
+                "height": 512
+            }
+        },
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https://nometa.az/news/{{slug}}/"
+        },
+        "isAccessibleForFree": true,
+        "isBasedOn": {
+            "@type": "Article",
+            "url": "{{originalUrl}}",
+            "name": "{{originalTitle}}",
+            "inLanguage": "en",
+            "author": {
+                "@type": "Organization",
+                "name": "{{source}}"
+            }
+        },
+        "isPartOf": {
+            "@type": "Blog",
+            "@id": "https://nometa.az/news/#blog",
+            "name": "NoMeta.az Xəbərlər",
+            "url": "https://nometa.az/news/"
+        },
+        "copyrightHolder": {
+            "@type": "Organization",
+            "name": "{{source}}",
+            "url": "{{sourceUrl}}"
+        },
+        "copyrightYear": "{{copyrightYear}}",
+        "license": "{{originalUrl}}",
+        "speakable": {
+            "@type": "SpeakableSpecification",
+            "cssSelector": [".article-content p:first-of-type", ".article-header h1"]
+        },
+        "potentialAction": [
+            {
+                "@type": "ReadAction",
+                "target": "https://nometa.az/news/{{slug}}/"
+            },
+            {
+                "@type": "ShareAction",
+                "target": "https://nometa.az/news/{{slug}}/"
+            }
+        ]
+    }
+    </script>
+
+    <!-- JSON-LD: BreadcrumbList -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Ana səhifə",
+                "item": "https://nometa.az/"
+            },
+            {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Xəbərlər",
+                "item": "https://nometa.az/news/"
+            },
+            {
+                "@type": "ListItem",
+                "position": 3,
+                "name": "{{title}}",
+                "item": "https://nometa.az/news/{{slug}}/"
+            }
+        ]
+    }
+    </script>
+
+    <!-- JSON-LD: WebPage -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebPage",
+        "@id": "https://nometa.az/news/{{slug}}/#webpage",
+        "url": "https://nometa.az/news/{{slug}}/",
+        "name": "{{title}} | NoMeta.az",
+        "description": "{{description}}",
+        "inLanguage": "az",
+        "isPartOf": {
+            "@type": "WebSite",
+            "@id": "https://nometa.az/#website"
+        },
+        "about": {
+            "@type": "Thing",
+            "name": "{{source}} Engineering"
+        },
+        "breadcrumb": {
+            "@id": "https://nometa.az/news/{{slug}}/#breadcrumb"
+        },
+        "primaryImageOfPage": {
+            "@type": "ImageObject",
+            "url": "{{ogImage}}"
+        },
+        "datePublished": "{{publishedDate}}",
+        "dateModified": "{{modifiedDate}}",
+        "speakable": {
+            "@type": "SpeakableSpecification",
+            "cssSelector": [".article-header h1", ".article-content"]
+        }
+    }
+    </script>
+
+    <!-- JSON-LD: Organization (Publisher) -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "@id": "https://nometa.az/#organization",
+        "name": "NoMeta Azerbaijan",
+        "url": "https://nometa.az/",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://nometa.az/assets/images/favicon.svg",
+            "width": 512,
+            "height": 512
+        },
+        "sameAs": [
+            "https://nometa.xyz"
+        ]
+    }
+    </script>
+</head>
+<body>
+    <header class="blog-header">
+        <nav class="blog-nav" aria-label="Əsas naviqasiya">
+            <a href="/" class="nav-brand" title="NoMeta.az Ana Səhifə">
+                <span class="brand">nometa</span><span class="domain">.az</span>
+            </a>
+            <a href="/news/" class="nav-link" title="Bütün xəbərlər">Xəbərlər</a>
+        </nav>
+    </header>
+
+    <!-- Breadcrumb Navigation -->
+    <nav class="breadcrumb" aria-label="Breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList">
+        <div class="breadcrumb-container">
+            <span itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+                <a itemprop="item" href="/">
+                    <span itemprop="name">Ana səhifə</span>
+                </a>
+                <meta itemprop="position" content="1">
+            </span>
+            <span class="breadcrumb-separator" aria-hidden="true">/</span>
+            <span itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+                <a itemprop="item" href="/news/">
+                    <span itemprop="name">Xəbərlər</span>
+                </a>
+                <meta itemprop="position" content="2">
+            </span>
+            <span class="breadcrumb-separator" aria-hidden="true">/</span>
+            <span itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+                <span itemprop="name" class="breadcrumb-current">{{shortTitle}}</span>
+                <meta itemprop="position" content="3">
+            </span>
+        </div>
+    </nav>
+
+    <main class="blog-container" role="main">
+        <article class="blog-article" itemscope itemtype="https://schema.org/TechArticle">
+            <meta itemprop="mainEntityOfPage" content="https://nometa.az/news/{{slug}}/">
+            <meta itemprop="inLanguage" content="az">
+            <meta itemprop="wordCount" content="{{wordCount}}">
+
+            <header class="article-header">
+                <div class="article-meta">
+                    <a href="{{sourceUrl}}" target="_blank" rel="noopener noreferrer" class="article-source" itemprop="author" itemscope itemtype="https://schema.org/Organization">
+                        <span itemprop="name">{{source}}</span>
+                    </a>
+                    <span class="article-date">
+                        <time datetime="{{publishedDate}}" itemprop="datePublished">{{formattedDate}}</time>
+                    </span>
+                    <span class="article-reading-time" title="Təxmini oxuma müddəti">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                        {{readingTime}} dəq oxuma
+                    </span>
+                </div>
+                <h1 itemprop="headline">{{title}}</h1>
+                <meta itemprop="dateModified" content="{{modifiedDate}}">
+                <div itemprop="image" itemscope itemtype="https://schema.org/ImageObject" style="display:none;">
+                    <meta itemprop="url" content="{{ogImage}}">
+                    <meta itemprop="width" content="1200">
+                    <meta itemprop="height" content="630">
+                </div>
+                <div itemprop="publisher" itemscope itemtype="https://schema.org/Organization" style="display:none;">
+                    <meta itemprop="name" content="NoMeta Azerbaijan">
+                    <meta itemprop="url" content="https://nometa.az/">
+                    <div itemprop="logo" itemscope itemtype="https://schema.org/ImageObject">
+                        <meta itemprop="url" content="https://nometa.az/assets/images/favicon.svg">
+                    </div>
+                </div>
+            </header>
+
+            <div class="article-content" itemprop="articleBody">
+                {{content}}
+            </div>
+
+            <aside class="attribution-box" role="complementary" aria-label="Mənbə məlumatı">
+                <div class="attribution-header">
+                    <span class="ai-badge" title="AI ilə tərcümə edilib">AI</span>
+                    <span class="attribution-title">Tərcümə və Mənbə Məlumatı</span>
+                </div>
+                <p class="attribution-source">
+                    <strong>Orijinal məqalə:</strong>
+                    <a href="{{originalUrl}}" target="_blank" rel="noopener noreferrer" title="Orijinal məqaləni oxuyun">
+                        {{source}} - "{{originalTitle}}"
+                    </a>
+                </p>
+                <p class="ai-notice">
+                    <strong>Tərcümə:</strong> Bu məqalə {{translationProvider}} tərəfindən avtomatik tərcümə edilmişdir.
+                    Texniki terminlər orijinal (İngilis) dilində saxlanılmışdır.
+                </p>
+                <p class="attribution-copyright">
+                    <small>&copy; {{copyrightYear}} {{source}}. Orijinal məzmunun bütün hüquqları müəllifə məxsusdur.</small>
+                </p>
+            </aside>
+
+            <!-- Share Buttons -->
+            <div class="share-buttons" aria-label="Paylaşma düymələri">
+                <span class="share-label">Paylaş:</span>
+                <a href="https://twitter.com/intent/tweet?url=https://nometa.az/news/{{slug}}/&text={{encodedTitle}}"
+                   target="_blank" rel="noopener noreferrer" class="share-btn share-twitter" title="Twitter-da paylaş">
+                    Twitter
+                </a>
+                <a href="https://www.linkedin.com/sharing/share-offsite/?url=https://nometa.az/news/{{slug}}/"
+                   target="_blank" rel="noopener noreferrer" class="share-btn share-linkedin" title="LinkedIn-də paylaş">
+                    LinkedIn
+                </a>
+                <a href="https://t.me/share/url?url=https://nometa.az/news/{{slug}}/&text={{encodedTitle}}"
+                   target="_blank" rel="noopener noreferrer" class="share-btn share-telegram" title="Telegram-da paylaş">
+                    Telegram
+                </a>
+            </div>
+
+            <nav class="article-nav" aria-label="Məqalə naviqasiyası">
+                <a href="/news/" class="back-to-list">&larr; Bütün məqalələr</a>
+                <a href="{{originalUrl}}" target="_blank" rel="noopener noreferrer" class="view-original">
+                    Orijinalı oxu (EN) &rarr;
+                </a>
+            </nav>
+        </article>
+    </main>
+
+    <footer role="contentinfo">
+        <p>
+            <a href="https://nometa.xyz" target="_blank" rel="me noopener noreferrer">nometa.xyz</a>,
+            <a href="https://nohello.com" target="_blank" rel="noopener noreferrer">nohello.com</a>,
+            <a href="https://xyproblem.info" target="_blank" rel="noopener noreferrer">xyproblem.info</a> və
+            <a href="https://dontasktoask.com" target="_blank" rel="noopener noreferrer">dontasktoask.com</a> saytlarından ilhamlanıb.
+        </p>
+        <p class="copyright">
+            <small>&copy; <span id="year"></span> NoMeta Azərbaycan. Bütün hüquqlar qorunur.</small>
+        </p>
+    </footer>
+    <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>

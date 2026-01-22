@@ -20,6 +20,3 @@ content/nometa.db-shm
 .vscode/
 *.swp
 *.swo
-admin/
-scripts/
-templates/
