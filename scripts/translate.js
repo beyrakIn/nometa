@@ -173,7 +173,7 @@ async function translateArticle(article, provider = 'claude-api') {
         // Update article in database
         const translatedAt = new Date().toISOString();
         const updatedArticle = db.updateArticle(article.id, {
-            translatedTitle: translatedTitle.split('\n')[0].trim(), // First line is the title
+            translatedTitle: translatedTitle.split('\n')[0].trim().replace(/^#+\s*/, ''), // First line, strip markdown heading
             translatedContent: translatedContent,
             translatedAt: translatedAt,
             translationProvider: provider,
