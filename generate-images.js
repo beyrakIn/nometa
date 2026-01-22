@@ -45,6 +45,21 @@ async function generateImages() {
     .toFile(path.join(imagesDir, 'og-image.png'));
   console.log(`Created: assets/images/og-image.png (${CONFIG.ogImage.width}x${CONFIG.ogImage.height})`);
 
+  // Generate favicon.ico in root directory (multi-size: 16, 32, 48)
+  const icoSizes = [16, 32, 48];
+  const tempPngPaths = [];
+  for (const size of icoSizes) {
+    const tempPath = path.join(rootDir, `temp-favicon-${size}.png`);
+    await sharp(faviconSvg).resize(size, size).png().toFile(tempPath);
+    tempPngPaths.push(tempPath);
+  }
+  const pngToIco = (await import('png-to-ico')).default;
+  const icoBuffer = await pngToIco(tempPngPaths);
+  fs.writeFileSync(path.join(rootDir, 'favicon.ico'), icoBuffer);
+  // Clean up temp files
+  tempPngPaths.forEach(p => fs.unlinkSync(p));
+  console.log(`Created: favicon.ico (${icoSizes.join(', ')} multi-size)`);
+
   console.log('\nAll images generated successfully!');
 }
 

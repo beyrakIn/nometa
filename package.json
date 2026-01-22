@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/beyrakIn/nometa#readme",
   "devDependencies": {
+    "png-to-ico": "^3.0.1",
     "sharp": "^0.34.5"
   }
 }
