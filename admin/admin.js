@@ -12,6 +12,7 @@ let translatedArticles = [];
 let providers = [];
 let confirmCallback = null;
 let selectedArticles = new Set();
+let translatingArticleId = null; // Track which article is being translated
 
 // DOM Elements
 const articlesView = document.getElementById('articles-view');
@@ -87,6 +88,7 @@ async function loadStats() {
 
         document.getElementById('stat-total').textContent = stats.total || 0;
         document.getElementById('stat-pending').textContent = stats.pending || 0;
+        document.getElementById('stat-saved').textContent = stats.saved || 0;
         document.getElementById('stat-translated').textContent = stats.translated || 0;
         document.getElementById('stat-published').textContent = stats.published || 0;
         document.getElementById('stat-disabled').textContent = stats.disabled || 0;
@@ -215,8 +217,13 @@ function renderArticles(items) {
         return;
     }
 
-    articlesList.innerHTML = items.map(article => `
-        <div class="article-card ${article.status === 'disabled' ? 'disabled' : ''}" data-id="${article.id}">
+    articlesList.innerHTML = items.map(article => {
+        const isTranslating = translatingArticleId === article.id;
+        const isSaved = article.status === 'saved';
+        const canTranslate = article.status === 'pending' || article.status === 'saved';
+
+        return `
+        <div class="article-card ${article.status === 'disabled' ? 'disabled' : ''} ${isSaved ? 'saved' : ''}" data-id="${article.id}">
             <div class="article-card-header">
                 <div class="checkbox-wrapper" data-action="select">
                     <input type="checkbox" data-article-id="${article.id}" ${selectedArticles.has(article.id) ? 'checked' : ''}>
@@ -230,6 +237,17 @@ function renderArticles(items) {
                 </div>
                 <div class="article-card-actions">
                     <span class="article-card-status status-${article.status}">${article.status}</span>
+                    ${canTranslate ? `
+                    <button class="btn btn-ghost btn-sm btn-translate ${isTranslating ? 'translating' : ''}"
+                            data-action="translate"
+                            title="Translate"
+                            ${isTranslating ? 'disabled' : ''}>
+                        ${isTranslating ? 'Translating...' : 'Translate'}
+                    </button>
+                    ` : ''}
+                    <button class="btn btn-ghost btn-icon ${isSaved ? 'btn-saved' : ''}" data-action="toggle-save" title="${isSaved ? 'Unsave' : 'Save'}">
+                        ${isSaved ? '★' : '☆'}
+                    </button>
                     <button class="btn btn-ghost btn-icon" data-action="toggle-disable" title="${article.status === 'disabled' ? 'Enable' : 'Disable'}">
                         ${article.status === 'disabled' ? '&#10003;' : '&#10005;'}
                     </button>
@@ -240,7 +258,7 @@ function renderArticles(items) {
             </div>
             <p class="article-card-excerpt" data-action="open">${escapeHtml(article.description || '')}</p>
         </div>
-    `).join('');
+    `}).join('');
 
     // Add click handlers
     articlesList.querySelectorAll('.article-card').forEach(card => {
@@ -270,6 +288,24 @@ function renderArticles(items) {
             toggleBtn.addEventListener('click', (e) => {
                 e.stopPropagation();
                 toggleDisableArticle(articleId);
+            });
+        }
+
+        // Toggle save button
+        const saveBtn = card.querySelector('[data-action="toggle-save"]');
+        if (saveBtn) {
+            saveBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                toggleSaveArticle(articleId);
+            });
+        }
+
+        // Translate button (from card)
+        const translateBtn = card.querySelector('[data-action="translate"]');
+        if (translateBtn) {
+            translateBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                translateArticleFromCard(articleId);
             });
         }
 
@@ -483,6 +519,70 @@ async function toggleDisableArticle(articleId) {
         }
     } catch (error) {
         showToast(`Failed: ${error.message}`, 'error');
+    }
+}
+
+/**
+ * Toggle save/unsave article
+ */
+async function toggleSaveArticle(articleId) {
+    try {
+        const response = await fetch(`${API_BASE}/articles/${articleId}/toggle-save`, {
+            method: 'POST'
+        });
+        const data = await response.json();
+
+        if (data.success) {
+            showToast(data.message, 'success');
+            await loadArticles();
+        } else {
+            throw new Error(data.error || 'Save toggle failed');
+        }
+    } catch (error) {
+        showToast(`Failed: ${error.message}`, 'error');
+    }
+}
+
+/**
+ * Translate article directly from card (not modal)
+ */
+async function translateArticleFromCard(articleId) {
+    const article = articles.find(a => a.id === articleId);
+    if (!article) return;
+
+    // Set translating state and re-render to show "Translating..." only on this card
+    translatingArticleId = articleId;
+    renderArticles(filterArticles());
+
+    // Get default provider (first available)
+    const defaultProvider = providers.find(p => p.available)?.id || 'claude-api';
+
+    try {
+        const response = await fetch(`${API_BASE}/translate`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                articleId: articleId,
+                provider: defaultProvider
+            })
+        });
+
+        const data = await response.json();
+
+        if (data.success) {
+            showToast('Translation complete!', 'success');
+            // Refresh lists
+            await loadArticles();
+            await loadTranslatedArticles();
+        } else {
+            throw new Error(data.error || 'Translation failed');
+        }
+    } catch (error) {
+        showToast(`Translation failed: ${error.message}`, 'error');
+    } finally {
+        // Clear translating state
+        translatingArticleId = null;
+        renderArticles(filterArticles());
     }
 }
 
@@ -802,6 +902,12 @@ function initBulkActions() {
         updateCardSelectionState();
     });
 
+    // Bulk save button
+    document.getElementById('bulk-save-btn').addEventListener('click', () => {
+        if (selectedArticles.size === 0) return;
+        bulkSaveArticles();
+    });
+
     // Bulk disable button
     document.getElementById('bulk-disable-btn').addEventListener('click', () => {
         if (selectedArticles.size === 0) return;
@@ -859,6 +965,7 @@ function updateSelectionUI() {
 
     // Enable/disable bulk action buttons
     const hasSelection = count > 0;
+    document.getElementById('bulk-save-btn').disabled = !hasSelection;
     document.getElementById('bulk-disable-btn').disabled = !hasSelection;
     document.getElementById('bulk-enable-btn').disabled = !hasSelection;
     document.getElementById('bulk-delete-btn').disabled = !hasSelection;
@@ -953,6 +1060,33 @@ async function bulkDeleteArticles() {
         } else {
             throw new Error(data.error || 'Bulk delete failed');
         }
+    } catch (error) {
+        showToast(`Failed: ${error.message}`, 'error');
+    }
+}
+
+/**
+ * Bulk save articles
+ */
+async function bulkSaveArticles() {
+    const ids = Array.from(selectedArticles);
+    let saved = 0;
+
+    try {
+        for (const id of ids) {
+            const article = articles.find(a => a.id === id);
+            if (article && article.status === 'pending') {
+                const response = await fetch(`${API_BASE}/articles/${id}/toggle-save`, {
+                    method: 'POST'
+                });
+                const data = await response.json();
+                if (data.success) saved++;
+            }
+        }
+
+        showToast(`Saved ${saved} article(s)`, 'success');
+        selectedArticles.clear();
+        await loadArticles();
     } catch (error) {
         showToast(`Failed: ${error.message}`, 'error');
     }
@@ -1128,6 +1262,15 @@ function initKeyboardShortcuts() {
                 }
                 break;
 
+            // Save selected with S
+            case 's':
+            case 'S':
+                if (!ctrlKey && selectedArticles.size > 0) {
+                    e.preventDefault();
+                    bulkSaveArticles();
+                }
+                break;
+
             // Deselect all with Ctrl/Cmd + D
             case 'd':
             case 'D':
@@ -1196,6 +1339,7 @@ function showShortcutsModal() {
                         <h3>Selection</h3>
                         <div class="shortcut-item"><kbd>Ctrl</kbd>+<kbd>A</kbd> <span>Select all</span></div>
                         <div class="shortcut-item"><kbd>Ctrl</kbd>+<kbd>D</kbd> <span>Deselect all</span></div>
+                        <div class="shortcut-item"><kbd>S</kbd> <span>Save selected</span></div>
                         <div class="shortcut-item"><kbd>D</kbd> <span>Disable selected</span></div>
                         <div class="shortcut-item"><kbd>E</kbd> <span>Enable selected</span></div>
                         <div class="shortcut-item"><kbd>Delete</kbd> <span>Delete selected</span></div>

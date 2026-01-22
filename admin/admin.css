@@ -468,6 +468,49 @@ select:focus {
     color: var(--danger-color);
 }
 
+.status-saved {
+    background: rgba(251, 191, 36, 0.2);
+    color: #fbbf24;
+}
+
+/* Save button styles */
+.btn-saved {
+    color: #fbbf24 !important;
+}
+
+.btn-saved:hover {
+    background: rgba(251, 191, 36, 0.15) !important;
+}
+
+/* Translate button on cards */
+.btn-translate {
+    background: rgba(59, 130, 246, 0.1);
+    color: var(--primary-color);
+    border: 1px solid transparent;
+}
+
+.btn-translate:hover {
+    background: rgba(59, 130, 246, 0.2);
+    border-color: var(--primary-color);
+}
+
+.btn-translate.translating {
+    background: rgba(59, 130, 246, 0.15);
+    color: var(--primary-color);
+    cursor: wait;
+    animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.6; }
+}
+
+/* Saved article card */
+.article-card.saved {
+    border-color: rgba(251, 191, 36, 0.3);
+}
+
 .article-card-excerpt {
     font-size: 0.85rem;
     color: var(--text-muted);

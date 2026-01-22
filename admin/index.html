@@ -24,6 +24,10 @@
                 <span class="stat-label">Pending</span>
             </div>
             <div class="stat-item">
+                <span class="stat-value" id="stat-saved">0</span>
+                <span class="stat-label">Saved</span>
+            </div>
+            <div class="stat-item">
                 <span class="stat-value" id="stat-translated">0</span>
                 <span class="stat-label">Translated</span>
             </div>
@@ -51,6 +55,7 @@
                     <select id="status-filter">
                         <option value="">All Status</option>
                         <option value="pending">Pending</option>
+                        <option value="saved">Saved</option>
                         <option value="translated">Translated</option>
                         <option value="published">Published</option>
                         <option value="disabled">Disabled</option>
@@ -72,6 +77,7 @@
                 </div>
                 <span id="selection-count" class="selection-count">0 selected</span>
                 <div class="bulk-actions">
+                    <button id="bulk-save-btn" class="btn btn-secondary btn-sm">Save Selected</button>
                     <button id="bulk-disable-btn" class="btn btn-secondary btn-sm">Disable Selected</button>
                     <button id="bulk-enable-btn" class="btn btn-secondary btn-sm">Enable Selected</button>
                     <button id="bulk-delete-btn" class="btn btn-danger btn-sm">Delete Selected</button>
