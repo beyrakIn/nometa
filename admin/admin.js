@@ -550,9 +550,18 @@ async function translateArticleFromCard(articleId) {
     const article = articles.find(a => a.id === articleId);
     if (!article) return;
 
-    // Set translating state and re-render to show "Translating..." only on this card
+    // Find the specific card and button - update only that button, don't re-render everything
+    const card = articlesList.querySelector(`.article-card[data-id="${articleId}"]`);
+    const translateBtn = card?.querySelector('[data-action="translate"]');
+
+    if (translateBtn) {
+        translateBtn.disabled = true;
+        translateBtn.classList.add('translating');
+        translateBtn.textContent = 'Translating...';
+    }
+
+    // Track translating state (for re-renders)
     translatingArticleId = articleId;
-    renderArticles(filterArticles());
 
     // Get default provider (first available)
     const defaultProvider = providers.find(p => p.available)?.id || 'claude-api';
@@ -572,6 +581,7 @@ async function translateArticleFromCard(articleId) {
         if (data.success) {
             showToast('Translation complete!', 'success');
             // Refresh lists
+            translatingArticleId = null;
             await loadArticles();
             await loadTranslatedArticles();
         } else {
@@ -579,10 +589,14 @@ async function translateArticleFromCard(articleId) {
         }
     } catch (error) {
         showToast(`Translation failed: ${error.message}`, 'error');
+        // Reset button on error
+        if (translateBtn) {
+            translateBtn.disabled = false;
+            translateBtn.classList.remove('translating');
+            translateBtn.textContent = 'Translate';
+        }
     } finally {
-        // Clear translating state
         translatingArticleId = null;
-        renderArticles(filterArticles());
     }
 }
 
