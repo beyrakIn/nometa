@@ -20,6 +20,7 @@ A meta question is asking for permission to ask, instead of just asking directly
 
 ## Related Resources
 
+- [nometa.xyz](https://nometa.xyz) - English version
 - [nohello.com](https://nohello.com) - Don't just say hello
 - [dontasktoask.com](https://dontasktoask.com) - Don't ask to ask
 - [xyproblem.info](https://xyproblem.info) - The XY Problem
