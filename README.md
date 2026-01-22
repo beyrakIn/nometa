@@ -14,10 +14,6 @@ A meta question is asking for permission to ask, instead of just asking directly
 
 **Instead, just ask your actual question directly.**
 
-## Language
-
-- Azerbaijani (this site)
-
 ## Related Resources
 
 - [nometa.xyz](https://nometa.xyz) - English version
