@@ -26,6 +26,12 @@
         <priority>0.7</priority>
     </url>
     <url>
+        <loc>https://nometa.az/news/building-optimistic-ui-in-rails-powered-by-turbo/</loc>
+        <lastmod>2026-01-22</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    <url>
         <loc>https://nometa.az/news/the-cost-of-not-knowing-mongodb-introduction/</loc>
         <lastmod>2026-01-22</lastmod>
         <changefreq>monthly</changefreq>
