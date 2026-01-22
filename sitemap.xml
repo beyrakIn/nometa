@@ -14,6 +14,12 @@
     </url>
     
     <url>
+        <loc>https://nometa.az/news/how-a-livewire-vulnerability-led-to-crypto-mining-on-our-servers/</loc>
+        <lastmod>2026-01-22</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    <url>
         <loc>https://nometa.az/news/building-optimistic-ui-in-rails-powered-by-turbo/</loc>
         <lastmod>2026-01-22</lastmod>
         <changefreq>monthly</changefreq>
@@ -39,12 +45,6 @@
     </url>
     <url>
         <loc>https://nometa.az/news/the-cost-of-not-knowing-mongodb-introduction/</loc>
-        <lastmod>2026-01-22</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.7</priority>
-    </url>
-    <url>
-        <loc>https://nometa.az/news/how-a-livewire-vulnerability-led-to-crypto-mining-on-our-servers/</loc>
         <lastmod>2026-01-22</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.7</priority>

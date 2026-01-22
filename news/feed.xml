@@ -5,9 +5,17 @@
     <link>https://nometa.az/news/</link>
     <description>Texnologiya şirkətlərinin mühəndislik bloqlarından Azərbaycan dilinə tərcümə edilmiş məqalələr.</description>
     <language>az</language>
-    <lastBuildDate>Thu, 22 Jan 2026 18:56:52 GMT</lastBuildDate>
+    <lastBuildDate>Thu, 22 Jan 2026 18:59:13 GMT</lastBuildDate>
     <atom:link href="https://nometa.az/news/feed.xml" rel="self" type="application/rss+xml"/>
     
+    <item>
+      <title><![CDATA[Livewire Zəifliyi Serverlərimizdə Kripto Mayninqinə Necə Səbəb Oldu]]></title>
+      <link>https://nometa.az/news/how-a-livewire-vulnerability-led-to-crypto-mining-on-our-servers/</link>
+      <guid>https://nometa.az/news/how-a-livewire-vulnerability-led-to-crypto-mining-on-our-servers/</guid>
+      <pubDate>Thu, 22 Jan 2026 18:17:53 GMT</pubDate>
+      <description><![CDATA[Necə Livewire Zəifliyi Serverlərimizdə Kriptovalyuta Mayninqinə Səbəb Oldu Keçən həftə performans problemi kimi başlayan və kriptovalyuta mayninqi araşdırmasına çevrilən bir təhlükəsizlik insidenti yaşadıq. Baş verənləri və Livewire-i prodakşında işlədirsinizsə bilməli olduqlarınızı sizinlə...]]></description>
+      <source url="https://dev.to">Dev.to</source>
+    </item>
     <item>
       <title><![CDATA[Turbo ilə Rails-də Optimistik UI Qurma]]></title>
       <link>https://nometa.az/news/building-optimistic-ui-in-rails-powered-by-turbo/</link>
@@ -46,14 +54,6 @@
       <guid>https://nometa.az/news/the-cost-of-not-knowing-mongodb-introduction/</guid>
       <pubDate>Thu, 22 Jan 2026 16:49:52 GMT</pubDate>
       <description><![CDATA[MongoDB-nu Bilməməyin Dəyəri – Giriş Bu seriyanın əsas məqsədi MongoDB-ni düzgün istifadə etməklə əldə edə biləcəyiniz əhəmiyyətli performans artımlarını və qənaət edə biləcəyiniz xərcləri nümayiş etdirməkdir. Buna ən yaxşı təcrübələrə əməl etmək, tətbiqinizin spesifik ehtiyaclarını öyrənmək və bu...]]></description>
-      <source url="https://dev.to">Dev.to</source>
-    </item>
-    <item>
-      <title><![CDATA[Livewire Zəifliyi Serverlərimizdə Kripto Mayninqinə Necə Səbəb Oldu]]></title>
-      <link>https://nometa.az/news/how-a-livewire-vulnerability-led-to-crypto-mining-on-our-servers/</link>
-      <guid>https://nometa.az/news/how-a-livewire-vulnerability-led-to-crypto-mining-on-our-servers/</guid>
-      <pubDate>Thu, 22 Jan 2026 18:17:53 GMT</pubDate>
-      <description><![CDATA[Necə Livewire Zəifliyi Serverlərimizdə Kriptovalyuta Mayninqinə Səbəb Oldu Keçən həftə performans problemi kimi başlayan və kriptovalyuta mayninqi araşdırmasına çevrilən bir təhlükəsizlik insidenti yaşadıq. Baş verənləri və Livewire-i prodakşında işlədirsinizsə bilməli olduqlarınızı sizinlə...]]></description>
       <source url="https://dev.to">Dev.to</source>
     </item>
   </channel>

@@ -243,14 +243,14 @@ function deleteArticle(id) {
 
 /**
  * Get published articles (status = 'published' or 'translated')
- * Ordered by published_at DESC so latest published appears first
+ * Ordered by published_at (or translated_at as fallback) DESC so latest appears first
  */
 function getPublishedArticles() {
     const db = getDb();
     const rows = db.prepare(`
         SELECT * FROM articles
         WHERE status IN ('translated', 'published')
-        ORDER BY published_at DESC, published_date DESC
+        ORDER BY COALESCE(published_at, translated_at) DESC, published_date DESC
     `).all();
     return rows.map(rowToArticle);
 }
