@@ -22,7 +22,7 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  # Build and deploy job
+  # Deploy job - articles are pre-generated locally, just deploy static files
   deploy:
     environment:
       name: github-pages
@@ -32,20 +32,8 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-          cache: 'npm'
-
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Generate blog pages
-        run: npm run generate
-
       - name: Remove development files before deploy
-        run: rm -rf admin/ scripts/ templates/ node_modules/
+        run: rm -rf admin/ scripts/ templates/ content/
 
       - name: Setup Pages
         uses: actions/configure-pages@v5

@@ -4,9 +4,11 @@
  */
 
 const Database = require('better-sqlite3');
+const fs = require('fs');
 const path = require('path');
 
-const DB_PATH = path.join(__dirname, '..', 'content', 'nometa.db');
+const CONTENT_DIR = path.join(__dirname, '..', 'content');
+const DB_PATH = path.join(CONTENT_DIR, 'nometa.db');
 
 let db = null;
 
@@ -15,6 +17,11 @@ let db = null;
  */
 function initDb() {
     if (db) return db;
+
+    // Create content directory if it doesn't exist
+    if (!fs.existsSync(CONTENT_DIR)) {
+        fs.mkdirSync(CONTENT_DIR, { recursive: true });
+    }
 
     db = new Database(DB_PATH);
 
