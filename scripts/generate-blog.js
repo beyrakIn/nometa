@@ -173,12 +173,15 @@ function generateArticlePage(article, template) {
         : 'AI';
 
     // Prepare template data with all SEO fields
+    // Always use translated content for description (SEO in target language)
+    const translatedDescription = extractPlainText(article.content, 160);
+
     const data = {
         // Basic info
         title: article.title,
         originalTitle: article.originalTitle || article.title,
         shortTitle: truncateTitle(article.title),
-        description: article.description || extractPlainText(article.content, 160),
+        description: translatedDescription,
         slug: article.slug,
         content: contentHtml,
 
