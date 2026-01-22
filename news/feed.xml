@@ -5,7 +5,7 @@
     <link>https://nometa.az/news/</link>
     <description>Texnologiya şirkətlərinin mühəndislik bloqlarından Azərbaycan dilinə tərcümə edilmiş məqalələr.</description>
     <language>az</language>
-    <lastBuildDate>Thu, 22 Jan 2026 18:34:59 GMT</lastBuildDate>
+    <lastBuildDate>Thu, 22 Jan 2026 18:41:48 GMT</lastBuildDate>
     <atom:link href="https://nometa.az/news/feed.xml" rel="self" type="application/rss+xml"/>
     
     <item>
@@ -22,6 +22,14 @@
       <guid>https://nometa.az/news/from-static-to-smart-designing-an-ai-first-developer-portfolio-with-renderer-gem/</guid>
       <pubDate>Thu, 22 Jan 2026 18:16:15 GMT</pubDate>
       <description><![CDATA[Başlıq: Statikdən Ağıllıya: Renderer, Gemini və MCP ilə Süni İntellekt Əsaslı Developer Portfoliosu Dizaynı 🚀🚀 Google Gemini AI və Model Context Protocol ilə portfolio yaradılmasının transformasiyası https://www.youtube.com/watch?v=Txzplqg6oJo 🚀 İcmal Xülasəsi Renderer developerlərin onlayn...]]></description>
+      <source url="https://dev.to">Dev.to</source>
+    </item>
+    <item>
+      <title><![CDATA[# Turbo ilə Rails-də Optimistik UI Qurma]]></title>
+      <link>https://nometa.az/news/building-optimistic-ui-in-rails-powered-by-turbo/</link>
+      <guid>https://nometa.az/news/building-optimistic-ui-in-rails-powered-by-turbo/</guid>
+      <pubDate>Thu, 22 Jan 2026 18:15:00 GMT</pubDate>
+      <description><![CDATA[Rails-də Turbo ilə İşləyən Optimist UI Yaratmaq Bu məqalə əvvəlcə Rails Designer bloqunda(https://railsdesigner.com/turbo-powered-optimistic-ui/) dərc edilmişdir. Bir müddət əvvəl sizə custom elements istifadə edərək optimist UI necə yaradılır(https://railsdesigner.com/custom-elements/)...]]></description>
       <source url="https://dev.to">Dev.to</source>
     </item>
     <item>
