@@ -1,2 +1,22 @@
 node_modules/
 .playwright-mcp/
+
+# Temporary files
+content/.temp-prompt.txt
+
+# SQLite database
+content/nometa.db
+content/nometa.db-wal
+content/nometa.db-shm
+*.log
+.DS_Store
+
+# Environment files (API keys)
+.env
+.env.local
+
+# Editor directories
+.idea/
+.vscode/
+*.swp
+*.swo

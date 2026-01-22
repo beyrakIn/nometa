@@ -4,53 +4,73 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-NoMeta.az is an educational static website teaching developers to avoid "meta questions" in online chats (Discord, Telegram, Slack, forums). It demonstrates proper vs improper ways to ask questions through interactive chat comparisons.
+NoMeta.az is an educational static website teaching developers to avoid "meta questions" in online chats (Discord, Telegram, Slack, forums). It also includes a news/blog section with translated tech articles.
 
 - **Language**: Azerbaijani (English version at nometa.xyz)
-- **Type**: Single-page static HTML/CSS site
+- **Type**: Static HTML/CSS site with Node.js tooling for blog generation
 - **Deployment**: GitHub Pages (automatic via GitHub Actions on push to main)
 
 ## Development Commands
 
 ```bash
-# Generate favicon and OG images from SVG sources
-node generate-images.js
+npm install                    # Install dependencies
 
-# Local development - just open index.html in a browser
-# No build step required
+# Blog system
+npm run admin                  # Start local admin panel at http://localhost:3000
+npm run fetch                  # Fetch articles from RSS feeds
+npm run translate              # Check available translation providers
+npm run generate               # Generate blog HTML from translated articles
+npm run build                  # Alias for generate
+
+# Image generation
+node generate-images.js        # Generate favicon/OG images from SVG
 ```
 
-There is no test framework or linting configured. The project intentionally avoids build complexity.
+No test framework configured.
 
 ## Architecture
 
-### File Structure
-- `index.html` - Single page with all content, semantic HTML5, extensive Schema.org structured data
-- `assets/css/styles.css` - All styling including dark mode, responsive design, animations
-- `assets/images/` - Favicons (SVG, PNG) and OG images
-- `generate-images.js` - Node.js script using Sharp to convert SVG to PNG (outputs to assets/images/)
+### Main Site
+- `index.html` - Main educational page with Schema.org structured data
+- `assets/css/styles.css` - All styling (dark mode, responsive, animations)
+
+### Blog System (`scripts/`)
+The blog system fetches articles from tech blogs, translates them to Azerbaijani, and generates static HTML.
+
+**Pipeline**: RSS feeds → SQLite DB (`content/nometa.db`) → Translation → `news/` HTML
+
+**Article workflow**: `pending` → `translated` → `published`
+
+- `scripts/fetch-rss.js` - Fetches from GitLab, Dev.to, Martin Fowler, A List Apart; filters promotional content
+- `scripts/translate.js` - Multi-provider translation (Claude API, OpenAI, Claude CLI)
+- `scripts/generate-blog.js` - Generates HTML pages, RSS feed, updates sitemap
+- `scripts/server.js` - Express admin panel for managing articles
+- `scripts/db.js` - SQLite database wrapper (better-sqlite3)
+
+**Translation providers** (in order of preference):
+1. `claude-api` - Requires `ANTHROPIC_API_KEY`
+2. `openai` - Requires `OPENAI_API_KEY`
+3. `claude-cli` - Uses local Claude Code CLI
+
+### Content & Output Directories
+- `content/nometa.db` - SQLite database (single source of truth for articles)
+- `news/` - Generated blog HTML (index + individual articles)
+- `templates/` - Blog HTML templates (`blog-index.html`, `blog-article.html`)
+- `admin/` - Local-only admin panel (excluded from deployment)
 
 ### CSS Design System
-CSS custom properties define the theme:
-- Colors: `--bg-color`, `--text-color`, `--bad-color` (#9a3a3a), `--good-color` (#2d7a4f)
-- Shadows: `--shadow-sm`, `--shadow-md`, `--shadow-lg`
-- Dark mode via `prefers-color-scheme` media query
-
-Key component patterns:
-- `.chat-scenario.bad-scenario` / `.chat-scenario.good-scenario` - comparison containers
-- `.chat-bubble.good` / `.chat-bubble.bad` - message styling
-- `.faq-item` with native `<details>` elements for accordion
+CSS custom properties: `--bg-color`, `--text-color`, `--bad-color` (#9a3a3a), `--good-color` (#2d7a4f)
+Dark mode via `prefers-color-scheme` media query
+Mobile breakpoint at 600px
 
 ### SEO & Structured Data
-The HTML head contains extensive JSON-LD Schema.org markup (WebPage, FAQPage, Course, HowTo, etc.). When modifying content:
 - Keep FAQ structured data in sync with HTML `<details>` elements
-- Update `dateModified` timestamps in schema.org markup
-- Update meta tags when changing descriptions
+- Update `dateModified` timestamps in index.html (6 locations, see comment at top)
+- Blog generation auto-updates sitemap.xml
 
 ## Key Conventions
 
-1. **Cache busting**: When changing styles, update the version query param: `assets/css/styles.css?v=YYYYMMDDNN`
-2. **Accessibility**: Maintain ARIA labels, focus-visible patterns, and reduced-motion support
-3. **Responsive**: Mobile breakpoint at 600px; test at both mobile and desktop widths
-4. **No frameworks**: Keep it vanilla HTML/CSS/JS - minimal JavaScript for dynamic year only
-5. **robots.txt**: Blocks AI training bots (GPTBot, CCBot, Claude-Web, anthropic-ai)
+1. **Cache busting**: Update version in CSS links: `styles.css?v=YYYYMMDDNN`. For blog templates, update `CSS_VERSION` in `scripts/generate-blog.js`
+2. **Accessibility**: Maintain ARIA labels, focus-visible patterns, reduced-motion support
+3. **No frameworks**: Vanilla HTML/CSS/JS only
+4. **robots.txt**: Blocks AI training bots (GPTBot, CCBot, Claude-Web, anthropic-ai)
