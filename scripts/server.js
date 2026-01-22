@@ -271,6 +271,7 @@ app.get('/api/stats', (req, res) => {
         const stats = {
             total: db.getArticleCount(),
             pending: db.getArticleCount('pending'),
+            saved: db.getArticleCount('saved'),
             translated: db.getArticleCount('translated'),
             published: db.getArticleCount('published'),
             disabled: db.getArticleCount('disabled'),
@@ -323,6 +324,30 @@ app.post('/api/articles/:id/toggle-disable', (req, res) => {
             success: true,
             article: updatedArticle,
             message: newStatus === 'disabled' ? 'Article disabled' : 'Article enabled'
+        });
+    } catch (error) {
+        res.status(500).json({ success: false, error: error.message });
+    }
+});
+
+// Save/Unsave an article (toggle status to 'saved' or back to 'pending')
+app.post('/api/articles/:id/toggle-save', (req, res) => {
+    try {
+        const articleId = req.params.id;
+        const article = db.getArticleById(articleId);
+
+        if (!article) {
+            return res.status(404).json({ success: false, error: 'Article not found' });
+        }
+
+        // Toggle between saved and pending
+        const newStatus = article.status === 'saved' ? 'pending' : 'saved';
+        const updatedArticle = db.updateArticle(articleId, { status: newStatus });
+
+        res.json({
+            success: true,
+            article: updatedArticle,
+            message: newStatus === 'saved' ? 'Article saved' : 'Article unsaved'
         });
     } catch (error) {
         res.status(500).json({ success: false, error: error.message });
@@ -404,11 +429,12 @@ app.listen(PORT, () => {
     const stats = {
         total: db.getArticleCount(),
         pending: db.getArticleCount('pending'),
+        saved: db.getArticleCount('saved'),
         translated: db.getArticleCount('translated'),
         published: db.getArticleCount('published')
     };
     console.log('Database statistics:');
-    console.log(`  Total: ${stats.total} | Pending: ${stats.pending} | Translated: ${stats.translated} | Published: ${stats.published}`);
+    console.log(`  Total: ${stats.total} | Pending: ${stats.pending} | Saved: ${stats.saved} | Translated: ${stats.translated} | Published: ${stats.published}`);
 
     // Check available providers
     const available = checkProviders();
