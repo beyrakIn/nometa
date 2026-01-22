@@ -5,9 +5,17 @@
     <link>https://nometa.az/news/</link>
     <description>Texnologiya şirkətlərinin mühəndislik bloqlarından Azərbaycan dilinə tərcümə edilmiş məqalələr.</description>
     <language>az</language>
-    <lastBuildDate>Thu, 22 Jan 2026 18:41:48 GMT</lastBuildDate>
+    <lastBuildDate>Thu, 22 Jan 2026 18:56:52 GMT</lastBuildDate>
     <atom:link href="https://nometa.az/news/feed.xml" rel="self" type="application/rss+xml"/>
     
+    <item>
+      <title><![CDATA[Turbo ilə Rails-də Optimistik UI Qurma]]></title>
+      <link>https://nometa.az/news/building-optimistic-ui-in-rails-powered-by-turbo/</link>
+      <guid>https://nometa.az/news/building-optimistic-ui-in-rails-powered-by-turbo/</guid>
+      <pubDate>Thu, 22 Jan 2026 18:15:00 GMT</pubDate>
+      <description><![CDATA[Rails-də Turbo ilə İşləyən Optimist UI Yaratmaq Bu məqalə əvvəlcə Rails Designer bloqunda(https://railsdesigner.com/turbo-powered-optimistic-ui/) dərc edilmişdir. Bir müddət əvvəl sizə custom elements istifadə edərək optimist UI necə yaradılır(https://railsdesigner.com/custom-elements/)...]]></description>
+      <source url="https://dev.to">Dev.to</source>
+    </item>
     <item>
       <title><![CDATA[Binja: Nəhayət, Bun üçün Sürətli Jinja2/Django Şablon Mühərriki]]></title>
       <link>https://nometa.az/news/binja-finally-a-fast-jinja2django-template-engine-for-bun/</link>
@@ -17,7 +25,7 @@
       <source url="https://dev.to">Dev.to</source>
     </item>
     <item>
-      <title><![CDATA[# Statikdən Ağıllıya: Renderer, Gemini və MCP ilə AI-First Developer Portfoliosu Dizayn Etmək 🚀🚀]]></title>
+      <title><![CDATA[Statikdən Ağıllıya: Renderer, Gemini və MCP ilə AI-First Developer Portfoliosu Dizayn Etmək 🚀🚀]]></title>
       <link>https://nometa.az/news/from-static-to-smart-designing-an-ai-first-developer-portfolio-with-renderer-gem/</link>
       <guid>https://nometa.az/news/from-static-to-smart-designing-an-ai-first-developer-portfolio-with-renderer-gem/</guid>
       <pubDate>Thu, 22 Jan 2026 18:16:15 GMT</pubDate>
@@ -25,12 +33,12 @@
       <source url="https://dev.to">Dev.to</source>
     </item>
     <item>
-      <title><![CDATA[# Turbo ilə Rails-də Optimistik UI Qurma]]></title>
-      <link>https://nometa.az/news/building-optimistic-ui-in-rails-powered-by-turbo/</link>
-      <guid>https://nometa.az/news/building-optimistic-ui-in-rails-powered-by-turbo/</guid>
-      <pubDate>Thu, 22 Jan 2026 18:15:00 GMT</pubDate>
-      <description><![CDATA[Rails-də Turbo ilə İşləyən Optimist UI Yaratmaq Bu məqalə əvvəlcə Rails Designer bloqunda(https://railsdesigner.com/turbo-powered-optimistic-ui/) dərc edilmişdir. Bir müddət əvvəl sizə custom elements istifadə edərək optimist UI necə yaradılır(https://railsdesigner.com/custom-elements/)...]]></description>
-      <source url="https://dev.to">Dev.to</source>
+      <title><![CDATA[GitLab Bug Bounty Proqramı siyasət yeniləmələri]]></title>
+      <link>https://nometa.az/news/gitlab-bug-bounty-program-policy-updates/</link>
+      <guid>https://nometa.az/news/gitlab-bug-bounty-program-policy-updates/</guid>
+      <pubDate>Tue, 20 Jan 2026 00:00:00 GMT</pubDate>
+      <description><![CDATA[Başlıq: GitLab Bug Bounty Proqramı siyasət yeniləmələri Məzmun: GitLab HackerOne Bug Bounty proqramını ilk dəfə 2018-ci ildə təqdim etdi . O vaxtdan bəri, hərtərəfli süni intellektlə gücləndirilmiş DevSecOps platformamızı təhlükəsiz saxlamaq üçün tədqiqatçı icması ilə birlikdə çalışırıq. Şəffaflığa...]]></description>
+      <source url="https://about.gitlab.com/blog">GitLab</source>
     </item>
     <item>
       <title><![CDATA[MongoDB-ni Bilməməyin Dəyəri – Giriş]]></title>
@@ -41,12 +49,12 @@
       <source url="https://dev.to">Dev.to</source>
     </item>
     <item>
-      <title><![CDATA[GitLab Bug Bounty Proqramı siyasət yeniləmələri]]></title>
-      <link>https://nometa.az/news/gitlab-bug-bounty-program-policy-updates/</link>
-      <guid>https://nometa.az/news/gitlab-bug-bounty-program-policy-updates/</guid>
-      <pubDate>Tue, 20 Jan 2026 00:00:00 GMT</pubDate>
-      <description><![CDATA[Başlıq: GitLab Bug Bounty Proqramı siyasət yeniləmələri Məzmun: GitLab HackerOne Bug Bounty proqramını ilk dəfə 2018-ci ildə təqdim etdi . O vaxtdan bəri, hərtərəfli süni intellektlə gücləndirilmiş DevSecOps platformamızı təhlükəsiz saxlamaq üçün tədqiqatçı icması ilə birlikdə çalışırıq. Şəffaflığa...]]></description>
-      <source url="https://about.gitlab.com/blog">GitLab</source>
+      <title><![CDATA[Livewire Zəifliyi Serverlərimizdə Kripto Mayninqinə Necə Səbəb Oldu]]></title>
+      <link>https://nometa.az/news/how-a-livewire-vulnerability-led-to-crypto-mining-on-our-servers/</link>
+      <guid>https://nometa.az/news/how-a-livewire-vulnerability-led-to-crypto-mining-on-our-servers/</guid>
+      <pubDate>Thu, 22 Jan 2026 18:17:53 GMT</pubDate>
+      <description><![CDATA[Necə Livewire Zəifliyi Serverlərimizdə Kriptovalyuta Mayninqinə Səbəb Oldu Keçən həftə performans problemi kimi başlayan və kriptovalyuta mayninqi araşdırmasına çevrilən bir təhlükəsizlik insidenti yaşadıq. Baş verənləri və Livewire-i prodakşında işlədirsinizsə bilməli olduqlarınızı sizinlə...]]></description>
+      <source url="https://dev.to">Dev.to</source>
     </item>
   </channel>
 </rss>
