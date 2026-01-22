@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>NoMeta.az Xəbərlər</title>
+    <link>https://nometa.az/news/</link>
+    <description>Texnologiya şirkətlərinin mühəndislik bloqlarından Azərbaycan dilinə tərcümə edilmiş məqalələr.</description>
+    <language>az</language>
+    <lastBuildDate>Thu, 22 Jan 2026 18:03:00 GMT</lastBuildDate>
+    <atom:link href="https://nometa.az/news/feed.xml" rel="self" type="application/rss+xml"/>
+    
+    <item>
+      <title><![CDATA[MongoDB-ni Bilməməyin Dəyəri – Giriş]]></title>
+      <link>https://nometa.az/news/the-cost-of-not-knowing-mongodb-introduction/</link>
+      <guid>https://nometa.az/news/the-cost-of-not-knowing-mongodb-introduction/</guid>
+      <pubDate>Thu, 22 Jan 2026 16:49:52 GMT</pubDate>
+      <description><![CDATA[MongoDB-nu Bilməməyin Dəyəri – Giriş Bu seriyanın əsas məqsədi MongoDB-ni düzgün istifadə etməklə əldə edə biləcəyiniz əhəmiyyətli performans artımlarını və qənaət edə biləcəyiniz xərcləri nümayiş etdirməkdir. Buna ən yaxşı təcrübələrə əməl etmək, tətbiqinizin spesifik ehtiyaclarını öyrənmək və bu...]]></description>
+      <source url="https://dev.to">Dev.to</source>
+    </item>
+    <item>
+      <title><![CDATA[GitLab Bug Bounty Proqramı siyasət yeniləmələri]]></title>
+      <link>https://nometa.az/news/gitlab-bug-bounty-program-policy-updates/</link>
+      <guid>https://nometa.az/news/gitlab-bug-bounty-program-policy-updates/</guid>
+      <pubDate>Tue, 20 Jan 2026 00:00:00 GMT</pubDate>
+      <description><![CDATA[Başlıq: GitLab Bug Bounty Proqramı siyasət yeniləmələri Məzmun: GitLab HackerOne Bug Bounty proqramını ilk dəfə 2018-ci ildə təqdim etdi . O vaxtdan bəri, hərtərəfli süni intellektlə gücləndirilmiş DevSecOps platformamızı təhlükəsiz saxlamaq üçün tədqiqatçı icması ilə birlikdə çalışırıq. Şəffaflığa...]]></description>
+      <source url="https://about.gitlab.com/blog">GitLab</source>
+    </item>
+  </channel>
+</rss>
