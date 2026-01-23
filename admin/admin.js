@@ -36,10 +36,12 @@ document.addEventListener('DOMContentLoaded', () => {
     loadTranslatedArticles();
     loadProviders();
     loadStats();
+    loadApiKeys();
     initModalHandlers();
     initConfirmDialog();
     initBulkActions();
     initKeyboardShortcuts();
+    initApiKeyHandlers();
 });
 
 /**
@@ -409,6 +411,203 @@ async function loadRSSSources() {
         `).join('');
     } catch (error) {
         console.error('Failed to load RSS sources:', error);
+    }
+}
+
+/**
+ * Load API keys from database
+ */
+async function loadApiKeys() {
+    const container = document.getElementById('api-keys-list');
+    try {
+        const response = await fetch(`${API_BASE}/settings/api-keys`);
+        const keys = await response.json();
+
+        if (keys.length === 0) {
+            container.innerHTML = '<p class="empty-state-small">No API keys configured. Add one below.</p>';
+            return;
+        }
+
+        container.innerHTML = keys.map(key => `
+            <div class="api-key-item" data-provider="${key.provider}">
+                <div class="api-key-info">
+                    <span class="api-key-provider">${getProviderDisplayName(key.provider)}</span>
+                    <span class="api-key-value">${key.apiKey}</span>
+                    <span class="api-key-status ${key.enabled ? 'enabled' : 'disabled'}">${key.enabled ? 'Enabled' : 'Disabled'}</span>
+                </div>
+                <div class="api-key-actions">
+                    <button class="btn btn-ghost btn-sm" data-action="toggle" title="${key.enabled ? 'Disable' : 'Enable'}">
+                        ${key.enabled ? 'Disable' : 'Enable'}
+                    </button>
+                    <button class="btn btn-ghost btn-sm btn-danger-ghost" data-action="delete" title="Delete">
+                        Delete
+                    </button>
+                </div>
+            </div>
+        `).join('');
+
+        // Add event handlers
+        container.querySelectorAll('.api-key-item').forEach(item => {
+            const provider = item.dataset.provider;
+
+            item.querySelector('[data-action="toggle"]').addEventListener('click', () => {
+                toggleApiKeyStatus(provider);
+            });
+
+            item.querySelector('[data-action="delete"]').addEventListener('click', () => {
+                confirmDeleteApiKey(provider);
+            });
+        });
+    } catch (error) {
+        container.innerHTML = `<p class="error">Failed to load API keys: ${error.message}</p>`;
+        console.error('Failed to load API keys:', error);
+    }
+}
+
+/**
+ * Get display name for provider
+ */
+function getProviderDisplayName(provider) {
+    const names = {
+        'claude-api': 'Claude API (Anthropic)',
+        'openai': 'OpenAI',
+        'claude-cli': 'Claude Code CLI'
+    };
+    return names[provider] || provider;
+}
+
+/**
+ * Initialize API key form handlers
+ */
+function initApiKeyHandlers() {
+    // Toggle password visibility
+    const toggleBtn = document.getElementById('toggle-api-key-visibility');
+    const apiKeyInput = document.getElementById('api-key-value');
+
+    if (toggleBtn && apiKeyInput) {
+        toggleBtn.addEventListener('click', () => {
+            const isPassword = apiKeyInput.type === 'password';
+            apiKeyInput.type = isPassword ? 'text' : 'password';
+            toggleBtn.textContent = isPassword ? '🙈' : '👁';
+        });
+    }
+
+    // Save API key
+    const saveBtn = document.getElementById('save-api-key-btn');
+    if (saveBtn) {
+        saveBtn.addEventListener('click', saveApiKey);
+    }
+}
+
+/**
+ * Save API key
+ */
+async function saveApiKey() {
+    const provider = document.getElementById('api-key-provider').value;
+    const apiKey = document.getElementById('api-key-value').value.trim();
+
+    if (!apiKey) {
+        showToast('Please enter an API key', 'error');
+        return;
+    }
+
+    const btn = document.getElementById('save-api-key-btn');
+    btn.disabled = true;
+    btn.textContent = 'Saving...';
+
+    try {
+        const response = await fetch(`${API_BASE}/settings/api-keys`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ provider, apiKey, enabled: true })
+        });
+
+        const data = await response.json();
+
+        if (data.success) {
+            showToast(`API key for ${getProviderDisplayName(provider)} saved!`, 'success');
+            document.getElementById('api-key-value').value = '';
+            await loadApiKeys();
+            await loadProviders(); // Refresh provider status
+        } else {
+            throw new Error(data.error || 'Failed to save API key');
+        }
+    } catch (error) {
+        showToast(`Failed to save: ${error.message}`, 'error');
+    } finally {
+        btn.disabled = false;
+        btn.textContent = 'Save API Key';
+    }
+}
+
+/**
+ * Toggle API key enabled status
+ */
+async function toggleApiKeyStatus(provider) {
+    try {
+        // Get current status
+        const response = await fetch(`${API_BASE}/settings/api-keys`);
+        const keys = await response.json();
+        const key = keys.find(k => k.provider === provider);
+
+        if (!key) {
+            showToast('API key not found', 'error');
+            return;
+        }
+
+        const newEnabled = !key.enabled;
+
+        const toggleResponse = await fetch(`${API_BASE}/settings/api-keys/${provider}/toggle`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ enabled: newEnabled })
+        });
+
+        const data = await toggleResponse.json();
+
+        if (data.success) {
+            showToast(`${getProviderDisplayName(provider)} ${newEnabled ? 'enabled' : 'disabled'}`, 'success');
+            await loadApiKeys();
+            await loadProviders();
+        } else {
+            throw new Error(data.error || 'Toggle failed');
+        }
+    } catch (error) {
+        showToast(`Failed: ${error.message}`, 'error');
+    }
+}
+
+/**
+ * Confirm and delete API key
+ */
+function confirmDeleteApiKey(provider) {
+    showConfirmDialog(
+        'Delete API Key',
+        `Are you sure you want to delete the API key for ${getProviderDisplayName(provider)}?`,
+        () => deleteApiKey(provider)
+    );
+}
+
+/**
+ * Delete API key
+ */
+async function deleteApiKey(provider) {
+    try {
+        const response = await fetch(`${API_BASE}/settings/api-keys/${provider}`, {
+            method: 'DELETE'
+        });
+
+        const data = await response.json();
+
+        if (data.success) {
+            showToast(`API key for ${getProviderDisplayName(provider)} deleted`, 'success');
+            await loadApiKeys();
+            await loadProviders();
+        } else {
+            throw new Error(data.error || 'Delete failed');
+        }
+    } catch (error) {
+        showToast(`Failed to delete: ${error.message}`, 'error');
     }
 }
 

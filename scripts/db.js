@@ -70,6 +70,17 @@ function initDb() {
             )
         `);
 
+        // Create api_keys table for translation providers
+        db.exec(`
+            CREATE TABLE IF NOT EXISTS api_keys (
+                provider TEXT PRIMARY KEY,
+                api_key TEXT NOT NULL,
+                enabled INTEGER DEFAULT 1,
+                created_at TEXT,
+                updated_at TEXT
+            )
+        `);
+
         logger.info('db', 'Database initialized', { path: DB_PATH });
         return db;
     } catch (error) {
@@ -352,6 +363,99 @@ function getSources() {
 }
 
 /**
+ * Get API key for a provider
+ * @param {string} provider - Provider name (claude-api, openai, claude-cli)
+ * @returns {string|null} - API key or null if not found/disabled
+ */
+function getApiKey(provider) {
+    const db = getDb();
+    const row = db.prepare('SELECT api_key FROM api_keys WHERE provider = ? AND enabled = 1').get(provider);
+    return row ? row.api_key : null;
+}
+
+/**
+ * Set API key for a provider
+ * @param {string} provider - Provider name
+ * @param {string} apiKey - API key value
+ * @param {boolean} enabled - Whether the provider is enabled
+ */
+function setApiKey(provider, apiKey, enabled = true) {
+    const db = getDb();
+    const now = new Date().toISOString();
+
+    db.prepare(`
+        INSERT INTO api_keys (provider, api_key, enabled, created_at, updated_at)
+        VALUES (?, ?, ?, ?, ?)
+        ON CONFLICT(provider) DO UPDATE SET
+            api_key = excluded.api_key,
+            enabled = excluded.enabled,
+            updated_at = excluded.updated_at
+    `).run(provider, apiKey, enabled ? 1 : 0, now, now);
+
+    logger.info('db', 'API key updated', { provider, enabled });
+}
+
+/**
+ * Delete API key for a provider
+ * @param {string} provider - Provider name
+ */
+function deleteApiKey(provider) {
+    const db = getDb();
+    const result = db.prepare('DELETE FROM api_keys WHERE provider = ?').run(provider);
+    if (result.changes > 0) {
+        logger.info('db', 'API key deleted', { provider });
+        return true;
+    }
+    return false;
+}
+
+/**
+ * Get all API keys (with masked values for security)
+ * @param {boolean} includeFull - Whether to include full API key (for internal use)
+ * @returns {Array} - Array of provider configs
+ */
+function getAllApiKeys(includeFull = false) {
+    const db = getDb();
+    const rows = db.prepare('SELECT * FROM api_keys ORDER BY provider').all();
+
+    return rows.map(row => ({
+        provider: row.provider,
+        apiKey: includeFull ? row.api_key : maskApiKey(row.api_key),
+        enabled: row.enabled === 1,
+        createdAt: row.created_at,
+        updatedAt: row.updated_at
+    }));
+}
+
+/**
+ * Toggle API key enabled status
+ * @param {string} provider - Provider name
+ * @param {boolean} enabled - New enabled status
+ */
+function toggleApiKey(provider, enabled) {
+    const db = getDb();
+    const now = new Date().toISOString();
+
+    const result = db.prepare(`
+        UPDATE api_keys SET enabled = ?, updated_at = ? WHERE provider = ?
+    `).run(enabled ? 1 : 0, now, provider);
+
+    if (result.changes > 0) {
+        logger.info('db', 'API key toggled', { provider, enabled });
+        return true;
+    }
+    return false;
+}
+
+/**
+ * Mask API key for display (show first 4 and last 4 chars)
+ */
+function maskApiKey(key) {
+    if (!key || key.length < 12) return '****';
+    return key.substring(0, 4) + '****' + key.substring(key.length - 4);
+}
+
+/**
  * Convert database row to article object (camelCase)
  */
 function rowToArticle(row) {
@@ -418,5 +522,11 @@ module.exports = {
     setMetadata,
     getArticleCount,
     getSources,
+    // API key management
+    getApiKey,
+    setApiKey,
+    deleteApiKey,
+    getAllApiKeys,
+    toggleApiKey,
     DB_PATH
 };

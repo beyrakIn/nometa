@@ -27,7 +27,7 @@ app.use(express.static(path.join(__dirname, '..', 'admin')));
 app.use((req, res, next) => {
     res.header('Access-Control-Allow-Origin', '*');
     res.header('Access-Control-Allow-Headers', 'Content-Type');
-    res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+    res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
     if (req.method === 'OPTIONS') {
         return res.sendStatus(200);
     }
@@ -298,6 +298,90 @@ app.get('/api/stats', (req, res) => {
     }
 });
 
+/**
+ * API Key Management Endpoints
+ */
+
+// Get all API keys (masked for security)
+app.get('/api/settings/api-keys', (req, res) => {
+    try {
+        const keys = db.getAllApiKeys(false); // false = masked
+        res.json(keys);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
+
+// Add or update an API key
+app.post('/api/settings/api-keys', (req, res) => {
+    try {
+        const { provider, apiKey, enabled = true } = req.body;
+
+        if (!provider || !apiKey) {
+            return res.status(400).json({ success: false, error: 'Provider and API key required' });
+        }
+
+        // Validate provider name
+        const validProviders = ['claude-api', 'openai'];
+        if (!validProviders.includes(provider)) {
+            return res.status(400).json({ success: false, error: `Invalid provider. Must be one of: ${validProviders.join(', ')}` });
+        }
+
+        db.setApiKey(provider, apiKey, enabled);
+
+        res.json({
+            success: true,
+            message: `API key for ${provider} saved`
+        });
+    } catch (error) {
+        res.status(500).json({ success: false, error: error.message });
+    }
+});
+
+// Toggle API key enabled status
+app.put('/api/settings/api-keys/:provider/toggle', (req, res) => {
+    try {
+        const { provider } = req.params;
+        const { enabled } = req.body;
+
+        if (typeof enabled !== 'boolean') {
+            return res.status(400).json({ success: false, error: 'Enabled status required (boolean)' });
+        }
+
+        const updated = db.toggleApiKey(provider, enabled);
+
+        if (updated) {
+            res.json({
+                success: true,
+                message: `${provider} ${enabled ? 'enabled' : 'disabled'}`
+            });
+        } else {
+            res.status(404).json({ success: false, error: 'API key not found' });
+        }
+    } catch (error) {
+        res.status(500).json({ success: false, error: error.message });
+    }
+});
+
+// Delete an API key
+app.delete('/api/settings/api-keys/:provider', (req, res) => {
+    try {
+        const { provider } = req.params;
+        const deleted = db.deleteApiKey(provider);
+
+        if (deleted) {
+            res.json({
+                success: true,
+                message: `API key for ${provider} deleted`
+            });
+        } else {
+            res.status(404).json({ success: false, error: 'API key not found' });
+        }
+    } catch (error) {
+        res.status(500).json({ success: false, error: error.message });
+    }
+});
+
 // Delete an article
 app.delete('/api/articles/:id', (req, res) => {
     try {
@@ -480,8 +564,8 @@ app.listen(PORT, () => {
 
         if (available.length === 0) {
             console.log('\nTo enable translation:');
-            console.log('  - Set ANTHROPIC_API_KEY for Claude API');
-            console.log('  - Set OPENAI_API_KEY for OpenAI');
+            console.log('  - Go to Settings tab and add API keys, or');
+            console.log('  - Set ANTHROPIC_API_KEY / OPENAI_API_KEY env vars, or');
             console.log('  - Install claude CLI for Claude Code');
         }
         console.log('');

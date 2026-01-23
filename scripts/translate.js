@@ -41,9 +41,11 @@ Content:
 async function translateWithClaudeAPI(text, title) {
     const Anthropic = require('@anthropic-ai/sdk');
 
-    const apiKey = process.env.ANTHROPIC_API_KEY;
+    // Try database first, fall back to environment variable
+    db.initDb();
+    const apiKey = db.getApiKey('claude-api') || process.env.ANTHROPIC_API_KEY;
     if (!apiKey) {
-        const error = new Error('ANTHROPIC_API_KEY environment variable is not set');
+        const error = new Error('Claude API key not configured (check Settings or set ANTHROPIC_API_KEY)');
         logger.error('translate', 'Claude API key missing', { error: error.message });
         throw error;
     }
@@ -93,9 +95,11 @@ async function translateWithClaudeAPI(text, title) {
 async function translateWithOpenAI(text, title) {
     const OpenAI = require('openai');
 
-    const apiKey = process.env.OPENAI_API_KEY;
+    // Try database first, fall back to environment variable
+    db.initDb();
+    const apiKey = db.getApiKey('openai') || process.env.OPENAI_API_KEY;
     if (!apiKey) {
-        const error = new Error('OPENAI_API_KEY environment variable is not set');
+        const error = new Error('OpenAI API key not configured (check Settings or set OPENAI_API_KEY)');
         logger.error('translate', 'OpenAI API key missing', { error: error.message });
         throw error;
     }
@@ -299,17 +303,19 @@ function getTranslatedArticle(slug) {
 
 /**
  * Check available translation providers
+ * Checks database first, falls back to environment variables
  */
 function checkProviders() {
+    db.initDb();
     const available = [];
 
-    // Check Claude API
-    if (process.env.ANTHROPIC_API_KEY) {
+    // Check Claude API (database first, then env)
+    if (db.getApiKey('claude-api') || process.env.ANTHROPIC_API_KEY) {
         available.push('claude-api');
     }
 
-    // Check OpenAI API
-    if (process.env.OPENAI_API_KEY) {
+    // Check OpenAI API (database first, then env)
+    if (db.getApiKey('openai') || process.env.OPENAI_API_KEY) {
         available.push('openai');
     }
 
@@ -342,8 +348,8 @@ if (require.main === module) {
 
     if (providers.length === 0) {
         console.log('\nTo use translation providers:');
-        console.log('  - Claude API: Set ANTHROPIC_API_KEY environment variable');
-        console.log('  - OpenAI: Set OPENAI_API_KEY environment variable');
+        console.log('  - Configure API keys via Admin Panel (Settings tab)');
+        console.log('  - Or set environment variables: ANTHROPIC_API_KEY, OPENAI_API_KEY');
         console.log('  - Claude CLI: Install claude CLI tool');
     }
 }
