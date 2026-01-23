@@ -142,7 +142,7 @@ function getAllArticles(filters = {}) {
         query += ' WHERE ' + conditions.join(' AND ');
     }
 
-    query += ' ORDER BY published_date DESC';
+    query += ' ORDER BY fetched_at DESC, published_date DESC';
 
     const rows = db.prepare(query).all(...params);
     return rows.map(rowToArticle);

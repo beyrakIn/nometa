@@ -13,6 +13,8 @@ let providers = [];
 let confirmCallback = null;
 let selectedArticles = new Set();
 let translatingArticleId = null; // Track which article is being translated
+let savedArticles = [];
+let previewMode = 'raw'; // 'raw' or 'preview'
 
 // DOM Elements
 const articlesView = document.getElementById('articles-view');
@@ -28,12 +30,15 @@ const toastContainer = document.getElementById('toast-container');
 const bulkActionsBar = document.getElementById('bulk-actions-bar');
 const selectAllCheckbox = document.getElementById('select-all-checkbox');
 const selectionCountEl = document.getElementById('selection-count');
+const savedView = document.getElementById('saved-view');
+const savedList = document.getElementById('saved-list');
 
 // Initialize
 document.addEventListener('DOMContentLoaded', () => {
     initNavigation();
     loadArticles();
     loadTranslatedArticles();
+    loadSavedArticles();
     loadProviders();
     loadStats();
     loadApiKeys();
@@ -42,6 +47,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initBulkActions();
     initKeyboardShortcuts();
     initApiKeyHandlers();
+    initPreviewToggle();
 });
 
 /**
@@ -60,6 +66,11 @@ function initNavigation() {
 
             btn.classList.add('active');
             document.getElementById(`${viewName}-view`).classList.add('active');
+
+            // Load saved articles when switching to saved tab
+            if (viewName === 'saved') {
+                loadSavedArticles();
+            }
         });
     });
 
@@ -146,6 +157,107 @@ async function fetchArticles() {
 }
 
 /**
+ * Load saved articles
+ */
+async function loadSavedArticles() {
+    try {
+        savedList.innerHTML = '<p class="loading">Loading saved articles...</p>';
+
+        const response = await fetch(`${API_BASE}/articles`);
+        const data = await response.json();
+
+        // Filter only saved articles
+        savedArticles = (data.articles || []).filter(a => a.status === 'saved');
+        renderSavedArticles(savedArticles);
+    } catch (error) {
+        savedList.innerHTML = `<p class="loading">Error loading saved articles: ${error.message}</p>`;
+    }
+}
+
+/**
+ * Render saved articles list
+ */
+function renderSavedArticles(items) {
+    if (!items.length) {
+        savedList.innerHTML = '<div class="empty-state"><p>No saved articles.</p><p>Star articles you want to read later.</p></div>';
+        return;
+    }
+
+    savedList.innerHTML = items.map(article => {
+        const isTranslating = translatingArticleId === article.id;
+
+        return `
+        <div class="article-card saved" data-id="${article.id}">
+            <div class="article-card-header">
+                <div class="article-card-info" data-action="open">
+                    <h3 class="article-card-title">${escapeHtml(article.title)}</h3>
+                    <div class="article-card-meta">
+                        <span>${article.source}</span>
+                        <span>${formatDate(article.publishedDate)}</span>
+                    </div>
+                </div>
+                <div class="article-card-actions">
+                    <span class="article-card-status status-saved">saved</span>
+                    <button class="btn btn-ghost btn-sm btn-translate ${isTranslating ? 'translating' : ''}"
+                            data-action="translate"
+                            title="Translate"
+                            ${isTranslating ? 'disabled' : ''}>
+                        ${isTranslating ? 'Translating...' : 'Translate'}
+                    </button>
+                    <button class="btn btn-ghost btn-icon btn-saved" data-action="unsave" title="Unsave">
+                        ★
+                    </button>
+                    <button class="btn btn-ghost btn-icon btn-danger-ghost" data-action="delete" title="Delete">
+                        &#128465;
+                    </button>
+                </div>
+            </div>
+            <p class="article-card-excerpt" data-action="open">${escapeHtml(article.description || '')}</p>
+        </div>
+    `}).join('');
+
+    // Add click handlers
+    savedList.querySelectorAll('.article-card').forEach(card => {
+        const articleId = card.dataset.id;
+        const article = savedArticles.find(a => a.id === articleId);
+
+        // Open modal on card info click
+        card.querySelectorAll('[data-action="open"]').forEach(el => {
+            el.addEventListener('click', () => {
+                if (article) openArticleModal(article);
+            });
+        });
+
+        // Unsave button
+        const unsaveBtn = card.querySelector('[data-action="unsave"]');
+        if (unsaveBtn) {
+            unsaveBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                toggleSaveArticle(articleId).then(() => loadSavedArticles());
+            });
+        }
+
+        // Translate button
+        const translateBtn = card.querySelector('[data-action="translate"]');
+        if (translateBtn) {
+            translateBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                translateArticleFromCard(articleId);
+            });
+        }
+
+        // Delete button
+        const deleteBtn = card.querySelector('[data-action="delete"]');
+        if (deleteBtn) {
+            deleteBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                confirmDeleteArticle(articleId, article?.title);
+            });
+        }
+    });
+}
+
+/**
  * Load translated articles
  */
 async function loadTranslatedArticles() {
@@ -222,19 +334,36 @@ function renderArticles(items) {
     articlesList.innerHTML = items.map(article => {
         const isTranslating = translatingArticleId === article.id;
         const isSaved = article.status === 'saved';
+        const isTranslated = article.status === 'translated';
+        const isPublished = article.status === 'published';
         const canTranslate = article.status === 'pending' || article.status === 'saved';
+        const hasTranslation = isTranslated || isPublished;
+
+        // For translated articles, show translated title with original as subtitle
+        const displayTitle = hasTranslation && article.translatedTitle ? article.translatedTitle : article.title;
+        const originalTitle = hasTranslation && article.translatedTitle ? article.originalTitle : null;
+
+        // Card classes
+        const cardClasses = [
+            'article-card',
+            article.status === 'disabled' ? 'disabled' : '',
+            isSaved ? 'saved' : '',
+            hasTranslation ? 'has-translation' : ''
+        ].filter(Boolean).join(' ');
 
         return `
-        <div class="article-card ${article.status === 'disabled' ? 'disabled' : ''} ${isSaved ? 'saved' : ''}" data-id="${article.id}">
+        <div class="${cardClasses}" data-id="${article.id}">
             <div class="article-card-header">
                 <div class="checkbox-wrapper" data-action="select">
                     <input type="checkbox" data-article-id="${article.id}" ${selectedArticles.has(article.id) ? 'checked' : ''}>
                 </div>
                 <div class="article-card-info" data-action="open">
-                    <h3 class="article-card-title">${escapeHtml(article.title)}</h3>
+                    <h3 class="article-card-title">${escapeHtml(displayTitle)}</h3>
+                    ${originalTitle ? `<p class="article-card-original-title">${escapeHtml(originalTitle)}</p>` : ''}
                     <div class="article-card-meta">
                         <span>${article.source}</span>
                         <span>${formatDate(article.publishedDate)}</span>
+                        ${hasTranslation ? `<span class="translation-badge">Translated</span>` : ''}
                     </div>
                 </div>
                 <div class="article-card-actions">
@@ -245,6 +374,11 @@ function renderArticles(items) {
                             title="Translate"
                             ${isTranslating ? 'disabled' : ''}>
                         ${isTranslating ? 'Translating...' : 'Translate'}
+                    </button>
+                    ` : ''}
+                    ${isTranslated ? `
+                    <button class="btn btn-ghost btn-sm btn-publish" data-action="publish" title="Publish">
+                        Publish
                     </button>
                     ` : ''}
                     <button class="btn btn-ghost btn-icon ${isSaved ? 'btn-saved' : ''}" data-action="toggle-save" title="${isSaved ? 'Unsave' : 'Save'}">
@@ -308,6 +442,15 @@ function renderArticles(items) {
             translateBtn.addEventListener('click', (e) => {
                 e.stopPropagation();
                 translateArticleFromCard(articleId);
+            });
+        }
+
+        // Publish button (from card)
+        const publishBtn = card.querySelector('[data-action="publish"]');
+        if (publishBtn) {
+            publishBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                publishArticleFromCard(articleId);
             });
         }
 
@@ -684,6 +827,7 @@ async function deleteArticle(articleId) {
             closeModal();
             await loadArticles();
             await loadTranslatedArticles();
+            await loadSavedArticles();
         } else {
             throw new Error(data.error || 'Delete failed');
         }
@@ -734,6 +878,7 @@ async function toggleSaveArticle(articleId) {
         if (data.success) {
             showToast(data.message, 'success');
             await loadArticles();
+            await loadSavedArticles();
         } else {
             throw new Error(data.error || 'Save toggle failed');
         }
@@ -783,6 +928,7 @@ async function translateArticleFromCard(articleId) {
             translatingArticleId = null;
             await loadArticles();
             await loadTranslatedArticles();
+            await loadSavedArticles();
         } else {
             throw new Error(data.error || 'Translation failed');
         }
@@ -796,6 +942,55 @@ async function translateArticleFromCard(articleId) {
         }
     } finally {
         translatingArticleId = null;
+    }
+}
+
+/**
+ * Publish article directly from card (not modal)
+ */
+async function publishArticleFromCard(articleId) {
+    const article = articles.find(a => a.id === articleId);
+    if (!article) return;
+
+    const card = articlesList.querySelector(`.article-card[data-id="${articleId}"]`);
+    const publishBtn = card?.querySelector('[data-action="publish"]');
+
+    if (publishBtn) {
+        publishBtn.disabled = true;
+        publishBtn.textContent = 'Publishing...';
+    }
+
+    try {
+        const response = await fetch(`${API_BASE}/publish`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                articleId: articleId,
+                slug: article.slug,
+                autoPush: true
+            })
+        });
+
+        const data = await response.json();
+
+        if (data.success) {
+            if (data.pushed) {
+                showToast('Article published and pushed to GitHub!', 'success');
+            } else {
+                showToast(`Article published! ${data.pushMessage || ''}`, 'info');
+            }
+            await loadArticles();
+            await loadTranslatedArticles();
+            await loadSavedArticles();
+        } else {
+            throw new Error(data.error || 'Publish failed');
+        }
+    } catch (error) {
+        showToast(`Publish failed: ${error.message}`, 'error');
+        if (publishBtn) {
+            publishBtn.disabled = false;
+            publishBtn.textContent = 'Publish';
+        }
     }
 }
 
@@ -910,7 +1105,8 @@ function openArticleModal(article) {
     const disableBtn = document.getElementById('modal-disable-btn');
     disableBtn.textContent = article.status === 'disabled' ? 'Enable' : 'Disable';
 
-    // Reset translation panel
+    // Reset translation panel and preview state
+    resetPreviewState();
     document.getElementById('translated-content').textContent = '';
     document.getElementById('translation-status').className = 'translation-status';
     document.getElementById('translation-status').textContent = '';
@@ -930,6 +1126,7 @@ function openArticleModal(article) {
             document.getElementById('translation-status').className = 'translation-status success';
             document.getElementById('translation-status').textContent = `Translated with ${article.translationProvider || 'AI'}`;
             document.getElementById('publish-btn').disabled = article.status === 'published';
+            showViewToggle();
         }
     } else {
         translationPanel.style.display = 'block';
@@ -944,6 +1141,7 @@ function openArticleModal(article) {
  */
 function openTranslatedModal(article) {
     currentArticle = article;
+    resetPreviewState();
 
     document.getElementById('modal-title').textContent = article.title;
     document.getElementById('modal-source').textContent = article.source;
@@ -961,6 +1159,7 @@ function openTranslatedModal(article) {
     document.getElementById('translated-content').textContent = article.content || '';
     document.getElementById('translation-status').className = 'translation-status success';
     document.getElementById('translation-status').textContent = `Translated with ${article.translationProvider || 'AI'}`;
+    showViewToggle();
 
     // Enable publish if not already published
     document.getElementById('publish-btn').disabled = article.status === 'published';
@@ -979,6 +1178,7 @@ function openTranslatedModal(article) {
 function closeModal() {
     modal.classList.remove('active');
     currentArticle = null;
+    resetPreviewState();
 }
 
 /**
@@ -1015,10 +1215,12 @@ async function translateArticle() {
             document.getElementById('publish-btn').disabled = false;
             currentArticle = data.article;
             showToast('Translation complete!', 'success');
+            showViewToggle();
 
             // Refresh lists
             await loadArticles();
             await loadTranslatedArticles();
+            await loadSavedArticles();
         } else {
             throw new Error(data.error || 'Translation failed');
         }
@@ -1391,6 +1593,20 @@ function initKeyboardShortcuts() {
                         document.getElementById('modal-disable-btn').click();
                     }
                     break;
+                case 'm':
+                    // Switch to markdown (raw) view
+                    if (document.getElementById('view-toggle').style.display !== 'none') {
+                        e.preventDefault();
+                        switchViewMode('raw');
+                    }
+                    break;
+                case 'v':
+                    // Switch to preview view
+                    if (document.getElementById('view-toggle').style.display !== 'none') {
+                        e.preventDefault();
+                        switchViewMode('preview');
+                    }
+                    break;
             }
             return;
         }
@@ -1404,9 +1620,13 @@ function initKeyboardShortcuts() {
                 break;
             case '2':
                 e.preventDefault();
-                switchToView('translated');
+                switchToView('saved');
                 break;
             case '3':
+                e.preventDefault();
+                switchToView('translated');
+                break;
+            case '4':
                 e.preventDefault();
                 switchToView('settings');
                 break;
@@ -1538,8 +1758,9 @@ function showShortcutsModal() {
                     <div class="shortcuts-section">
                         <h3>Navigation</h3>
                         <div class="shortcut-item"><kbd>1</kbd> <span>Articles tab</span></div>
-                        <div class="shortcut-item"><kbd>2</kbd> <span>Translated tab</span></div>
-                        <div class="shortcut-item"><kbd>3</kbd> <span>Settings tab</span></div>
+                        <div class="shortcut-item"><kbd>2</kbd> <span>Saved tab</span></div>
+                        <div class="shortcut-item"><kbd>3</kbd> <span>Translated tab</span></div>
+                        <div class="shortcut-item"><kbd>4</kbd> <span>Settings tab</span></div>
                         <div class="shortcut-item"><kbd>Esc</kbd> <span>Close modal / Clear selection</span></div>
                         <div class="shortcut-item"><kbd>?</kbd> <span>Show this help</span></div>
                     </div>
@@ -1562,6 +1783,8 @@ function showShortcutsModal() {
                         <div class="shortcut-item"><kbd>T</kbd> <span>Translate</span></div>
                         <div class="shortcut-item"><kbd>P</kbd> <span>Publish</span></div>
                         <div class="shortcut-item"><kbd>D</kbd> <span>Disable / Enable</span></div>
+                        <div class="shortcut-item"><kbd>M</kbd> <span>Show markdown</span></div>
+                        <div class="shortcut-item"><kbd>V</kbd> <span>Show preview</span></div>
                         <div class="shortcut-item"><kbd>Esc</kbd> <span>Close modal</span></div>
                     </div>
                     <div class="shortcuts-section">
@@ -1593,6 +1816,86 @@ function closeShortcutsModal() {
     if (shortcutsModal) {
         shortcutsModal.classList.remove('active');
     }
+}
+
+/**
+ * Initialize preview toggle
+ */
+function initPreviewToggle() {
+    const viewToggle = document.getElementById('view-toggle');
+    const toggleBtns = viewToggle.querySelectorAll('.view-toggle-btn');
+
+    toggleBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const mode = btn.dataset.mode;
+            switchViewMode(mode);
+        });
+    });
+}
+
+/**
+ * Switch between raw markdown and preview mode
+ */
+function switchViewMode(mode) {
+    if (mode === previewMode) return;
+
+    previewMode = mode;
+
+    const viewToggle = document.getElementById('view-toggle');
+    const toggleBtns = viewToggle.querySelectorAll('.view-toggle-btn');
+    const rawContent = document.getElementById('translated-content');
+    const previewContent = document.getElementById('translated-preview');
+
+    // Update button states
+    toggleBtns.forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.mode === mode);
+    });
+
+    if (mode === 'preview') {
+        // Render markdown to HTML
+        const markdown = rawContent.textContent;
+        if (markdown && typeof marked !== 'undefined') {
+            previewContent.innerHTML = marked.parse(markdown);
+        }
+        rawContent.style.display = 'none';
+        previewContent.style.display = 'block';
+    } else {
+        rawContent.style.display = 'block';
+        previewContent.style.display = 'none';
+    }
+}
+
+/**
+ * Reset preview state (called when opening/closing modal)
+ */
+function resetPreviewState() {
+    previewMode = 'raw';
+
+    const viewToggle = document.getElementById('view-toggle');
+    const toggleBtns = viewToggle.querySelectorAll('.view-toggle-btn');
+    const rawContent = document.getElementById('translated-content');
+    const previewContent = document.getElementById('translated-preview');
+
+    // Reset button states
+    toggleBtns.forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.mode === 'raw');
+    });
+
+    // Show raw, hide preview
+    rawContent.style.display = 'block';
+    previewContent.style.display = 'none';
+    previewContent.innerHTML = '';
+
+    // Hide toggle by default
+    viewToggle.style.display = 'none';
+}
+
+/**
+ * Show view toggle when there's translated content
+ */
+function showViewToggle() {
+    const viewToggle = document.getElementById('view-toggle');
+    viewToggle.style.display = 'flex';
 }
 
 /**
