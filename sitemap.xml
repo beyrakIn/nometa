@@ -20,30 +20,6 @@
         <priority>0.7</priority>
     </url>
     <url>
-        <loc>https://nometa.az/news/a-lightning-fast-ngrok-alternative-in-go/</loc>
-        <lastmod>2026-01-23</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.7</priority>
-    </url>
-    <url>
-        <loc>https://nometa.az/news/evolution-of-making-api-calls-in-javascript/</loc>
-        <lastmod>2026-01-23</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.7</priority>
-    </url>
-    <url>
-        <loc>https://nometa.az/news/how-i-stopped-fighting-text-in-image-and-started-shipping-designs/</loc>
-        <lastmod>2026-01-23</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.7</priority>
-    </url>
-    <url>
-        <loc>https://nometa.az/news/-article-section-header/</loc>
-        <lastmod>2026-01-23</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.7</priority>
-    </url>
-    <url>
         <loc>https://nometa.az/news/building-optimistic-ui-in-rails-powered-by-turbo/</loc>
         <lastmod>2026-01-22</lastmod>
         <changefreq>monthly</changefreq>

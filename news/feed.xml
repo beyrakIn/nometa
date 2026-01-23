@@ -5,7 +5,7 @@
     <link>https://nometa.az/news/</link>
     <description>Texnologiya şirkətlərinin mühəndislik bloqlarından Azərbaycan dilinə tərcümə edilmiş məqalələr.</description>
     <language>az</language>
-    <lastBuildDate>Fri, 23 Jan 2026 14:55:50 GMT</lastBuildDate>
+    <lastBuildDate>Fri, 23 Jan 2026 15:08:44 GMT</lastBuildDate>
     <atom:link href="https://nometa.az/news/feed.xml" rel="self" type="application/rss+xml"/>
     
     <item>
@@ -14,38 +14,6 @@
       <guid>https://nometa.az/news/how-a-livewire-vulnerability-led-to-crypto-mining-on-our-servers/</guid>
       <pubDate>Thu, 22 Jan 2026 18:17:53 GMT</pubDate>
       <description><![CDATA[Necə Livewire Zəifliyi Serverlərimizdə Kriptovalyuta Mayninqinə Səbəb Oldu Keçən həftə performans problemi kimi başlayan və kriptovalyuta mayninqi araşdırmasına çevrilən bir təhlükəsizlik insidenti yaşadıq. Baş verənləri və Livewire-i prodakşında işlədirsinizsə bilməli olduqlarınızı sizinlə...]]></description>
-      <source url="https://dev.to">Dev.to</source>
-    </item>
-    <item>
-      <title><![CDATA[Go-da Şimşək Sürətli ngrok Alternativi]]></title>
-      <link>https://nometa.az/news/a-lightning-fast-ngrok-alternative-in-go/</link>
-      <guid>https://nometa.az/news/a-lightning-fast-ngrok-alternative-in-go/</guid>
-      <pubDate>Fri, 23 Jan 2026 09:08:38 GMT</pubDate>
-      <description><![CDATA[Qısa Xülasə Bir axşam ərzində (~3.5 saat konsentrasiyalı kodlaşdırma vaxtı) Go dilində tam ngrok-a bənzər tunel xidməti qurdum. Həm müştəri CLI, həm də backend server daxildir. Ümumi kod: ~800 sətir. Cloudflare Tunnels ilə işləyir və localhost-dan internetə pulsuz, təhlükəsiz HTTPS tunelləri təqdim...]]></description>
-      <source url="https://dev.to">Dev.to</source>
-    </item>
-    <item>
-      <title><![CDATA[JavaScript-də API Sorğularının Təkamülü]]></title>
-      <link>https://nometa.az/news/evolution-of-making-api-calls-in-javascript/</link>
-      <guid>https://nometa.az/news/evolution-of-making-api-calls-in-javascript/</guid>
-      <pubDate>Fri, 23 Jan 2026 09:57:46 GMT</pubDate>
-      <description><![CDATA[JavaScript-də API Çağırışlarının Təkamülü Səhifəni yeniləmədən serverdən məlumat əldə etmək imkanı veb-i statik sənədlər kolleksiyasından bu gün istifadə etdiyimiz interaktiv "Web 2.0"-a çevirdi.  1. Erkən Dövr: XMLHTTPRequest (AJAX) 2000-ci illərin əvvəllərində Microsoft XMLHttpRequest (XHR)...]]></description>
-      <source url="https://dev.to">Dev.to</source>
-    </item>
-    <item>
-      <title><![CDATA[Mən Şəkildəki Mətinlə Mübarizəni Necə Dayandırdım və Dizaynları Təhvil Verməyə Başladım]]></title>
-      <link>https://nometa.az/news/how-i-stopped-fighting-text-in-image-and-started-shipping-designs/</link>
-      <guid>https://nometa.az/news/how-i-stopped-fighting-text-in-image-and-started-shipping-designs/</guid>
-      <pubDate>Fri, 23 Jan 2026 10:12:00 GMT</pubDate>
-      <description><![CDATA[Mən Şəkildəki Mətn Problemi ilə Mübarizəni Necə Dayandırdım və Dizaynları İstehsala Buraxmağa Başladım  Başlıq: Pipeline-ımı dəyişən an (2026-01-10, layihə: Stitchboard v0.9) 2026-01-10 tarixində divara dirəndim. Stitchboard üçün (şablonlardan marketinq kartları yaradan kiçik yan layihəm) bir...]]></description>
-      <source url="https://dev.to">Dev.to</source>
-    </item>
-    <item>
-      <title><![CDATA[Semantik Verstka: Niyə `<article>`, `<section>` və `<header>` teqləri lazımdır?]]></title>
-      <link>https://nometa.az/news/-article-section-header/</link>
-      <guid>https://nometa.az/news/-article-section-header/</guid>
-      <pubDate>Thu, 22 Jan 2026 16:53:53 GMT</pubDate>
-      <description><![CDATA[Semantik Vəraqlamə:  ,   və   teqləri nə üçün lazımdır? Əvvəllər veb-səhifənin strukturunu yaratmaq universal bloklarından tikinti qurmağa bənzəyirdi. Tərtibatçılar bu konteynerlərdən hər şey üçün istifadə edirdilər: başlıq üçün, menyu üçün, məqalə üçün, alt hissə üçün. Vizual olaraq sayt düzgün...]]></description>
       <source url="https://dev.to">Dev.to</source>
     </item>
     <item>
