@@ -7,6 +7,7 @@ const fs = require('fs');
 const path = require('path');
 const { marked } = require('marked');
 const db = require('./db');
+const logger = require('./logger');
 
 const TEMPLATES_DIR = path.join(__dirname, '..', 'templates');
 const NEWS_DIR = path.join(__dirname, '..', 'news');
@@ -16,11 +17,31 @@ const SITEMAP_FILE = path.join(__dirname, '..', 'sitemap.xml');
 const CSS_VERSION = '2026012203';
 
 /**
- * Load template file
+ * Load template file with error handling
  */
 function loadTemplate(name) {
     const filepath = path.join(TEMPLATES_DIR, name);
-    return fs.readFileSync(filepath, 'utf-8');
+    try {
+        return fs.readFileSync(filepath, 'utf-8');
+    } catch (error) {
+        const message = `Failed to load template "${name}": ${error.message}`;
+        logger.error('generate', message, { filepath, error: error.code });
+        throw new Error(message);
+    }
+}
+
+/**
+ * Safe file write with error handling
+ */
+function safeWriteFile(filepath, content) {
+    try {
+        fs.writeFileSync(filepath, content, 'utf-8');
+        return true;
+    } catch (error) {
+        const message = `Failed to write file "${filepath}": ${error.message}`;
+        logger.error('generate', message, { filepath, error: error.code });
+        throw new Error(message);
+    }
 }
 
 /**
@@ -143,7 +164,7 @@ function removeDuplicateTitle(html) {
  * Generate article page
  */
 function generateArticlePage(article, template) {
-    console.log(`  Generating: ${article.slug}/`);
+    logger.debug('generate', 'Generating article page', { slug: article.slug });
 
     // Create article directory
     const articleDir = path.join(NEWS_DIR, article.slug);
@@ -218,7 +239,7 @@ function generateArticlePage(article, template) {
 
     // Write HTML file
     const outputPath = path.join(articleDir, 'index.html');
-    fs.writeFileSync(outputPath, html, 'utf-8');
+    safeWriteFile(outputPath, html);
 
     return outputPath;
 }
@@ -227,7 +248,7 @@ function generateArticlePage(article, template) {
  * Generate blog index page
  */
 function generateIndexPage(articles, template) {
-    console.log('  Generating index page...');
+    logger.debug('generate', 'Generating index page', { articleCount: articles.length });
 
     // Build articles HTML
     let articlesHtml = '';
@@ -261,7 +282,7 @@ function generateIndexPage(articles, template) {
 
     // Write index HTML file
     const outputPath = path.join(NEWS_DIR, 'index.html');
-    fs.writeFileSync(outputPath, html, 'utf-8');
+    safeWriteFile(outputPath, html);
 
     return outputPath;
 }
@@ -270,7 +291,7 @@ function generateIndexPage(articles, template) {
  * Generate RSS feed
  */
 function generateRSSFeed(articles) {
-    console.log('  Generating RSS feed...');
+    logger.debug('generate', 'Generating RSS feed', { articleCount: Math.min(articles.length, 20) });
 
     const items = articles.slice(0, 20).map(article => `
     <item>
@@ -296,7 +317,7 @@ function generateRSSFeed(articles) {
 </rss>`;
 
     const outputPath = path.join(NEWS_DIR, 'feed.xml');
-    fs.writeFileSync(outputPath, rss.trim(), 'utf-8');
+    safeWriteFile(outputPath, rss.trim());
 
     return outputPath;
 }
@@ -305,7 +326,7 @@ function generateRSSFeed(articles) {
  * Update sitemap.xml with news pages
  */
 function updateSitemap(articles) {
-    console.log('  Updating sitemap...');
+    logger.debug('generate', 'Updating sitemap', { articleCount: articles.length });
 
     // Generate news URLs
     const newsUrls = articles.map(article => `
@@ -333,7 +354,7 @@ function updateSitemap(articles) {
     ${newsUrls}
 </urlset>`;
 
-    fs.writeFileSync(SITEMAP_FILE, sitemap.trim(), 'utf-8');
+    safeWriteFile(SITEMAP_FILE, sitemap.trim());
     return SITEMAP_FILE;
 }
 
@@ -341,7 +362,9 @@ function updateSitemap(articles) {
  * Main generation function
  */
 function generateBlog() {
-    console.log('Starting blog generation...\n');
+    const endTimer = logger.timer('generate', 'Blog generation');
+
+    logger.info('generate', 'Starting blog generation');
 
     // Initialize database
     db.initDb();
@@ -349,6 +372,7 @@ function generateBlog() {
     // Ensure news directory exists
     if (!fs.existsSync(NEWS_DIR)) {
         fs.mkdirSync(NEWS_DIR, { recursive: true });
+        logger.debug('generate', 'Created news directory', { path: NEWS_DIR });
     }
 
     // Load templates
@@ -357,16 +381,14 @@ function generateBlog() {
 
     // Get published articles from database
     const articles = getPublishedArticles();
-    console.log(`Found ${articles.length} articles to publish\n`);
+    logger.info('generate', 'Found articles to publish', { count: articles.length });
 
     // Generate article pages
-    console.log('Generating article pages:');
     for (const article of articles) {
         generateArticlePage(article, articleTemplate);
     }
 
     // Generate index page
-    console.log('\nGenerating supporting files:');
     generateIndexPage(articles, indexTemplate);
 
     // Generate RSS feed
@@ -375,9 +397,10 @@ function generateBlog() {
     // Update sitemap
     updateSitemap(articles);
 
-    console.log('\nBlog generation complete!');
-    console.log(`  Articles: ${articles.length}`);
-    console.log(`  Output: ${NEWS_DIR}`);
+    endTimer({
+        articlesGenerated: articles.length,
+        outputDir: NEWS_DIR
+    });
 
     return {
         articlesGenerated: articles.length,

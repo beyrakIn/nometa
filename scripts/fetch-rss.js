@@ -5,6 +5,7 @@
 
 const Parser = require('rss-parser');
 const db = require('./db');
+const logger = require('./logger');
 
 // Configuration
 const CONFIG = {
@@ -113,7 +114,7 @@ function extractDescription(content, maxLength = 200) {
  */
 async function fetchFeed(feed, parser) {
     try {
-        console.log(`  Fetching from ${feed.name}...`);
+        logger.debug('fetch', 'Fetching feed', { source: feed.name, url: feed.url });
         const parsed = await parser.parseURL(feed.url);
 
         // Apply article limit (0 = no limit)
@@ -148,6 +149,10 @@ async function fetchFeed(feed, parser) {
             // Apply filtering
             const filterResult = shouldFilterArticle(article);
             if (filterResult.filtered) {
+                logger.debug('fetch', 'Article filtered', {
+                    title: article.title,
+                    reason: filterResult.reason
+                });
                 filtered++;
                 continue; // Skip this article
             }
@@ -155,11 +160,20 @@ async function fetchFeed(feed, parser) {
             articles.push(article);
         }
 
-        console.log(`    Found ${articles.length} articles (${filtered} filtered out)`);
-        return articles;
+        logger.info('fetch', 'Feed fetched', {
+            source: feed.name,
+            found: articles.length,
+            filtered
+        });
+        return { articles, error: null };
     } catch (error) {
-        console.error(`  Error fetching ${feed.name}:`, error.message);
-        return [];
+        logger.error('fetch', 'Feed fetch failed', {
+            source: feed.name,
+            url: feed.url,
+            error: error.message,
+            stack: error.stack
+        });
+        return { articles: [], error: error.message };
     }
 }
 
@@ -167,7 +181,9 @@ async function fetchFeed(feed, parser) {
  * Main fetch function - fetches all feeds and stores in database
  */
 async function fetchAllFeeds() {
-    console.log('Starting RSS fetch...\n');
+    const endTimer = logger.timer('fetch', 'RSS fetch');
+
+    logger.info('fetch', 'Starting RSS fetch', { feedCount: RSS_FEEDS.length });
 
     // Initialize database
     db.initDb();
@@ -181,11 +197,17 @@ async function fetchAllFeeds() {
 
     // Fetch from all feeds
     let newCount = 0;
+    let feedErrors = [];
     for (const feed of RSS_FEEDS) {
-        const articles = await fetchFeed(feed, parser);
+        const result = await fetchFeed(feed, parser);
+
+        // Track feed errors
+        if (result.error) {
+            feedErrors.push({ source: feed.name, error: result.error });
+        }
 
         // Insert new articles (duplicates are automatically skipped by unique URL constraint)
-        for (const article of articles) {
+        for (const article of result.articles) {
             // Check if article already exists by URL
             if (!db.getArticleByUrl(article.originalUrl)) {
                 if (db.insertArticle(article)) {
@@ -195,18 +217,22 @@ async function fetchAllFeeds() {
         }
     }
 
-    console.log(`\nFound ${newCount} new articles`);
-
     // Update last fetched timestamp
     db.setMetadata('last_fetched', new Date().toISOString());
 
     const totalCount = db.getArticleCount();
-    console.log(`\nTotal articles in database: ${totalCount}`);
+
+    endTimer({
+        newArticles: newCount,
+        totalArticles: totalCount,
+        feedErrors: feedErrors.length
+    });
 
     return {
         newArticles: newCount,
         totalCount: totalCount,
-        lastFetched: new Date().toISOString()
+        lastFetched: new Date().toISOString(),
+        feedErrors: feedErrors.length > 0 ? feedErrors : null
     };
 }
 
@@ -271,9 +297,14 @@ module.exports = {
 // Run if called directly
 if (require.main === module) {
     fetchAllFeeds()
-        .then(() => console.log('\nDone!'))
+        .then((result) => {
+            logger.info('fetch', 'Fetch complete', result);
+        })
         .catch(err => {
-            console.error('Fatal error:', err);
+            logger.error('fetch', 'Fatal error', {
+                error: err.message,
+                stack: err.stack
+            });
             process.exit(1);
         });
 }

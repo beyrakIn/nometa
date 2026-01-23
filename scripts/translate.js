@@ -3,10 +3,11 @@
  * Supports: Claude API, OpenAI API, Claude Code CLI
  */
 
-const { exec, execSync } = require('child_process');
+const { spawn, execSync } = require('child_process');
 const fs = require('fs');
 const path = require('path');
 const db = require('./db');
+const logger = require('./logger');
 
 /**
  * Translation prompt template for Azerbaijani
@@ -42,7 +43,9 @@ async function translateWithClaudeAPI(text, title) {
 
     const apiKey = process.env.ANTHROPIC_API_KEY;
     if (!apiKey) {
-        throw new Error('ANTHROPIC_API_KEY environment variable is not set');
+        const error = new Error('ANTHROPIC_API_KEY environment variable is not set');
+        logger.error('translate', 'Claude API key missing', { error: error.message });
+        throw error;
     }
 
     const client = new Anthropic({ apiKey });
@@ -51,17 +54,37 @@ async function translateWithClaudeAPI(text, title) {
         .replace('{{title}}', title)
         .replace('{{content}}', text);
 
-    console.log('  Sending to Claude API...');
-
-    const response = await client.messages.create({
+    logger.debug('translate', 'Sending to Claude API', {
         model: 'claude-sonnet-4-20250514',
-        max_tokens: 8192,
-        messages: [
-            { role: 'user', content: prompt }
-        ]
+        contentLength: text.length
     });
 
-    return response.content[0].text;
+    try {
+        const response = await client.messages.create({
+            model: 'claude-sonnet-4-20250514',
+            max_tokens: 8192,
+            messages: [
+                { role: 'user', content: prompt }
+            ]
+        });
+
+        // Validate response structure
+        if (!response.content || !response.content[0] || !response.content[0].text) {
+            throw new Error('Invalid Claude API response: missing content');
+        }
+
+        logger.debug('translate', 'Claude API response received', {
+            outputLength: response.content[0].text.length
+        });
+
+        return response.content[0].text;
+    } catch (error) {
+        logger.error('translate', 'Claude API request failed', {
+            error: error.message,
+            stack: error.stack
+        });
+        throw error;
+    }
 }
 
 /**
@@ -72,7 +95,9 @@ async function translateWithOpenAI(text, title) {
 
     const apiKey = process.env.OPENAI_API_KEY;
     if (!apiKey) {
-        throw new Error('OPENAI_API_KEY environment variable is not set');
+        const error = new Error('OPENAI_API_KEY environment variable is not set');
+        logger.error('translate', 'OpenAI API key missing', { error: error.message });
+        throw error;
     }
 
     const client = new OpenAI({ apiKey });
@@ -81,21 +106,42 @@ async function translateWithOpenAI(text, title) {
         .replace('{{title}}', title)
         .replace('{{content}}', text);
 
-    console.log('  Sending to OpenAI API...');
-
-    const response = await client.chat.completions.create({
+    logger.debug('translate', 'Sending to OpenAI API', {
         model: 'gpt-4-turbo-preview',
-        max_tokens: 8192,
-        messages: [
-            { role: 'user', content: prompt }
-        ]
+        contentLength: text.length
     });
 
-    return response.choices[0].message.content;
+    try {
+        const response = await client.chat.completions.create({
+            model: 'gpt-4-turbo-preview',
+            max_tokens: 8192,
+            messages: [
+                { role: 'user', content: prompt }
+            ]
+        });
+
+        // Validate response structure
+        if (!response.choices || !response.choices[0] || !response.choices[0].message || !response.choices[0].message.content) {
+            throw new Error('Invalid OpenAI API response: missing content');
+        }
+
+        logger.debug('translate', 'OpenAI API response received', {
+            outputLength: response.choices[0].message.content.length
+        });
+
+        return response.choices[0].message.content;
+    } catch (error) {
+        logger.error('translate', 'OpenAI API request failed', {
+            error: error.message,
+            stack: error.stack
+        });
+        throw error;
+    }
 }
 
 /**
  * Translate using Claude Code CLI (local, no API key needed)
+ * Uses spawn with stdin to avoid shell injection vulnerabilities
  */
 async function translateWithClaudeCLI(text, title) {
     return new Promise((resolve, reject) => {
@@ -103,30 +149,55 @@ async function translateWithClaudeCLI(text, title) {
             .replace('{{title}}', title)
             .replace('{{content}}', text);
 
-        // Create a temporary file for the prompt
-        const tempFile = path.join(__dirname, '..', 'content', '.temp-prompt.txt');
-        fs.writeFileSync(tempFile, prompt, 'utf-8');
+        logger.debug('translate', 'Sending to Claude CLI', {
+            contentLength: text.length
+        });
 
-        console.log('  Sending to Claude Code CLI...');
-
-        // Use async exec to avoid blocking the event loop
-        exec(`cat "${tempFile}" | claude --print`, {
-            encoding: 'utf-8',
-            maxBuffer: 10 * 1024 * 1024, // 10MB buffer
+        // Use spawn with stdin to avoid shell injection (no temp file or shell command)
+        const claudeProcess = spawn('claude', ['--print'], {
+            stdio: ['pipe', 'pipe', 'pipe'],
             timeout: 300000 // 5 minute timeout
-        }, (error, stdout, stderr) => {
-            // Clean up temp file
-            if (fs.existsSync(tempFile)) {
-                fs.unlinkSync(tempFile);
-            }
+        });
 
-            if (error) {
-                reject(new Error(`Claude CLI error: ${error.message}`));
+        let stdout = '';
+        let stderr = '';
+
+        claudeProcess.stdout.on('data', (data) => {
+            stdout += data.toString();
+        });
+
+        claudeProcess.stderr.on('data', (data) => {
+            stderr += data.toString();
+        });
+
+        claudeProcess.on('error', (error) => {
+            logger.error('translate', 'Claude CLI spawn failed', {
+                error: error.message,
+                stack: error.stack
+            });
+            reject(new Error(`Claude CLI error: ${error.message}`));
+        });
+
+        claudeProcess.on('close', (code) => {
+            if (code !== 0) {
+                logger.error('translate', 'Claude CLI execution failed', {
+                    exitCode: code,
+                    stderr
+                });
+                reject(new Error(`Claude CLI exited with code ${code}: ${stderr}`));
                 return;
             }
 
+            logger.debug('translate', 'Claude CLI response received', {
+                outputLength: stdout.trim().length
+            });
+
             resolve(stdout.trim());
         });
+
+        // Write prompt to stdin and close it
+        claudeProcess.stdin.write(prompt);
+        claudeProcess.stdin.end();
     });
 }
 
@@ -134,7 +205,10 @@ async function translateWithClaudeCLI(text, title) {
  * Main translation function with provider selection
  */
 async function translate(text, title, provider = 'claude-api') {
-    console.log(`\nTranslating with provider: ${provider}`);
+    logger.info('translate', 'Starting translation', {
+        provider,
+        contentLength: text.length
+    });
 
     switch (provider) {
         case 'claude-api':
@@ -144,7 +218,9 @@ async function translate(text, title, provider = 'claude-api') {
         case 'claude-cli':
             return await translateWithClaudeCLI(text, title);
         default:
-            throw new Error(`Unknown translation provider: ${provider}`);
+            const error = new Error(`Unknown translation provider: ${provider}`);
+            logger.error('translate', 'Unknown provider', { provider });
+            throw error;
     }
 }
 
@@ -152,9 +228,14 @@ async function translate(text, title, provider = 'claude-api') {
  * Translate an article and save to database
  */
 async function translateArticle(article, provider = 'claude-api') {
-    console.log(`\nTranslating: "${article.title}"`);
-    console.log(`  Source: ${article.source}`);
-    console.log(`  Provider: ${provider}`);
+    const endTimer = logger.timer('translate', 'Article translation');
+
+    logger.info('translate', 'Starting article translation', {
+        articleId: article.id,
+        title: article.title,
+        source: article.source,
+        provider
+    });
 
     try {
         // Initialize database
@@ -180,11 +261,22 @@ async function translateArticle(article, provider = 'claude-api') {
             status: 'translated'
         });
 
-        console.log(`  Translation saved to database`);
+        endTimer({
+            articleId: article.id,
+            provider,
+            inputLength: originalContent.length,
+            outputLength: translatedContent.length
+        });
 
         return updatedArticle;
     } catch (error) {
-        console.error(`  Translation failed: ${error.message}`);
+        logger.error('translate', 'Article translation failed', {
+            articleId: article.id,
+            title: article.title,
+            provider,
+            error: error.message,
+            stack: error.stack
+        });
         throw error;
     }
 }
@@ -226,9 +318,10 @@ function checkProviders() {
         execSync('which claude', { encoding: 'utf-8' });
         available.push('claude-cli');
     } catch {
-        // Claude CLI not available
+        logger.debug('translate', 'Claude CLI not available');
     }
 
+    logger.debug('translate', 'Providers checked', { available });
     return available;
 }
 

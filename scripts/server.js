@@ -5,10 +5,11 @@
 
 const express = require('express');
 const path = require('path');
-const { execSync } = require('child_process');
+const { execSync, execFileSync } = require('child_process');
 
 // Import database module
 const db = require('./db');
+const logger = require('./logger');
 
 // Import our modules
 const { fetchAllFeeds, loadExistingArticles, updateArticleStatus, getArticleById, RSS_FEEDS, CONFIG, FILTER_KEYWORDS } = require('./fetch-rss');
@@ -118,7 +119,12 @@ app.post('/api/translate', async (req, res) => {
             translatedContent: translatedArticle.content
         });
     } catch (error) {
-        console.error('Translation error:', error);
+        logger.error('server', 'Translation request failed', {
+            articleId: req.body.articleId,
+            provider: req.body.provider,
+            error: error.message,
+            stack: error.stack
+        });
         res.status(500).json({ success: false, error: error.message });
     }
 });
@@ -139,16 +145,23 @@ function pushToGitHub(articleTitle) {
         // Check if there are changes to commit
         const status = execSync('git status --porcelain news/ sitemap.xml', { cwd: rootDir, encoding: 'utf-8' });
         if (!status.trim()) {
+            logger.info('server', 'No changes to push');
             return { pushed: false, message: 'No changes to push' };
         }
 
-        // Get current branch and commit and push
-        const branch = execSync('git rev-parse --abbrev-ref HEAD', { cwd: rootDir, encoding: 'utf-8' }).trim();
-        execSync(`git commit -m "${commitMessage}"`, { cwd: rootDir, encoding: 'utf-8' });
-        execSync(`git push origin ${branch}`, { cwd: rootDir, encoding: 'utf-8' });
+        // Get current branch and commit and push (using execFileSync to prevent shell injection)
+        const branch = execFileSync('git', ['rev-parse', '--abbrev-ref', 'HEAD'], { cwd: rootDir, encoding: 'utf-8' }).trim();
+        execFileSync('git', ['commit', '-m', commitMessage], { cwd: rootDir, encoding: 'utf-8' });
+        execFileSync('git', ['push', 'origin', branch], { cwd: rootDir, encoding: 'utf-8' });
 
+        logger.info('server', 'Pushed to GitHub', { branch, commitMessage });
         return { pushed: true, message: `Pushed to ${branch}` };
     } catch (error) {
+        logger.error('server', 'Git push failed', {
+            error: error.message,
+            stack: error.stack,
+            cwd: rootDir
+        });
         throw new Error(`Git push failed: ${error.message}`);
     }
 }
@@ -182,16 +195,17 @@ app.post('/api/publish', (req, res) => {
 
         // Auto-generate blog to create the HTML page
         const result = generateBlog();
-        console.log(`Blog generated: ${result.articlesGenerated} articles`);
 
         // Push to GitHub if autoPush is enabled
         let pushResult = { pushed: false, message: 'Auto-push disabled' };
         if (autoPush) {
             try {
                 pushResult = pushToGitHub(updatedArticle.title);
-                console.log(`Git push: ${pushResult.message}`);
             } catch (pushError) {
-                console.error('Git push failed:', pushError.message);
+                logger.error('server', 'Git push failed during publish', {
+                    articleId: article.id,
+                    error: pushError.message
+                });
                 pushResult = { pushed: false, message: pushError.message };
             }
         }
@@ -405,13 +419,49 @@ app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, '..', 'admin', 'index.html'));
 });
 
+// Graceful shutdown handler
+function shutdown(signal) {
+    logger.info('server', 'Shutdown signal received', { signal });
+
+    // Close database connection
+    db.closeDb();
+    logger.info('server', 'Database connection closed');
+
+    process.exit(0);
+}
+
+// Register shutdown handlers
+process.on('SIGTERM', () => shutdown('SIGTERM'));
+process.on('SIGINT', () => shutdown('SIGINT'));
+
 // Start server
 app.listen(PORT, () => {
     // Initialize database
     db.initDb();
-    console.log(`Database initialized at: ${db.DB_PATH}`);
 
-    console.log(`
+    // Display database statistics
+    const stats = {
+        total: db.getArticleCount(),
+        pending: db.getArticleCount('pending'),
+        saved: db.getArticleCount('saved'),
+        translated: db.getArticleCount('translated'),
+        published: db.getArticleCount('published')
+    };
+
+    // Check available providers
+    const available = checkProviders();
+
+    // Log startup info
+    logger.info('server', 'Server started', {
+        port: PORT,
+        dbPath: db.DB_PATH,
+        providers: available,
+        stats
+    });
+
+    // Human-readable output for local dev
+    if (!process.env.CI && process.env.LOG_FORMAT !== 'json') {
+        console.log(`
 ╔════════════════════════════════════════════════════════════╗
 ║                                                            ║
 ║   NoMeta.az Admin Panel                                    ║
@@ -424,29 +474,18 @@ app.listen(PORT, () => {
 ║                                                            ║
 ╚════════════════════════════════════════════════════════════╝
 `);
+        console.log('Database statistics:');
+        console.log(`  Total: ${stats.total} | Pending: ${stats.pending} | Saved: ${stats.saved} | Translated: ${stats.translated} | Published: ${stats.published}`);
+        console.log('\nAvailable translation providers:', available.length > 0 ? available.join(', ') : 'None');
 
-    // Display database statistics
-    const stats = {
-        total: db.getArticleCount(),
-        pending: db.getArticleCount('pending'),
-        saved: db.getArticleCount('saved'),
-        translated: db.getArticleCount('translated'),
-        published: db.getArticleCount('published')
-    };
-    console.log('Database statistics:');
-    console.log(`  Total: ${stats.total} | Pending: ${stats.pending} | Saved: ${stats.saved} | Translated: ${stats.translated} | Published: ${stats.published}`);
-
-    // Check available providers
-    const available = checkProviders();
-    console.log('\nAvailable translation providers:', available.length > 0 ? available.join(', ') : 'None');
-
-    if (available.length === 0) {
-        console.log('\nTo enable translation:');
-        console.log('  - Set ANTHROPIC_API_KEY for Claude API');
-        console.log('  - Set OPENAI_API_KEY for OpenAI');
-        console.log('  - Install claude CLI for Claude Code');
+        if (available.length === 0) {
+            console.log('\nTo enable translation:');
+            console.log('  - Set ANTHROPIC_API_KEY for Claude API');
+            console.log('  - Set OPENAI_API_KEY for OpenAI');
+            console.log('  - Install claude CLI for Claude Code');
+        }
+        console.log('');
     }
-    console.log('');
 });
 
 module.exports = app;

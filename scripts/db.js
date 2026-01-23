@@ -6,6 +6,7 @@
 const Database = require('better-sqlite3');
 const fs = require('fs');
 const path = require('path');
+const logger = require('./logger');
 
 const CONTENT_DIR = path.join(__dirname, '..', 'content');
 const DB_PATH = path.join(CONTENT_DIR, 'nometa.db');
@@ -21,53 +22,64 @@ function initDb() {
     // Create content directory if it doesn't exist
     if (!fs.existsSync(CONTENT_DIR)) {
         fs.mkdirSync(CONTENT_DIR, { recursive: true });
+        logger.debug('db', 'Created content directory', { path: CONTENT_DIR });
     }
 
-    db = new Database(DB_PATH);
+    try {
+        db = new Database(DB_PATH);
 
-    // Enable WAL mode for better concurrent access
-    db.pragma('journal_mode = WAL');
+        // Enable WAL mode for better concurrent access
+        db.pragma('journal_mode = WAL');
 
-    // Create articles table
-    db.exec(`
-        CREATE TABLE IF NOT EXISTS articles (
-            id TEXT PRIMARY KEY,
-            title TEXT NOT NULL,
-            original_url TEXT UNIQUE NOT NULL,
-            source TEXT NOT NULL,
-            source_url TEXT,
-            published_date TEXT,
-            description TEXT,
-            content TEXT,
-            slug TEXT UNIQUE NOT NULL,
-            status TEXT DEFAULT 'pending',
-            fetched_at TEXT,
+        // Create articles table
+        db.exec(`
+            CREATE TABLE IF NOT EXISTS articles (
+                id TEXT PRIMARY KEY,
+                title TEXT NOT NULL,
+                original_url TEXT UNIQUE NOT NULL,
+                source TEXT NOT NULL,
+                source_url TEXT,
+                published_date TEXT,
+                description TEXT,
+                content TEXT,
+                slug TEXT UNIQUE NOT NULL,
+                status TEXT DEFAULT 'pending',
+                fetched_at TEXT,
 
-            -- translation fields
-            translated_title TEXT,
-            translated_content TEXT,
-            translated_at TEXT,
-            translation_provider TEXT,
-            published_at TEXT
-        )
-    `);
+                -- translation fields
+                translated_title TEXT,
+                translated_content TEXT,
+                translated_at TEXT,
+                translation_provider TEXT,
+                published_at TEXT
+            )
+        `);
 
-    // Create indexes
-    db.exec(`
-        CREATE INDEX IF NOT EXISTS idx_articles_status ON articles(status);
-        CREATE INDEX IF NOT EXISTS idx_articles_source ON articles(source);
-        CREATE INDEX IF NOT EXISTS idx_articles_slug ON articles(slug);
-    `);
+        // Create indexes
+        db.exec(`
+            CREATE INDEX IF NOT EXISTS idx_articles_status ON articles(status);
+            CREATE INDEX IF NOT EXISTS idx_articles_source ON articles(source);
+            CREATE INDEX IF NOT EXISTS idx_articles_slug ON articles(slug);
+        `);
 
-    // Create metadata table
-    db.exec(`
-        CREATE TABLE IF NOT EXISTS metadata (
-            key TEXT PRIMARY KEY,
-            value TEXT
-        )
-    `);
+        // Create metadata table
+        db.exec(`
+            CREATE TABLE IF NOT EXISTS metadata (
+                key TEXT PRIMARY KEY,
+                value TEXT
+            )
+        `);
 
-    return db;
+        logger.info('db', 'Database initialized', { path: DB_PATH });
+        return db;
+    } catch (error) {
+        logger.error('db', 'Database initialization failed', {
+            path: DB_PATH,
+            error: error.message,
+            stack: error.stack
+        });
+        throw error;
+    }
 }
 
 /**
@@ -173,12 +185,25 @@ function insertArticle(article) {
 
     try {
         stmt.run(articleToRow(article));
+        logger.debug('db', 'Article inserted', {
+            articleId: article.id,
+            source: article.source,
+            slug: article.slug
+        });
         return true;
     } catch (error) {
         if (error.code === 'SQLITE_CONSTRAINT_UNIQUE') {
-            // Article already exists (by URL or slug)
+            logger.debug('db', 'Duplicate article skipped', {
+                url: article.originalUrl,
+                slug: article.slug
+            });
             return false;
         }
+        logger.error('db', 'Article insert failed', {
+            articleId: article.id,
+            error: error.message,
+            stack: error.stack
+        });
         throw error;
     }
 }
@@ -219,17 +244,34 @@ function updateArticle(id, data) {
     }
 
     if (fields.length === 0) {
+        logger.warn('db', 'Update called with no fields', { articleId: id });
         return null;
     }
 
     params.id = id;
     const query = `UPDATE articles SET ${fields.join(', ')} WHERE id = @id`;
-    const result = db.prepare(query).run(params);
 
-    if (result.changes > 0) {
-        return getArticleById(id);
+    try {
+        const result = db.prepare(query).run(params);
+
+        if (result.changes > 0) {
+            logger.debug('db', 'Article updated', {
+                articleId: id,
+                fields: Object.keys(data)
+            });
+            return getArticleById(id);
+        }
+        logger.warn('db', 'Article not found for update', { articleId: id });
+        return null;
+    } catch (error) {
+        logger.error('db', 'Article update failed', {
+            articleId: id,
+            fields: Object.keys(data),
+            error: error.message,
+            stack: error.stack
+        });
+        throw error;
     }
-    return null;
 }
 
 /**
@@ -237,19 +279,33 @@ function updateArticle(id, data) {
  */
 function deleteArticle(id) {
     const db = getDb();
-    const result = db.prepare('DELETE FROM articles WHERE id = ?').run(id);
-    return result.changes > 0;
+    try {
+        const result = db.prepare('DELETE FROM articles WHERE id = ?').run(id);
+        if (result.changes > 0) {
+            logger.info('db', 'Article deleted', { articleId: id });
+            return true;
+        }
+        logger.warn('db', 'Article not found for deletion', { articleId: id });
+        return false;
+    } catch (error) {
+        logger.error('db', 'Article deletion failed', {
+            articleId: id,
+            error: error.message,
+            stack: error.stack
+        });
+        throw error;
+    }
 }
 
 /**
- * Get published articles (status = 'published' or 'translated')
+ * Get published articles (status = 'published' only)
  * Ordered by published_at (or translated_at as fallback) DESC so latest appears first
  */
 function getPublishedArticles() {
     const db = getDb();
     const rows = db.prepare(`
         SELECT * FROM articles
-        WHERE status IN ('translated', 'published')
+        WHERE status = 'published'
         ORDER BY COALESCE(published_at, translated_at) DESC, published_date DESC
     `).all();
     return rows.map(rowToArticle);

@@ -8,7 +8,7 @@ NoMeta.az is an educational static website teaching developers to avoid "meta qu
 
 - **Language**: Azerbaijani (English version at nometa.xyz)
 - **Type**: Static HTML/CSS site with Node.js tooling for blog generation
-- **Deployment**: GitHub Pages (automatic via GitHub Actions on push to main)
+- **Deployment**: GitHub Pages (automatic via GitHub Actions on push to main; `admin/`, `scripts/`, `templates/`, `content/` are excluded from deploy)
 
 ## Development Commands
 
@@ -16,7 +16,7 @@ NoMeta.az is an educational static website teaching developers to avoid "meta qu
 npm install                    # Install dependencies
 
 # Blog system
-npm run admin                  # Start local admin panel at http://localhost:3000
+npm run admin                  # Start local admin panel (PORT=3000 by default)
 npm run fetch                  # Fetch articles from RSS feeds
 npm run translate              # Check available translation providers
 npm run generate               # Generate blog HTML from translated articles
@@ -27,6 +27,21 @@ node generate-images.js        # Generate favicon/OG images from SVG
 ```
 
 No test framework configured.
+
+## Environment Variables
+
+```bash
+# Translation providers (at least one required for translation)
+ANTHROPIC_API_KEY              # Claude API key (preferred)
+OPENAI_API_KEY                 # OpenAI API key (fallback)
+
+# Server configuration
+PORT=3000                      # Admin panel port (default: 3000)
+
+# Logging
+LOG_LEVEL=info                 # debug | info | warn | error
+LOG_FORMAT=json                # Set for JSON output (auto-enabled in CI)
+```
 
 ## Architecture
 
@@ -39,18 +54,21 @@ The blog system fetches articles from tech blogs, translates them to Azerbaijani
 
 **Pipeline**: RSS feeds → SQLite DB (`content/nometa.db`) → Translation → `news/` HTML
 
-**Article workflow**: `pending` → `translated` → `published`
+**Article statuses**: `pending` | `saved` | `translated` | `published` | `disabled`
 
 - `scripts/fetch-rss.js` - Fetches from GitLab, Dev.to, Martin Fowler, A List Apart; filters promotional content
 - `scripts/translate.js` - Multi-provider translation (Claude API, OpenAI, Claude CLI)
 - `scripts/generate-blog.js` - Generates HTML pages, RSS feed, updates sitemap
 - `scripts/server.js` - Express admin panel for managing articles
 - `scripts/db.js` - SQLite database wrapper (better-sqlite3)
+- `scripts/logger.js` - Structured logging with log levels and JSON output for CI
 
 **Translation providers** (in order of preference):
 1. `claude-api` - Requires `ANTHROPIC_API_KEY`
 2. `openai` - Requires `OPENAI_API_KEY`
 3. `claude-cli` - Uses local Claude Code CLI
+
+**Admin panel workflow**: Run `npm run admin`, open browser at http://localhost:3000. Use the UI to fetch articles, translate them, and publish. Publishing auto-generates HTML and pushes to GitHub (triggering deploy).
 
 ### Content & Output Directories
 - `content/nometa.db` - SQLite database (single source of truth for articles)
@@ -70,7 +88,7 @@ Mobile breakpoint at 600px
 
 ## Key Conventions
 
-1. **Cache busting**: Update version in CSS links: `styles.css?v=YYYYMMDDNN`. For blog templates, update `CSS_VERSION` in `scripts/generate-blog.js`
+1. **Cache busting**: Update version in CSS links: `styles.css?v=YYYYMMDDNN`. For blog pages, update `CSS_VERSION` constant at top of `scripts/generate-blog.js`
 2. **Accessibility**: Maintain ARIA labels, focus-visible patterns, reduced-motion support
 3. **No frameworks**: Vanilla HTML/CSS/JS only
 4. **robots.txt**: Blocks AI training bots (GPTBot, CCBot, Claude-Web, anthropic-ai)
