@@ -16,7 +16,7 @@ const { translateArticle, getTranslatedArticles, getTranslatedArticle, checkProv
 const { generateBlog } = require('./generate-blog');
 
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
 // Middleware
 app.use(express.json());
