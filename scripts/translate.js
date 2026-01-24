@@ -229,6 +229,43 @@ async function translate(text, title, provider = 'claude-api') {
 }
 
 /**
+ * Extract translated title from translated content
+ * Looks for patterns like "# Title" or "# Başlıq: Title" at the start
+ */
+function extractTitleFromContent(translatedContent, originalTitle) {
+    const lines = translatedContent.split('\n');
+
+    for (const line of lines) {
+        const trimmed = line.trim();
+        if (!trimmed) continue;
+
+        // Check for markdown heading
+        const headingMatch = trimmed.match(/^#+\s*(.+)$/);
+        if (headingMatch) {
+            let title = headingMatch[1].trim();
+
+            // Remove common prefixes like "Başlıq:" or "Title:"
+            title = title.replace(/^(Başlıq|Title|Sərlövhə)\s*:\s*/i, '');
+
+            // Sanity check: title should be reasonable length and not look like content
+            if (title.length > 0 && title.length < 200 && !title.includes('<p>')) {
+                return title;
+            }
+        }
+
+        // If first non-empty line isn't a heading, stop looking
+        break;
+    }
+
+    // Fallback: return original title if extraction fails
+    logger.warn('translate', 'Could not extract title from content, using original', {
+        originalTitle,
+        firstLine: lines[0]?.substring(0, 100)
+    });
+    return originalTitle;
+}
+
+/**
  * Translate an article and save to database
  */
 async function translateArticle(article, provider = 'claude-api') {
@@ -249,16 +286,16 @@ async function translateArticle(article, provider = 'claude-api') {
         const originalContent = article.originalContent || article.content;
         const originalTitle = article.originalTitle || article.title;
 
-        // Translate title (pass title as both arguments so the prompt shows the actual title)
-        const translatedTitle = await translate(originalTitle, originalTitle, provider);
-
-        // Translate content
+        // Translate content (includes title in the translation)
         const translatedContent = await translate(originalContent, originalTitle, provider);
+
+        // Extract translated title from the content (avoids separate API call and ensures consistency)
+        const translatedTitle = extractTitleFromContent(translatedContent, originalTitle);
 
         // Update article in database
         const translatedAt = new Date().toISOString();
         const updatedArticle = db.updateArticle(article.id, {
-            translatedTitle: translatedTitle.split('\n')[0].trim().replace(/^#+\s*/, ''), // First line, strip markdown heading
+            translatedTitle: translatedTitle,
             translatedContent: translatedContent,
             translatedAt: translatedAt,
             translationProvider: provider,
