@@ -5,9 +5,17 @@
     <link>https://nometa.az/news/</link>
     <description>Texnologiya şirkətlərinin mühəndislik bloqlarından Azərbaycan dilinə tərcümə edilmiş məqalələr.</description>
     <language>az</language>
-    <lastBuildDate>Sat, 24 Jan 2026 16:45:50 GMT</lastBuildDate>
+    <lastBuildDate>Sat, 24 Jan 2026 17:18:55 GMT</lastBuildDate>
     <atom:link href="https://nometa.az/news/feed.xml" rel="self" type="application/rss+xml"/>
     
+    <item>
+      <title><![CDATA[İmport etmək lazım olan bir paket yoxdur,]]></title>
+      <link>https://nometa.az/news/before-adopting-ai/</link>
+      <guid>https://nometa.az/news/before-adopting-ai/</guid>
+      <pubDate>Sat, 24 Jan 2026 09:14:38 GMT</pubDate>
+      <description><![CDATA[Başlıq: AI-ni Tətbiq Etməzdən Əvvəl Bu günlərdə AI platforması inkişafı üzərində işləyərkən çox şey haqqında düşünürəm. Tez-tez AI-nin tətbiqinin hansısa inqilabi dəyişiklik gətirəcəyi gözləntisi ilə qarşılaşıram, lakin sahədə işləyərkən bəzən fərqli bir mənzərə görürəm. Tez-tez eşidirəm ki, AI...]]></description>
+      <source url="https://dev.to">Dev.to</source>
+    </item>
     <item>
       <title><![CDATA[Startuplar və Kiçik Bizneslər üçün Tapşırıq İdarəetmə Proqramını Necə Seçməli]]></title>
       <link>https://nometa.az/news/how-to-choose-task-management-software-for-startups-and-small-businesses/</link>
