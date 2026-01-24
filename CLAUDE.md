@@ -64,11 +64,11 @@ The blog system fetches articles from tech blogs, translates them to Azerbaijani
 - `scripts/logger.js` - Structured logging with log levels and JSON output for CI
 
 **Translation providers** (in order of preference):
-1. `claude-api` - Requires `ANTHROPIC_API_KEY`
-2. `openai` - Requires `OPENAI_API_KEY`
-3. `claude-cli` - Uses local Claude Code CLI
+1. `claude-api` - Requires `ANTHROPIC_API_KEY` (env var or Settings tab)
+2. `openai` - Requires `OPENAI_API_KEY` (env var or Settings tab)
+3. `claude-cli` - Uses local Claude Code CLI (no API key needed)
 
-**Admin panel workflow**: Run `npm run admin`, open browser at http://localhost:3000. Use the UI to fetch articles, translate them, and publish. Publishing auto-generates HTML and pushes to GitHub (triggering deploy).
+**Admin panel workflow**: Run `npm run admin`, open browser at http://localhost:3000. Use the UI to fetch articles, translate them, and publish. Publishing auto-generates HTML and pushes to GitHub (triggering deploy). API keys can be configured via the Settings tab (stored in SQLite) or environment variables.
 
 ### Content & Output Directories
 - `content/nometa.db` - SQLite database (single source of truth for articles)
@@ -88,7 +88,7 @@ Mobile breakpoint at 600px
 
 ## Key Conventions
 
-1. **Cache busting**: Update version in CSS links: `styles.css?v=YYYYMMDDNN`. For blog pages, update `CSS_VERSION` constant at top of `scripts/generate-blog.js`
+1. **Cache busting**: Update version in CSS links: `styles.css?v=YYYYMMDDNN`. For blog pages, update the `CSS_VERSION` constant in `scripts/generate-blog.js:17`
 2. **Accessibility**: Maintain ARIA labels, focus-visible patterns, reduced-motion support
 3. **No frameworks**: Vanilla HTML/CSS/JS only
 4. **robots.txt**: Blocks AI training bots (GPTBot, CCBot, Claude-Web, anthropic-ai)
