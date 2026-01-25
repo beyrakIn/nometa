@@ -229,31 +229,55 @@ async function translate(text, title, provider = 'claude-api') {
 }
 
 /**
- * Extract translated title from translated content
- * Looks for patterns like "# Title" or "# Başlıq: Title" at the start
+ * Extract translated title from translated content and strip title line
+ * Looks for patterns like "# Title", "# Başlıq: Title", or "Başlıq: Title" at the start
+ * Returns { title, content } where content has the title line removed
  */
 function extractTitleFromContent(translatedContent, originalTitle) {
     const lines = translatedContent.split('\n');
+    let titleLineIndex = -1;
 
-    for (const line of lines) {
-        const trimmed = line.trim();
+    for (let i = 0; i < lines.length; i++) {
+        const trimmed = lines[i].trim();
         if (!trimmed) continue;
+
+        let title = null;
 
         // Check for markdown heading
         const headingMatch = trimmed.match(/^#+\s*(.+)$/);
         if (headingMatch) {
-            let title = headingMatch[1].trim();
+            title = headingMatch[1].trim();
+            titleLineIndex = i;
+        }
 
-            // Remove common prefixes like "Başlıq:" or "Title:"
+        // Check for plain text title with prefix (no markdown heading)
+        // e.g., "Başlıq: Some Title" or "Title: Some Title"
+        if (!title) {
+            const plainTitleMatch = trimmed.match(/^(Başlıq|Title|Sərlövhə)\s*:\s*(.+)$/i);
+            if (plainTitleMatch) {
+                title = plainTitleMatch[2].trim();
+                titleLineIndex = i;
+            }
+        }
+
+        if (title) {
+            // Remove common prefixes like "Başlıq:" or "Title:" (for markdown headings)
             title = title.replace(/^(Başlıq|Title|Sərlövhə)\s*:\s*/i, '');
 
             // Sanity check: title should be reasonable length and not look like content
             if (title.length > 0 && title.length < 200 && !title.includes('<p>')) {
-                return title;
+                // Strip the title line from content
+                const contentLines = [...lines];
+                contentLines.splice(titleLineIndex, 1);
+                // Remove leading empty lines
+                while (contentLines.length > 0 && !contentLines[0].trim()) {
+                    contentLines.shift();
+                }
+                return { title, content: contentLines.join('\n') };
             }
         }
 
-        // If first non-empty line isn't a heading, stop looking
+        // If first non-empty line isn't a heading or title prefix, stop looking
         break;
     }
 
@@ -262,7 +286,7 @@ function extractTitleFromContent(translatedContent, originalTitle) {
         originalTitle,
         firstLine: lines[0]?.substring(0, 100)
     });
-    return originalTitle;
+    return { title: originalTitle, content: translatedContent };
 }
 
 /**
@@ -287,10 +311,11 @@ async function translateArticle(article, provider = 'claude-api') {
         const originalTitle = article.originalTitle || article.title;
 
         // Translate content (includes title in the translation)
-        const translatedContent = await translate(originalContent, originalTitle, provider);
+        const rawTranslatedContent = await translate(originalContent, originalTitle, provider);
 
-        // Extract translated title from the content (avoids separate API call and ensures consistency)
-        const translatedTitle = extractTitleFromContent(translatedContent, originalTitle);
+        // Extract translated title from the content and strip title line
+        // (avoids separate API call and ensures consistency)
+        const { title: translatedTitle, content: translatedContent } = extractTitleFromContent(rawTranslatedContent, originalTitle);
 
         // Update article in database
         const translatedAt = new Date().toISOString();
