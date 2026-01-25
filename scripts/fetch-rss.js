@@ -13,31 +13,14 @@ const CONFIG = {
     minContentLength: 1000      // Minimum content length to accept article
 };
 
-// RSS feed sources - ONLY sources that provide FULL article content via RSS
-// Removed: Stack Overflow, Cloudflare, Stripe, GitHub, Netflix, Uber, Dropbox,
-//          Meta, Google, AWS, Mozilla, LinkedIn (all provide snippets only)
-const RSS_FEEDS = [
-    {
-        name: 'GitLab',
-        url: 'https://about.gitlab.com/atom.xml',
-        sourceUrl: 'https://about.gitlab.com/blog'
-    },
-    {
-        name: 'Dev.to',
-        url: 'https://dev.to/feed',
-        sourceUrl: 'https://dev.to'
-    },
-    {
-        name: 'Martin Fowler',
-        url: 'https://martinfowler.com/feed.atom',
-        sourceUrl: 'https://martinfowler.com'
-    },
-    {
-        name: 'A List Apart',
-        url: 'https://alistapart.com/main/feed/',
-        sourceUrl: 'https://alistapart.com'
-    }
-];
+/**
+ * Get RSS feeds from database (enabled only)
+ * @returns {Array} Array of feed objects with name, url, sourceUrl
+ */
+function getRSSFeeds() {
+    db.initDb(); // Ensure DB is initialized
+    return db.getAllFeeds(true); // true = enabled only
+}
 
 // Keywords that indicate platform-specific/promotional content to FILTER OUT
 const FILTER_KEYWORDS = [
@@ -183,10 +166,23 @@ async function fetchFeed(feed, parser) {
 async function fetchAllFeeds() {
     const endTimer = logger.timer('fetch', 'RSS fetch');
 
-    logger.info('fetch', 'Starting RSS fetch', { feedCount: RSS_FEEDS.length });
-
     // Initialize database
     db.initDb();
+
+    // Get enabled feeds from database
+    const feeds = getRSSFeeds();
+
+    logger.info('fetch', 'Starting RSS fetch', { feedCount: feeds.length });
+
+    if (feeds.length === 0) {
+        logger.warn('fetch', 'No enabled RSS feeds configured');
+        return {
+            newArticles: 0,
+            totalCount: db.getArticleCount(),
+            lastFetched: new Date().toISOString(),
+            feedErrors: null
+        };
+    }
 
     const parser = new Parser({
         timeout: 10000,
@@ -198,7 +194,7 @@ async function fetchAllFeeds() {
     // Fetch from all feeds
     let newCount = 0;
     let feedErrors = [];
-    for (const feed of RSS_FEEDS) {
+    for (const feed of feeds) {
         const result = await fetchFeed(feed, parser);
 
         // Track feed errors
@@ -272,11 +268,12 @@ function loadExistingArticles() {
     db.initDb();
     const articles = db.getAllArticles();
     const lastFetched = db.getMetadata('last_fetched');
+    const feeds = getRSSFeeds();
     return {
         articles,
         lastFetched,
         totalCount: articles.length,
-        sources: RSS_FEEDS.map(f => f.name)
+        sources: feeds.map(f => f.name)
     };
 }
 
@@ -289,7 +286,7 @@ module.exports = {
     updateArticleStatus,
     getArticleById,
     shouldFilterArticle,
-    RSS_FEEDS,
+    getRSSFeeds,
     FILTER_KEYWORDS,
     CONFIG
 };

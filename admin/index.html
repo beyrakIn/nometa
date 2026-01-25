@@ -166,9 +166,32 @@
                 </div>
 
                 <div class="setting-group">
-                    <h3>RSS Sources</h3>
-                    <div id="rss-sources" class="sources-list">
-                        <!-- Populated by JS -->
+                    <h3>RSS Feeds</h3>
+                    <p class="setting-description">Manage RSS feed sources. Only enabled feeds will be fetched.</p>
+
+                    <div id="feeds-list" class="feeds-list">
+                        <p class="loading">Loading feeds...</p>
+                    </div>
+
+                    <div class="feed-form" id="feed-form">
+                        <h4 id="feed-form-title">Add New Feed</h4>
+                        <input type="hidden" id="feed-edit-id" value="">
+                        <div class="form-row">
+                            <label for="feed-name">Name:</label>
+                            <input type="text" id="feed-name" placeholder="e.g., Tech Blog">
+                        </div>
+                        <div class="form-row">
+                            <label for="feed-url">Feed URL:</label>
+                            <input type="text" id="feed-url" placeholder="https://example.com/feed.xml">
+                        </div>
+                        <div class="form-row">
+                            <label for="feed-source-url">Site URL:</label>
+                            <input type="text" id="feed-source-url" placeholder="https://example.com">
+                        </div>
+                        <div class="form-actions feed-form-actions">
+                            <button id="save-feed-btn" class="btn btn-primary">Add Feed</button>
+                            <button id="cancel-feed-btn" class="btn btn-secondary" style="display: none;">Cancel</button>
+                        </div>
                     </div>
                 </div>
             </div>

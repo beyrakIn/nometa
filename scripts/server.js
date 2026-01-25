@@ -12,7 +12,7 @@ const db = require('./db');
 const logger = require('./logger');
 
 // Import our modules
-const { fetchAllFeeds, loadExistingArticles, updateArticleStatus, getArticleById, RSS_FEEDS, CONFIG, FILTER_KEYWORDS } = require('./fetch-rss');
+const { fetchAllFeeds, loadExistingArticles, updateArticleStatus, getArticleById, getRSSFeeds, CONFIG, FILTER_KEYWORDS } = require('./fetch-rss');
 const { translateArticle, getTranslatedArticles, getTranslatedArticle, checkProviders } = require('./translate');
 const { generateBlog } = require('./generate-blog');
 
@@ -42,9 +42,10 @@ app.use((req, res, next) => {
 app.get('/api/articles', (req, res) => {
     try {
         const data = loadExistingArticles();
+        const feeds = getRSSFeeds();
         res.json({
             articles: data.articles || [],
-            sources: RSS_FEEDS.map(f => f.name),
+            sources: feeds.map(f => f.name),
             lastFetched: data.lastFetched,
             totalCount: data.totalCount || 0
         });
@@ -266,17 +267,19 @@ app.get('/api/articles/:id', (req, res) => {
 
 // Get fetch config
 app.get('/api/config', (req, res) => {
+    const feeds = getRSSFeeds();
     res.json({
         articlesPerFeed: CONFIG.articlesPerFeed,
         minContentLength: CONFIG.minContentLength,
-        sources: RSS_FEEDS.map(f => ({ name: f.name, url: f.sourceUrl })),
+        sources: feeds.map(f => ({ name: f.name, url: f.sourceUrl })),
         filterKeywords: FILTER_KEYWORDS
     });
 });
 
-// Get RSS feed sources
+// Get RSS feed sources (enabled only)
 app.get('/api/sources', (req, res) => {
-    res.json(RSS_FEEDS);
+    const feeds = getRSSFeeds();
+    res.json(feeds);
 });
 
 // Get database statistics
@@ -295,6 +298,139 @@ app.get('/api/stats', (req, res) => {
         res.json(stats);
     } catch (error) {
         res.status(500).json({ error: error.message });
+    }
+});
+
+/**
+ * RSS Feed Management Endpoints
+ */
+
+// Get all RSS feeds (including disabled)
+app.get('/api/feeds', (req, res) => {
+    try {
+        const feeds = db.getAllFeeds(false); // false = include disabled
+        res.json(feeds);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
+
+// Add a new RSS feed
+app.post('/api/feeds', (req, res) => {
+    try {
+        const { name, url, sourceUrl } = req.body;
+
+        if (!name || !url || !sourceUrl) {
+            return res.status(400).json({
+                success: false,
+                error: 'Name, URL, and source URL are required'
+            });
+        }
+
+        // Validate URL format
+        try {
+            new URL(url);
+            new URL(sourceUrl);
+        } catch {
+            return res.status(400).json({
+                success: false,
+                error: 'Invalid URL format'
+            });
+        }
+
+        const feed = db.insertFeed({ name, url, sourceUrl });
+        res.json({ success: true, feed });
+    } catch (error) {
+        res.status(500).json({ success: false, error: error.message });
+    }
+});
+
+// Update an RSS feed
+app.put('/api/feeds/:id', (req, res) => {
+    try {
+        const id = parseInt(req.params.id);
+        const { name, url, sourceUrl, enabled } = req.body;
+
+        if (isNaN(id)) {
+            return res.status(400).json({ success: false, error: 'Invalid feed ID' });
+        }
+
+        // Validate URLs if provided
+        if (url) {
+            try {
+                new URL(url);
+            } catch {
+                return res.status(400).json({ success: false, error: 'Invalid feed URL format' });
+            }
+        }
+        if (sourceUrl) {
+            try {
+                new URL(sourceUrl);
+            } catch {
+                return res.status(400).json({ success: false, error: 'Invalid source URL format' });
+            }
+        }
+
+        const feed = db.updateFeed(id, { name, url, sourceUrl, enabled });
+
+        if (feed) {
+            res.json({ success: true, feed });
+        } else {
+            res.status(404).json({ success: false, error: 'Feed not found' });
+        }
+    } catch (error) {
+        res.status(500).json({ success: false, error: error.message });
+    }
+});
+
+// Delete an RSS feed
+app.delete('/api/feeds/:id', (req, res) => {
+    try {
+        const id = parseInt(req.params.id);
+
+        if (isNaN(id)) {
+            return res.status(400).json({ success: false, error: 'Invalid feed ID' });
+        }
+
+        const deleted = db.deleteFeed(id);
+
+        if (deleted) {
+            res.json({ success: true, message: 'Feed deleted' });
+        } else {
+            res.status(404).json({ success: false, error: 'Feed not found' });
+        }
+    } catch (error) {
+        res.status(500).json({ success: false, error: error.message });
+    }
+});
+
+// Toggle feed enabled status
+app.put('/api/feeds/:id/toggle', (req, res) => {
+    try {
+        const id = parseInt(req.params.id);
+        const { enabled } = req.body;
+
+        if (isNaN(id)) {
+            return res.status(400).json({ success: false, error: 'Invalid feed ID' });
+        }
+
+        if (typeof enabled !== 'boolean') {
+            return res.status(400).json({ success: false, error: 'Enabled status required (boolean)' });
+        }
+
+        const feed = db.toggleFeed(id, enabled);
+
+        if (feed) {
+            res.json({
+                success: true,
+                feed,
+                message: `Feed ${enabled ? 'enabled' : 'disabled'}`
+            });
+        } else {
+            res.status(404).json({ success: false, error: 'Feed not found' });
+        }
+    } catch (error) {
+        res.status(500).json({ success: false, error: error.message });
     }
 });
 

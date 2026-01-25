@@ -42,11 +42,13 @@ document.addEventListener('DOMContentLoaded', () => {
     loadProviders();
     loadStats();
     loadApiKeys();
+    loadRSSFeeds();
     initModalHandlers();
     initConfirmDialog();
     initBulkActions();
     initKeyboardShortcuts();
     initApiKeyHandlers();
+    initFeedHandlers();
     initPreviewToggle();
 });
 
@@ -532,28 +534,218 @@ function renderProviders(items) {
             </span>
         </div>
     `).join('');
-
-    // Also render RSS sources
-    loadRSSSources();
 }
 
 /**
- * Load and render RSS sources
+ * Load and render RSS feeds
  */
-async function loadRSSSources() {
+async function loadRSSFeeds() {
+    const container = document.getElementById('feeds-list');
     try {
-        const response = await fetch(`${API_BASE}/sources`);
-        const sources = await response.json();
+        const response = await fetch(`${API_BASE}/feeds`);
+        const feeds = await response.json();
 
-        const container = document.getElementById('rss-sources');
-        container.innerHTML = sources.map(source => `
-            <div class="source-item">
-                <span>${source.name}</span>
-                <a href="${source.sourceUrl}" target="_blank" class="btn btn-ghost btn-sm">Visit</a>
+        if (feeds.length === 0) {
+            container.innerHTML = '<p class="empty-state-small">No RSS feeds configured.</p>';
+            return;
+        }
+
+        container.innerHTML = feeds.map(feed => `
+            <div class="feed-item" data-id="${feed.id}">
+                <div class="feed-info">
+                    <span class="feed-name">${escapeHtml(feed.name)}</span>
+                    <span class="feed-url">${escapeHtml(feed.url)}</span>
+                    <span class="feed-status ${feed.enabled ? 'enabled' : 'disabled'}">${feed.enabled ? 'Enabled' : 'Disabled'}</span>
+                </div>
+                <div class="feed-actions">
+                    <a href="${escapeHtml(feed.sourceUrl)}" target="_blank" class="btn btn-ghost btn-sm" title="Visit site">Visit</a>
+                    <button class="btn btn-ghost btn-sm" data-action="edit" title="Edit">Edit</button>
+                    <button class="btn btn-ghost btn-sm" data-action="toggle" title="${feed.enabled ? 'Disable' : 'Enable'}">
+                        ${feed.enabled ? 'Disable' : 'Enable'}
+                    </button>
+                    <button class="btn btn-ghost btn-sm btn-danger-ghost" data-action="delete" title="Delete">Delete</button>
+                </div>
             </div>
         `).join('');
+
+        // Add event handlers
+        container.querySelectorAll('.feed-item').forEach(item => {
+            const feedId = parseInt(item.dataset.id);
+            const feed = feeds.find(f => f.id === feedId);
+
+            item.querySelector('[data-action="edit"]')?.addEventListener('click', () => {
+                startEditFeed(feed);
+            });
+
+            item.querySelector('[data-action="toggle"]')?.addEventListener('click', () => {
+                toggleFeedStatus(feedId, !feed.enabled);
+            });
+
+            item.querySelector('[data-action="delete"]')?.addEventListener('click', () => {
+                confirmDeleteFeed(feedId, feed.name);
+            });
+        });
     } catch (error) {
-        console.error('Failed to load RSS sources:', error);
+        container.innerHTML = `<p class="error">Failed to load feeds: ${error.message}</p>`;
+        console.error('Failed to load RSS feeds:', error);
+    }
+}
+
+/**
+ * Initialize feed form handlers
+ */
+function initFeedHandlers() {
+    const saveBtn = document.getElementById('save-feed-btn');
+    const cancelBtn = document.getElementById('cancel-feed-btn');
+
+    if (saveBtn) {
+        saveBtn.addEventListener('click', saveFeed);
+    }
+
+    if (cancelBtn) {
+        cancelBtn.addEventListener('click', cancelEditFeed);
+    }
+}
+
+/**
+ * Save feed (add or update)
+ */
+async function saveFeed() {
+    const editId = document.getElementById('feed-edit-id').value;
+    const name = document.getElementById('feed-name').value.trim();
+    const url = document.getElementById('feed-url').value.trim();
+    const sourceUrl = document.getElementById('feed-source-url').value.trim();
+
+    if (!name || !url || !sourceUrl) {
+        showToast('Please fill in all fields', 'error');
+        return;
+    }
+
+    // Validate URLs
+    try {
+        new URL(url);
+        new URL(sourceUrl);
+    } catch {
+        showToast('Please enter valid URLs', 'error');
+        return;
+    }
+
+    const btn = document.getElementById('save-feed-btn');
+    btn.disabled = true;
+    btn.textContent = editId ? 'Updating...' : 'Adding...';
+
+    try {
+        const method = editId ? 'PUT' : 'POST';
+        const endpoint = editId ? `${API_BASE}/feeds/${editId}` : `${API_BASE}/feeds`;
+
+        const response = await fetch(endpoint, {
+            method,
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ name, url, sourceUrl })
+        });
+
+        const data = await response.json();
+
+        if (data.success) {
+            showToast(editId ? 'Feed updated!' : 'Feed added!', 'success');
+            cancelEditFeed(); // Reset form
+            await loadRSSFeeds();
+        } else {
+            throw new Error(data.error || 'Failed to save feed');
+        }
+    } catch (error) {
+        showToast(`Failed: ${error.message}`, 'error');
+    } finally {
+        btn.disabled = false;
+        btn.textContent = editId ? 'Update Feed' : 'Add Feed';
+    }
+}
+
+/**
+ * Start editing a feed
+ */
+function startEditFeed(feed) {
+    document.getElementById('feed-edit-id').value = feed.id;
+    document.getElementById('feed-name').value = feed.name;
+    document.getElementById('feed-url').value = feed.url;
+    document.getElementById('feed-source-url').value = feed.sourceUrl;
+
+    document.getElementById('feed-form-title').textContent = 'Edit Feed';
+    document.getElementById('save-feed-btn').textContent = 'Update Feed';
+    document.getElementById('cancel-feed-btn').style.display = 'inline-flex';
+
+    // Scroll to form
+    document.getElementById('feed-form').scrollIntoView({ behavior: 'smooth' });
+}
+
+/**
+ * Cancel feed editing
+ */
+function cancelEditFeed() {
+    document.getElementById('feed-edit-id').value = '';
+    document.getElementById('feed-name').value = '';
+    document.getElementById('feed-url').value = '';
+    document.getElementById('feed-source-url').value = '';
+
+    document.getElementById('feed-form-title').textContent = 'Add New Feed';
+    document.getElementById('save-feed-btn').textContent = 'Add Feed';
+    document.getElementById('cancel-feed-btn').style.display = 'none';
+}
+
+/**
+ * Toggle feed enabled status
+ */
+async function toggleFeedStatus(feedId, enabled) {
+    try {
+        const response = await fetch(`${API_BASE}/feeds/${feedId}/toggle`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ enabled })
+        });
+
+        const data = await response.json();
+
+        if (data.success) {
+            showToast(data.message, 'success');
+            await loadRSSFeeds();
+        } else {
+            throw new Error(data.error || 'Toggle failed');
+        }
+    } catch (error) {
+        showToast(`Failed: ${error.message}`, 'error');
+    }
+}
+
+/**
+ * Confirm and delete feed
+ */
+function confirmDeleteFeed(feedId, feedName) {
+    showConfirmDialog(
+        'Delete Feed',
+        `Are you sure you want to delete the feed "${feedName}"? This will not delete any previously fetched articles.`,
+        () => deleteFeedById(feedId)
+    );
+}
+
+/**
+ * Delete feed
+ */
+async function deleteFeedById(feedId) {
+    try {
+        const response = await fetch(`${API_BASE}/feeds/${feedId}`, {
+            method: 'DELETE'
+        });
+
+        const data = await response.json();
+
+        if (data.success) {
+            showToast('Feed deleted', 'success');
+            await loadRSSFeeds();
+        } else {
+            throw new Error(data.error || 'Delete failed');
+        }
+    } catch (error) {
+        showToast(`Failed to delete: ${error.message}`, 'error');
     }
 }
 

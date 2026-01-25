@@ -81,6 +81,22 @@ function initDb() {
             )
         `);
 
+        // Create rss_feeds table
+        db.exec(`
+            CREATE TABLE IF NOT EXISTS rss_feeds (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                name TEXT NOT NULL,
+                url TEXT UNIQUE NOT NULL,
+                source_url TEXT NOT NULL,
+                enabled INTEGER DEFAULT 1,
+                created_at TEXT,
+                updated_at TEXT
+            )
+        `);
+
+        // Seed default feeds if table is empty
+        initFeedsTable();
+
         logger.info('db', 'Database initialized', { path: DB_PATH });
         return db;
     } catch (error) {
@@ -505,6 +521,200 @@ function articleToRow(article) {
     };
 }
 
+/**
+ * Default RSS feeds to seed
+ */
+const DEFAULT_FEEDS = [
+    { name: 'GitLab', url: 'https://about.gitlab.com/atom.xml', sourceUrl: 'https://about.gitlab.com/blog' },
+    { name: 'Dev.to', url: 'https://dev.to/feed', sourceUrl: 'https://dev.to' },
+    { name: 'Martin Fowler', url: 'https://martinfowler.com/feed.atom', sourceUrl: 'https://martinfowler.com' },
+    { name: 'A List Apart', url: 'https://alistapart.com/main/feed/', sourceUrl: 'https://alistapart.com' },
+    { name: 'Utku Sen', url: 'https://utkusen.substack.com/feed', sourceUrl: 'https://utkusen.substack.com' }
+];
+
+/**
+ * Initialize feeds table with default feeds if empty
+ */
+function initFeedsTable() {
+    const database = getDb();
+    const count = database.prepare('SELECT COUNT(*) as count FROM rss_feeds').get().count;
+
+    if (count === 0) {
+        const now = new Date().toISOString();
+        const stmt = database.prepare(`
+            INSERT INTO rss_feeds (name, url, source_url, enabled, created_at, updated_at)
+            VALUES (?, ?, ?, 1, ?, ?)
+        `);
+
+        for (const feed of DEFAULT_FEEDS) {
+            try {
+                stmt.run(feed.name, feed.url, feed.sourceUrl, now, now);
+                logger.debug('db', 'Seeded default feed', { name: feed.name });
+            } catch (error) {
+                if (error.code !== 'SQLITE_CONSTRAINT_UNIQUE') {
+                    logger.error('db', 'Failed to seed feed', { name: feed.name, error: error.message });
+                }
+            }
+        }
+        logger.info('db', 'Seeded default RSS feeds', { count: DEFAULT_FEEDS.length });
+    }
+}
+
+/**
+ * Get all RSS feeds
+ * @param {boolean} enabledOnly - If true, only return enabled feeds
+ * @returns {Array} Array of feed objects
+ */
+function getAllFeeds(enabledOnly = false) {
+    const database = getDb();
+    let query = 'SELECT * FROM rss_feeds';
+    if (enabledOnly) {
+        query += ' WHERE enabled = 1';
+    }
+    query += ' ORDER BY name';
+
+    const rows = database.prepare(query).all();
+    return rows.map(row => ({
+        id: row.id,
+        name: row.name,
+        url: row.url,
+        sourceUrl: row.source_url,
+        enabled: row.enabled === 1,
+        createdAt: row.created_at,
+        updatedAt: row.updated_at
+    }));
+}
+
+/**
+ * Get a single RSS feed by ID
+ * @param {number} id - Feed ID
+ * @returns {Object|null} Feed object or null
+ */
+function getFeedById(id) {
+    const database = getDb();
+    const row = database.prepare('SELECT * FROM rss_feeds WHERE id = ?').get(id);
+    if (!row) return null;
+
+    return {
+        id: row.id,
+        name: row.name,
+        url: row.url,
+        sourceUrl: row.source_url,
+        enabled: row.enabled === 1,
+        createdAt: row.created_at,
+        updatedAt: row.updated_at
+    };
+}
+
+/**
+ * Insert a new RSS feed
+ * @param {Object} feed - Feed data { name, url, sourceUrl }
+ * @returns {Object} The inserted feed
+ */
+function insertFeed(feed) {
+    const database = getDb();
+    const now = new Date().toISOString();
+
+    try {
+        const result = database.prepare(`
+            INSERT INTO rss_feeds (name, url, source_url, enabled, created_at, updated_at)
+            VALUES (?, ?, ?, 1, ?, ?)
+        `).run(feed.name, feed.url, feed.sourceUrl, now, now);
+
+        logger.info('db', 'Feed inserted', { name: feed.name, id: result.lastInsertRowid });
+        return getFeedById(result.lastInsertRowid);
+    } catch (error) {
+        if (error.code === 'SQLITE_CONSTRAINT_UNIQUE') {
+            throw new Error('A feed with this URL already exists');
+        }
+        logger.error('db', 'Feed insert failed', { name: feed.name, error: error.message });
+        throw error;
+    }
+}
+
+/**
+ * Update an RSS feed
+ * @param {number} id - Feed ID
+ * @param {Object} data - Data to update { name, url, sourceUrl, enabled }
+ * @returns {Object|null} Updated feed or null
+ */
+function updateFeed(id, data) {
+    const database = getDb();
+    const now = new Date().toISOString();
+
+    const fields = [];
+    const params = [];
+
+    if (data.name !== undefined) {
+        fields.push('name = ?');
+        params.push(data.name);
+    }
+    if (data.url !== undefined) {
+        fields.push('url = ?');
+        params.push(data.url);
+    }
+    if (data.sourceUrl !== undefined) {
+        fields.push('source_url = ?');
+        params.push(data.sourceUrl);
+    }
+    if (data.enabled !== undefined) {
+        fields.push('enabled = ?');
+        params.push(data.enabled ? 1 : 0);
+    }
+
+    if (fields.length === 0) {
+        return getFeedById(id);
+    }
+
+    fields.push('updated_at = ?');
+    params.push(now);
+    params.push(id);
+
+    try {
+        const result = database.prepare(`
+            UPDATE rss_feeds SET ${fields.join(', ')} WHERE id = ?
+        `).run(...params);
+
+        if (result.changes > 0) {
+            logger.info('db', 'Feed updated', { id, fields: Object.keys(data) });
+            return getFeedById(id);
+        }
+        return null;
+    } catch (error) {
+        if (error.code === 'SQLITE_CONSTRAINT_UNIQUE') {
+            throw new Error('A feed with this URL already exists');
+        }
+        logger.error('db', 'Feed update failed', { id, error: error.message });
+        throw error;
+    }
+}
+
+/**
+ * Delete an RSS feed
+ * @param {number} id - Feed ID
+ * @returns {boolean} True if deleted
+ */
+function deleteFeed(id) {
+    const database = getDb();
+    const result = database.prepare('DELETE FROM rss_feeds WHERE id = ?').run(id);
+
+    if (result.changes > 0) {
+        logger.info('db', 'Feed deleted', { id });
+        return true;
+    }
+    return false;
+}
+
+/**
+ * Toggle feed enabled status
+ * @param {number} id - Feed ID
+ * @param {boolean} enabled - New enabled status
+ * @returns {Object|null} Updated feed or null
+ */
+function toggleFeed(id, enabled) {
+    return updateFeed(id, { enabled });
+}
+
 // Export functions
 module.exports = {
     initDb,
@@ -528,5 +738,12 @@ module.exports = {
     deleteApiKey,
     getAllApiKeys,
     toggleApiKey,
+    // RSS feed management
+    getAllFeeds,
+    getFeedById,
+    insertFeed,
+    updateFeed,
+    deleteFeed,
+    toggleFeed,
     DB_PATH
 };
