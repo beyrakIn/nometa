@@ -5,7 +5,7 @@
     <link>https://nometa.az/news/</link>
     <description>Texnologiya şirkətlərinin mühəndislik bloqlarından Azərbaycan dilinə tərcümə edilmiş məqalələr.</description>
     <language>az</language>
-    <lastBuildDate>Sat, 24 Jan 2026 17:23:06 GMT</lastBuildDate>
+    <lastBuildDate>Mon, 26 Jan 2026 11:21:01 GMT</lastBuildDate>
     <atom:link href="https://nometa.az/news/feed.xml" rel="self" type="application/rss+xml"/>
     
     <item>
@@ -61,7 +61,7 @@
       <link>https://nometa.az/news/gitlab-bug-bounty-program-policy-updates/</link>
       <guid>https://nometa.az/news/gitlab-bug-bounty-program-policy-updates/</guid>
       <pubDate>Tue, 20 Jan 2026 00:00:00 GMT</pubDate>
-      <description><![CDATA[Başlıq: GitLab Bug Bounty Proqramı siyasət yeniləmələri Məzmun: GitLab HackerOne Bug Bounty proqramını ilk dəfə 2018-ci ildə təqdim etdi . O vaxtdan bəri, hərtərəfli süni intellektlə gücləndirilmiş DevSecOps platformamızı təhlükəsiz saxlamaq üçün tədqiqatçı icması ilə birlikdə çalışırıq. Şəffaflığa...]]></description>
+      <description><![CDATA[Məzmun: GitLab HackerOne Bug Bounty proqramını ilk dəfə 2018-ci ildə təqdim etdi . O vaxtdan bəri, hərtərəfli süni intellektlə gücləndirilmiş DevSecOps platformamızı təhlükəsiz saxlamaq üçün tədqiqatçı icması ilə birlikdə çalışırıq. Şəffaflığa sadiqliyimizi, tədqiqatçılardan gələn rəyləri və aydın...]]></description>
       <source url="https://about.gitlab.com/blog">GitLab</source>
     </item>
     <item>

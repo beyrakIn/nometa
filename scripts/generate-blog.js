@@ -12,9 +12,10 @@ const logger = require('./logger');
 const TEMPLATES_DIR = path.join(__dirname, '..', 'templates');
 const NEWS_DIR = path.join(__dirname, '..', 'news');
 const SITEMAP_FILE = path.join(__dirname, '..', 'sitemap.xml');
+const HOMEPAGE_FILE = path.join(__dirname, '..', 'index.html');
 
 // Current CSS version for cache busting (format: YYYYMMDDNN)
-const CSS_VERSION = '2026012203';
+const CSS_VERSION = '2026012601';
 
 /**
  * Load template file with error handling
@@ -359,6 +360,63 @@ function updateSitemap(articles) {
 }
 
 /**
+ * Update homepage with recent articles
+ */
+function updateHomepageRecentArticles(articles) {
+    logger.debug('generate', 'Updating homepage with recent articles', { count: Math.min(articles.length, 3) });
+
+    // Read current homepage
+    let homepage;
+    try {
+        homepage = fs.readFileSync(HOMEPAGE_FILE, 'utf-8');
+    } catch (error) {
+        logger.error('generate', 'Failed to read homepage', { error: error.message });
+        return;
+    }
+
+    // Take only the 3 most recent articles
+    const recentArticles = articles.slice(0, 3);
+
+    // Generate recent articles HTML
+    let articlesHtml = '';
+    if (recentArticles.length > 0) {
+        for (const article of recentArticles) {
+            articlesHtml += `
+                    <article class="recent-article-card">
+                        <div class="recent-article-meta">
+                            <span class="recent-article-source">${article.source}</span>
+                            <time datetime="${formatDateISO(article.publishedDate)}">${formatDate(article.publishedDate)}</time>
+                        </div>
+                        <h3><a href="/news/${article.slug}/">${article.title}</a></h3>
+                    </article>`;
+        }
+    } else {
+        articlesHtml = `
+                    <p class="no-recent-articles">Tezliklə yeni məqalələr əlavə ediləcək.</p>`;
+    }
+
+    // Build the full section
+    const recentSection = `<!-- RECENT_ARTICLES_START -->
+            <section class="recent-articles" aria-labelledby="recent-articles-heading">
+                <h2 id="recent-articles-heading">Son Məqalələr</h2>
+                <div class="recent-articles-grid">${articlesHtml}
+                </div>
+                <a href="/news/" class="view-all-link">Bütün məqalələr &rarr;</a>
+            </section>
+            <!-- RECENT_ARTICLES_END -->`;
+
+    // Replace the section in homepage
+    const regex = /<!-- RECENT_ARTICLES_START -->[\s\S]*?<!-- RECENT_ARTICLES_END -->/;
+    if (regex.test(homepage)) {
+        homepage = homepage.replace(regex, recentSection);
+        safeWriteFile(HOMEPAGE_FILE, homepage);
+        logger.info('generate', 'Updated homepage with recent articles', { count: recentArticles.length });
+    } else {
+        logger.warn('generate', 'Recent articles section not found in homepage');
+    }
+}
+
+/**
  * Main generation function
  */
 function generateBlog() {
@@ -396,6 +454,9 @@ function generateBlog() {
 
     // Update sitemap
     updateSitemap(articles);
+
+    // Update homepage with recent articles
+    updateHomepageRecentArticles(articles);
 
     endTimer({
         articlesGenerated: articles.length,

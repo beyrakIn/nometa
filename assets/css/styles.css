@@ -587,6 +587,86 @@ section {
     font-weight: 600;
 }
 
+/* Recent Articles Section */
+.recent-articles {
+    margin-top: var(--spacing-3xl);
+    padding: var(--spacing-xl) 0;
+    border-top: 1px solid var(--border-color);
+}
+
+.recent-articles h2 {
+    font-size: var(--text-xl);
+    margin-bottom: var(--spacing-lg);
+    color: var(--text-color);
+}
+
+.recent-articles-grid {
+    display: grid;
+    gap: var(--spacing-md);
+}
+
+.recent-article-card {
+    padding: var(--spacing-md);
+    background: var(--bubble-bg);
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.recent-article-card:hover {
+    border-color: var(--text-muted);
+    box-shadow: var(--shadow-sm);
+}
+
+.recent-article-meta {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    margin-bottom: var(--spacing-xs);
+    font-size: var(--text-sm);
+    color: var(--text-light);
+}
+
+.recent-article-source {
+    font-weight: 500;
+    color: var(--text-muted);
+}
+
+.recent-article-card h3 {
+    font-size: var(--text-base);
+    font-weight: 500;
+    line-height: 1.4;
+    margin: 0;
+}
+
+.recent-article-card h3 a {
+    color: var(--text-color);
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.recent-article-card h3 a:hover {
+    color: var(--good-color);
+}
+
+.view-all-link {
+    display: inline-block;
+    margin-top: var(--spacing-lg);
+    color: var(--text-muted);
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.2s ease;
+}
+
+.view-all-link:hover {
+    color: var(--good-color);
+}
+
+.no-recent-articles {
+    color: var(--text-muted);
+    font-style: italic;
+}
+
 /* Footer */
 footer {
     margin-top: var(--spacing-4xl);
