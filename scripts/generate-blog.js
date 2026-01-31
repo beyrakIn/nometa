@@ -116,13 +116,18 @@ function calculateReadingTime(text) {
 
 /**
  * Extract plain text from HTML/markdown
+ * Removes HTML tags, markdown symbols, and translation artifacts
  */
 function extractPlainText(content, maxLength = 500) {
-    const text = content
+    let text = content
         .replace(/<[^>]+>/g, ' ')
         .replace(/\s+/g, ' ')
         .replace(/[#*_`\[\]]/g, '')
         .trim();
+
+    // Remove common translation artifacts at the start (e.g., "Başlıq: Title Here")
+    // These can appear when AI translation adds title prefixes
+    text = text.replace(/^(Başlıq|Title|Sərlövhə|Məzmun|Content)\s*:\s*/i, '');
 
     if (text.length <= maxLength) return text;
     return text.substring(0, maxLength).replace(/\s+\S*$/, '') + '...';

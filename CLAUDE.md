@@ -56,7 +56,7 @@ The blog system fetches articles from tech blogs, translates them to Azerbaijani
 
 **Article statuses**: `pending` | `saved` | `translated` | `published` | `disabled`
 
-- `scripts/fetch-rss.js` - Fetches from GitLab, Dev.to, Martin Fowler, A List Apart; filters promotional content
+- `scripts/fetch-rss.js` - Fetches articles from configured RSS feeds (managed via admin panel); filters promotional content
 - `scripts/translate.js` - Multi-provider translation (Claude API, OpenAI, Claude CLI)
 - `scripts/generate-blog.js` - Generates HTML pages, RSS feed, updates sitemap
 - `scripts/server.js` - Express admin panel for managing articles
@@ -88,7 +88,7 @@ Mobile breakpoint at 600px
 
 ## Key Conventions
 
-1. **Cache busting**: Update version in CSS links: `styles.css?v=YYYYMMDDNN`. For blog pages, update the `CSS_VERSION` constant in `scripts/generate-blog.js:17`
+1. **Cache busting**: Update version in CSS links: `styles.css?v=YYYYMMDDNN`. For blog pages, update the `CSS_VERSION` constant in `scripts/generate-blog.js:18`
 2. **Accessibility**: Maintain ARIA labels, focus-visible patterns, reduced-motion support
 3. **No frameworks**: Vanilla HTML/CSS/JS only
 4. **robots.txt**: Blocks AI training bots (GPTBot, CCBot, Claude-Web, anthropic-ai)

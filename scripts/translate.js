@@ -229,6 +229,23 @@ async function translate(text, title, provider = 'claude-api') {
 }
 
 /**
+ * Clean content by removing translation artifacts at the start
+ * Handles cases like "Məzmun: ...", "Content: ...", or repeated title prefixes
+ */
+function cleanTranslatedContent(content) {
+    let cleaned = content;
+
+    // Remove "Məzmun:" / "Content:" prefix at start (with or without markdown heading)
+    cleaned = cleaned.replace(/^#+\s*(Məzmun|Content)\s*:\s*/i, '');
+    cleaned = cleaned.replace(/^(Məzmun|Content)\s*:\s*/i, '');
+
+    // Remove any remaining title prefixes at the very start
+    cleaned = cleaned.replace(/^(Başlıq|Title|Sərlövhə)\s*:\s*[^\n]+\n*/i, '');
+
+    return cleaned.trim();
+}
+
+/**
  * Extract translated title from translated content and strip title line
  * Looks for patterns like "# Title", "# Başlıq: Title", or "Başlıq: Title" at the start
  * Returns { title, content } where content has the title line removed
@@ -273,7 +290,9 @@ function extractTitleFromContent(translatedContent, originalTitle) {
                 while (contentLines.length > 0 && !contentLines[0].trim()) {
                     contentLines.shift();
                 }
-                return { title, content: contentLines.join('\n') };
+                // Clean the remaining content of any translation artifacts
+                const cleanedContent = cleanTranslatedContent(contentLines.join('\n'));
+                return { title, content: cleanedContent };
             }
         }
 
@@ -281,12 +300,12 @@ function extractTitleFromContent(translatedContent, originalTitle) {
         break;
     }
 
-    // Fallback: return original title if extraction fails
+    // Fallback: return original title if extraction fails, but still clean content
     logger.warn('translate', 'Could not extract title from content, using original', {
         originalTitle,
         firstLine: lines[0]?.substring(0, 100)
     });
-    return { title: originalTitle, content: translatedContent };
+    return { title: originalTitle, content: cleanTranslatedContent(translatedContent) };
 }
 
 /**
