@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="az" dir="ltr" prefix="og: https://ogp.me/ns# article: https://ogp.me/ns/article#">
+<head>
+    <!--
+    SEO OPTIMIZED ARTICLE TEMPLATE
+    - Full Schema.org Article markup
+    - Open Graph article tags
+    - Twitter Card summary_large_image
+    - Canonical URLs
+    - Breadcrumb navigation
+    - Reading time estimation
+    - AI translation disclosure
+    -->
+
+    <!-- Primary Meta Tags -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>Gömülü Sistemlərdə Yaddaş Strukturu: C Kodu Həqiqətən FLASH və RAM-a Necə Yerləşdirilir | NoMeta.az Xəbərlər</title>
+    <meta name="title" content="Gömülü Sistemlərdə Yaddaş Strukturu: C Kodu Həqiqətən FLASH və RAM-a Necə Yerləşdirilir | NoMeta.az Xəbərlər">
+    <meta name="description" content="Gömülü Sistemlərdə Yaddaş Strukturu: C Kodu Həqiqətən FLASH və RAM-a Necə Yerləşdirilir CPU dəyişənləri, tipləri və ya bölmələri anlamır. O, yalnız "X ünvanını...">
+    <meta name="keywords" content="Dev.to, AWS, AI, texnologiya, proqramlaşdırma, mühəndislik, Dev.to, Azərbaycan">
+    <meta name="author" content="Dev.to (NoMeta.az tərəfindən tərcümə)">
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+    <meta name="googlebot" content="index, follow">
+    <meta name="language" content="Azerbaijani">
+    <meta name="revisit-after" content="7 days">
+    <meta name="rating" content="general">
+    <meta name="generator" content="NoMeta.az Blog Generator">
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://nometa.az/news/memory-layout-in-embedded-systems-how-c-code-really-ends-up-in-flash-and-ram/">
+
+    <!-- Alternate Languages -->
+    <link rel="alternate" hreflang="az" href="https://nometa.az/news/memory-layout-in-embedded-systems-how-c-code-really-ends-up-in-flash-and-ram/">
+    <link rel="alternate" hreflang="en" href="https://dev.to/amanprasad/memory-layout-in-embedded-systems-how-c-code-really-ends-up-in-flash-and-ram-34c0">
+    <link rel="alternate" hreflang="x-default" href="https://nometa.az/news/memory-layout-in-embedded-systems-how-c-code-really-ends-up-in-flash-and-ram/">
+    <meta http-equiv="content-language" content="az">
+
+    <!-- Open Graph / Facebook - Article Type -->
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://nometa.az/news/memory-layout-in-embedded-systems-how-c-code-really-ends-up-in-flash-and-ram/">
+    <meta property="og:title" content="Gömülü Sistemlərdə Yaddaş Strukturu: C Kodu Həqiqətən FLASH və RAM-a Necə Yerləşdirilir">
+    <meta property="og:description" content="Gömülü Sistemlərdə Yaddaş Strukturu: C Kodu Həqiqətən FLASH və RAM-a Necə Yerləşdirilir CPU dəyişənləri, tipləri və ya bölmələri anlamır. O, yalnız "X ünvanını...">
+    <meta property="og:image" content="https://nometa.az/assets/images/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="Gömülü Sistemlərdə Yaddaş Strukturu: C Kodu Həqiqətən FLASH və RAM-a Necə Yerləşdirilir - NoMeta.az">
+    <meta property="og:locale" content="az_AZ">
+    <meta property="og:locale:alternate" content="en_US">
+    <meta property="og:site_name" content="NoMeta Azerbaijan">
+    <meta property="og:see_also" content="https://dev.to/amanprasad/memory-layout-in-embedded-systems-how-c-code-really-ends-up-in-flash-and-ram-34c0">
+
+    <!-- Article Specific Open Graph -->
+    <meta property="article:published_time" content="2026-01-29T00:00:00+04:00">
+    <meta property="article:modified_time" content="2026-01-29T00:00:00+04:00">
+    <meta property="article:author" content="Dev.to">
+    <meta property="article:section" content="Technology">
+    <meta property="article:tag" content="texnologiya">
+    <meta property="article:tag" content="proqramlaşdırma">
+    <meta property="article:tag" content="Dev.to">
+
+    <!-- Twitter Card - Large Image -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://nometa.az/news/memory-layout-in-embedded-systems-how-c-code-really-ends-up-in-flash-and-ram/">
+    <meta name="twitter:title" content="Gömülü Sistemlərdə Yaddaş Strukturu: C Kodu Həqiqətən FLASH və RAM-a Necə Yerləşdirilir">
+    <meta name="twitter:description" content="Gömülü Sistemlərdə Yaddaş Strukturu: C Kodu Həqiqətən FLASH və RAM-a Necə Yerləşdirilir CPU dəyişənləri, tipləri və ya bölmələri anlamır. O, yalnız "X ünvanını...">
+    <meta name="twitter:image" content="https://nometa.az/assets/images/og-image.png">
+    <meta name="twitter:image:alt" content="Gömülü Sistemlərdə Yaddaş Strukturu: C Kodu Həqiqətən FLASH və RAM-a Necə Yerləşdirilir">
+    <meta name="twitter:site" content="@nometa_az">
+    <meta name="twitter:creator" content="@nometa_az">
+    <meta name="twitter:label1" content="Mənbə">
+    <meta name="twitter:data1" content="Dev.to">
+    <meta name="twitter:label2" content="Oxuma müddəti">
+    <meta name="twitter:data2" content="8 dəqiqə">
+
+    <!-- Dublin Core Metadata -->
+    <meta name="DC.title" content="Gömülü Sistemlərdə Yaddaş Strukturu: C Kodu Həqiqətən FLASH və RAM-a Necə Yerləşdirilir">
+    <meta name="DC.creator" content="Dev.to">
+    <meta name="DC.subject" content="Technology, Software Engineering, Dev.to">
+    <meta name="DC.description" content="Gömülü Sistemlərdə Yaddaş Strukturu: C Kodu Həqiqətən FLASH və RAM-a Necə Yerləşdirilir CPU dəyişənləri, tipləri və ya bölmələri anlamır. O, yalnız "X ünvanını...">
+    <meta name="DC.publisher" content="NoMeta Azerbaijan">
+    <meta name="DC.contributor" content="Claude AI">
+    <meta name="DC.date" content="2026-01-29">
+    <meta name="DC.type" content="Text">
+    <meta name="DC.format" content="text/html">
+    <meta name="DC.identifier" content="https://nometa.az/news/memory-layout-in-embedded-systems-how-c-code-really-ends-up-in-flash-and-ram/">
+    <meta name="DC.source" content="https://dev.to/amanprasad/memory-layout-in-embedded-systems-how-c-code-really-ends-up-in-flash-and-ram-34c0">
+    <meta name="DC.language" content="az">
+    <meta name="DC.relation" content="https://dev.to/amanprasad/memory-layout-in-embedded-systems-how-c-code-really-ends-up-in-flash-and-ram-34c0">
+    <meta name="DC.rights" content="Original content © Dev.to. Translation by NoMeta.az">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="../../assets/images/favicon.svg">
+    <link rel="icon" type="image/png" sizes="32x32" href="../../assets/images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../../assets/images/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="../../assets/images/apple-touch-icon.png">
+    <link rel="manifest" href="../../site.webmanifest">
+    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="#0a0a0a" media="(prefers-color-scheme: dark)">
+    <meta name="msapplication-TileColor" content="#ffffff">
+
+    <!-- Performance Hints -->
+    <link rel="dns-prefetch" href="//nometa.az">
+    <link rel="preconnect" href="https://nometa.az">
+
+    <!-- Stylesheet -->
+    <link rel="preload" href="../../assets/css/styles.css?v=2026012203" as="style" fetchpriority="high">
+    <link rel="stylesheet" href="../../assets/css/styles.css?v=2026012203">
+
+    <!-- JSON-LD: Main Article Schema -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "TechArticle",
+        "@id": "https://nometa.az/news/memory-layout-in-embedded-systems-how-c-code-really-ends-up-in-flash-and-ram/#article",
+        "headline": "Gömülü Sistemlərdə Yaddaş Strukturu: C Kodu Həqiqətən FLASH və RAM-a Necə Yerləşdirilir",
+        "alternativeHeadline": "Memory Layout in Embedded Systems: How C Code Really Ends Up in FLASH and RAM",
+        "description": "Gömülü Sistemlərdə Yaddaş Strukturu: C Kodu Həqiqətən FLASH və RAM-a Necə Yerləşdirilir CPU dəyişənləri, tipləri və ya bölmələri anlamır. O, yalnız "X ünvanını...",
+        "image": {
+            "@type": "ImageObject",
+            "url": "https://nometa.az/assets/images/og-image.png",
+            "width": 1200,
+            "height": 630
+        },
+        "datePublished": "2026-01-29T00:00:00+04:00",
+        "dateModified": "2026-01-29T00:00:00+04:00",
+        "dateCreated": "2026-01-29T00:00:00+04:00",
+        "inLanguage": "az",
+        "wordCount": 1548,
+        "timeRequired": "PT8M",
+        "articleBody": "Gömülü Sistemlərdə Yaddaş Strukturu: C Kodu Həqiqətən FLASH və RAM-a Necə Yerləşdirilir CPU dəyişənləri, tipləri və ya bölmələri anlamır. O, yalnız \"X ünvanını oxu\" və ya \"Y ünvanına yaz\" kimi xam əmrləri icra edir. O, yalnız yaddaş ünvanlarını başa düşür. Dəyişən elan etdikdə, əslində saxlama yeri tələb edirsiniz. Kompilyator onu məntiqi bölməyə (məsələn, .data və ya .bss) təyin edir, Bağlayıcı (Linker) isə Bağlayıcı Skriptinizdə müəyyən edilmiş qaydalara əsasən son fiziki ünvanı hesablayır. Bu xəritələməni başa düşmürsünüzsə, yaddaş pozulmasının və performans darboğazlarının əsl səbəblərinə korsunuz. Gömülü sistemlərdə səhv yaddaşa yerləşdirilmiş düzgün məntiq yenə də sıradan çıxmış sistemdir.  Mündəricat - C Kodundan Binariyə: Yaddaş Yerləşdirməsini Kim Müəyyənləşdirir - FLASH Yaddaş Strukturu (Qeyri-Uçucu Bölmələr) - RAM Yaddaş Strukturu (Uçucu Bölmələr) - Başlanğıc Kodu: main()-dən Əvvəl Görünməz Əl - Həqiqət Cədvəli: Hara Gedir? - Yaddaş Yerləşdirməsinin Yoxlanılması - Yadda...",
+        "articleSection": "Technology",
+        "keywords": ["texnologiya", "proqramlaşdırma", "mühəndislik", "Dev.to"],
+        "author": {
+            "@type": "Organization",
+            "@id": "https://dev.to/#organization",
+            "name": "Dev.to",
+            "url": "https://dev.to"
+        },
+        "translator": {
+            "@type": "SoftwareApplication",
+            "name": "Claude AI",
+            "applicationCategory": "AI Translation"
+        },
+        "publisher": {
+            "@type": "Organization",
+            "@id": "https://nometa.az/#organization",
+            "name": "NoMeta Azerbaijan",
+            "url": "https://nometa.az/",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "https://nometa.az/assets/images/favicon.svg",
+                "width": 512,
+                "height": 512
+            }
+        },
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https://nometa.az/news/memory-layout-in-embedded-systems-how-c-code-really-ends-up-in-flash-and-ram/"
+        },
+        "isAccessibleForFree": true,
+        "isBasedOn": {
+            "@type": "Article",
+            "url": "https://dev.to/amanprasad/memory-layout-in-embedded-systems-how-c-code-really-ends-up-in-flash-and-ram-34c0",
+            "name": "Memory Layout in Embedded Systems: How C Code Really Ends Up in FLASH and RAM",
+            "inLanguage": "en",
+            "author": {
+                "@type": "Organization",
+                "name": "Dev.to"
+            }
+        },
+        "isPartOf": {
+            "@type": "Blog",
+            "@id": "https://nometa.az/news/#blog",
+            "name": "NoMeta.az Xəbərlər",
+            "url": "https://nometa.az/news/"
+        },
+        "copyrightHolder": {
+            "@type": "Organization",
+            "name": "Dev.to",
+            "url": "https://dev.to"
+        },
+        "copyrightYear": "2026",
+        "license": "https://dev.to/amanprasad/memory-layout-in-embedded-systems-how-c-code-really-ends-up-in-flash-and-ram-34c0",
+        "speakable": {
+            "@type": "SpeakableSpecification",
+            "cssSelector": [".article-content p:first-of-type", ".article-header h1"]
+        },
+        "potentialAction": [
+            {
+                "@type": "ReadAction",
+                "target": "https://nometa.az/news/memory-layout-in-embedded-systems-how-c-code-really-ends-up-in-flash-and-ram/"
+            },
+            {
+                "@type": "ShareAction",
+                "target": "https://nometa.az/news/memory-layout-in-embedded-systems-how-c-code-really-ends-up-in-flash-and-ram/"
+            }
+        ]
+    }
+    </script>
+
+    <!-- JSON-LD: BreadcrumbList -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "@id": "https://nometa.az/news/memory-layout-in-embedded-systems-how-c-code-really-ends-up-in-flash-and-ram/#breadcrumb",
+        "itemListElement": [
+            {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Ana səhifə",
+                "item": "https://nometa.az/"
+            },
+            {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Xəbərlər",
+                "item": "https://nometa.az/news/"
+            },
+            {
+                "@type": "ListItem",
+                "position": 3,
+                "name": "Gömülü Sistemlərdə Yaddaş Strukturu: C Kodu Həqiqətən FLASH və RAM-a Necə Yerləşdirilir",
+                "item": "https://nometa.az/news/memory-layout-in-embedded-systems-how-c-code-really-ends-up-in-flash-and-ram/"
+            }
+        ]
+    }
+    </script>
+
+    <!-- JSON-LD: WebPage -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebPage",
+        "@id": "https://nometa.az/news/memory-layout-in-embedded-systems-how-c-code-really-ends-up-in-flash-and-ram/#webpage",
+        "url": "https://nometa.az/news/memory-layout-in-embedded-systems-how-c-code-really-ends-up-in-flash-and-ram/",
+        "name": "Gömülü Sistemlərdə Yaddaş Strukturu: C Kodu Həqiqətən FLASH və RAM-a Necə Yerləşdirilir | NoMeta.az",
+        "description": "Gömülü Sistemlərdə Yaddaş Strukturu: C Kodu Həqiqətən FLASH və RAM-a Necə Yerləşdirilir CPU dəyişənləri, tipləri və ya bölmələri anlamır. O, yalnız "X ünvanını...",
+        "inLanguage": "az",
+        "isPartOf": {
+            "@type": "WebSite",
+            "@id": "https://nometa.az/#website"
+        },
+        "about": {
+            "@type": "Thing",
+            "name": "Dev.to Engineering"
+        },
+        "breadcrumb": {
+            "@id": "https://nometa.az/news/memory-layout-in-embedded-systems-how-c-code-really-ends-up-in-flash-and-ram/#breadcrumb"
+        },
+        "primaryImageOfPage": {
+            "@type": "ImageObject",
+            "url": "https://nometa.az/assets/images/og-image.png"
+        },
+        "datePublished": "2026-01-29",
+        "dateModified": "2026-01-29",
+        "speakable": {
+            "@type": "SpeakableSpecification",
+            "cssSelector": [".article-header h1", ".article-content"]
+        }
+    }
+    </script>
+
+    <!-- JSON-LD: Organization (Publisher) -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "@id": "https://nometa.az/#organization",
+        "name": "NoMeta Azerbaijan",
+        "url": "https://nometa.az/",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://nometa.az/assets/images/favicon.svg",
+            "width": 512,
+            "height": 512
+        },
+        "sameAs": [
+            "https://nometa.xyz"
+        ]
+    }
+    </script>
+</head>
+<body>
+    <header class="blog-header">
+        <nav class="blog-nav" aria-label="Əsas naviqasiya">
+            <a href="/" class="nav-brand" title="NoMeta.az Ana Səhifə">
+                <span class="brand">nometa</span><span class="domain">.az</span>
+            </a>
+            <a href="/news/" class="nav-link" title="Bütün xəbərlər">Xəbərlər</a>
+        </nav>
+    </header>
+
+    <!-- Breadcrumb Navigation -->
+    <nav class="breadcrumb" aria-label="Breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList">
+        <div class="breadcrumb-container">
+            <span itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+                <a itemprop="item" href="/">
+                    <span itemprop="name">Ana səhifə</span>
+                </a>
+                <meta itemprop="position" content="1">
+            </span>
+            <span class="breadcrumb-separator" aria-hidden="true">/</span>
+            <span itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+                <a itemprop="item" href="/news/">
+                    <span itemprop="name">Xəbərlər</span>
+                </a>
+                <meta itemprop="position" content="2">
+            </span>
+            <span class="breadcrumb-separator" aria-hidden="true">/</span>
+            <span itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+                <span itemprop="name" class="breadcrumb-current">Gömülü Sistemlərdə Yaddaş Strukturu: C Kodu...</span>
+                <meta itemprop="position" content="3">
+            </span>
+        </div>
+    </nav>
+
+    <main class="blog-container" role="main">
+        <article class="blog-article" itemscope itemtype="https://schema.org/TechArticle">
+            <meta itemprop="mainEntityOfPage" content="https://nometa.az/news/memory-layout-in-embedded-systems-how-c-code-really-ends-up-in-flash-and-ram/">
+            <meta itemprop="inLanguage" content="az">
+            <meta itemprop="wordCount" content="1548">
+
+            <header class="article-header">
+                <div class="article-meta">
+                    <a href="https://dev.to" target="_blank" rel="noopener noreferrer" class="article-source" itemprop="author" itemscope itemtype="https://schema.org/Organization">
+                        <span itemprop="name">Dev.to</span>
+                    </a>
+                    <span class="article-date">
+                        <time datetime="2026-01-29" itemprop="datePublished">29 Yanvar 2026</time>
+                    </span>
+                </div>
+                <h1 itemprop="headline">Gömülü Sistemlərdə Yaddaş Strukturu: C Kodu Həqiqətən FLASH və RAM-a Necə Yerləşdirilir</h1>
+                <meta itemprop="dateModified" content="2026-01-29">
+                <div itemprop="image" itemscope itemtype="https://schema.org/ImageObject" style="display:none;">
+                    <meta itemprop="url" content="https://nometa.az/assets/images/og-image.png">
+                    <meta itemprop="width" content="1200">
+                    <meta itemprop="height" content="630">
+                </div>
+                <div itemprop="publisher" itemscope itemtype="https://schema.org/Organization" style="display:none;">
+                    <meta itemprop="name" content="NoMeta Azerbaijan">
+                    <meta itemprop="url" content="https://nometa.az/">
+                    <div itemprop="logo" itemscope itemtype="https://schema.org/ImageObject">
+                        <meta itemprop="url" content="https://nometa.az/assets/images/favicon.svg">
+                    </div>
+                </div>
+            </header>
+
+            <div class="article-content" itemprop="articleBody">
+                <p>CPU dəyişənləri, tipləri və ya bölmələri anlamır. O, yalnız &quot;X ünvanını oxu&quot; və ya &quot;Y ünvanına yaz&quot; kimi xam əmrləri icra edir. O, yalnız <strong>yaddaş ünvanlarını</strong> başa düşür.</p>
+<p>Dəyişən elan etdikdə, əslində saxlama yeri tələb edirsiniz. <strong>Kompilyator</strong> onu məntiqi bölməyə (məsələn, <code>.data</code> və ya <code>.bss</code>) təyin edir, <strong>Bağlayıcı (Linker)</strong> isə <strong>Bağlayıcı Skriptinizdə</strong> müəyyən edilmiş qaydalara əsasən son fiziki ünvanı hesablayır.
+Bu xəritələməni başa düşmürsünüzsə, yaddaş pozulmasının və performans darboğazlarının əsl səbəblərinə korsunuz. Gömülü sistemlərdə səhv yaddaşa yerləşdirilmiş düzgün məntiq yenə də sıradan çıxmış sistemdir.</p>
+<h3>Mündəricat</h3>
+<ul>
+<li>C Kodundan Binariyə: Yaddaş Yerləşdirməsini Kim Müəyyənləşdirir</li>
+<li>FLASH Yaddaş Strukturu (Qeyri-Uçucu Bölmələr)</li>
+<li>RAM Yaddaş Strukturu (Uçucu Bölmələr)</li>
+<li>Başlanğıc Kodu: main()-dən Əvvəl Görünməz Əl</li>
+<li>Həqiqət Cədvəli: Hara Gedir?</li>
+<li>Yaddaş Yerləşdirməsinin Yoxlanılması</li>
+<li>Yadda Saxlanılmalı Son Qaydalar</li>
+<li>Nəticə</li>
+</ul>
+<h2>C Kodundan Binariyə: Yaddaş Yerləşdirməsini Kim Müəyyənləşdirir</h2>
+<p>C kodunuz sadəcə binariyə çevrilmir. O, dörd mərhələli çevrilmədən keçir. Bu çevrilmə tamamilə qurma zamanı baş verir, binari yüklənmədən və ya CPU-da icra edilmədən çox əvvəl. Bu boru kəmərini anlamaq göstərir ki, C sintaksisi <strong>məntiqi</strong> müəyyən edir, <strong>Bağlayıcı Skripti</strong> isə <strong>yerləşməni</strong> müəyyən edir.</p>
+<p><strong>1. Ön-prosessor:</strong> Tez-tez unudulan ilk addım. O, <code>#include</code> fayllarını idarə edir və <code>#define</code> makrolarını genişləndirir. Yaddaş və ya məntiq haqqında fikirləşmir; sadəcə kompilyator üçün təmiz C faylı hazırlamaq üçün mətn manipulyasiyası həyata keçirir.</p>
+<p><strong>2. Kompilyator:</strong> Kompilyator C məntiqini <strong>Assembly təlimatlarına</strong> çevirir. Bu mərhələdə alət yer tutucularla (<code>.data</code> və ya <code>.bss</code> kimi məntiqi kateqoriyalarla) işləyir. Fiziki yaddaş yerlərini müəyyən etmir. Yaddaşın <em>harada</em> olduğunu bilmir. Yalnız yer tutucularla işləyir.</p>
+<p><strong>3. Assembler:</strong> Assembler həmin assembly təlimatlarını <strong>Maşın Koduna</strong> çevirir. O, <strong>yerdəyişdirilə bilən obyekt faylları</strong> istehsal edir. Bu fayllar binar məntiqi ehtiva edir, lakin ünvanlar hələ <strong>yerdəyişdirilə biləndir</strong>. Onlar hələ RAM və ya FLASH-da fiziki yerə bağlı deyillər.</p>
+<p><strong>4. Bağlayıcı (Linker):</strong> Bağlayıcı memardır. O, bütün yerdəyişdirilə bilən obyekt fayllarını götürür və hər simvola <strong>FLASH</strong> və ya <strong>RAM</strong>-da sabit, fiziki ünvan təyin etmək üçün <strong>Bağlayıcı Skriptindən (.ld)</strong> istifadə edir.</p>
+<blockquote>
+<p>Əsas Nəticə:
+Siz <code>int x = 10;</code> yazırsınız, lakin o <code>10</code>-un <code>0x20000004</code> ünvanında (RAM) yaşayıb-yaşamadığını və ya toqquşmaya səbəb olub-olmadığını bağlayıcı qərar verir. Yaddaş yerləşdirməsi tamamilə bağlayıcı skripti tərəfindən idarə olunur.</p>
+</blockquote>
+<h2>FLASH Yaddaş Strukturu (Qeyri-Uçucu Bölmələr)</h2>
+<p>Flash, proqramınızın bildiyi, lakin dəyişdirməyə ehtiyac duymadığı hər şey üçün daimi evdir. Məzmunu yenidən başlatmalardan və enerji itkisindən sağ çıxır.</p>
+<p><img src="https://media2.dev.to/dynamic/image/width=800%2Cheight=%2Cfit=scale-down%2Cgravity=auto%2Cformat=auto/https%3A%2F%2Fdev-to-uploads.s3.amazonaws.com%2Fuploads%2Farticles%2Fky8tcewpluhjnksu8s93.png" alt="FLASH Yaddaş Strukturu"></p>
+<p><strong><code>.isr_vector</code> (Xəritə)</strong></p>
+<p>FLASH-ın ən başlanğıcında yerləşir (adətən <code>0x00000000</code>).</p>
+<p>O, ilkin stek göstəricisini və Reset Handler-in və bütün Kəsmə Xidmət Proqramlarının ünvanlarını ehtiva edir. Yenidən başlatmada CPU icranı necə başlayacağını bilmək üçün əvvəlcə bu cədvəli gətirir.</p>
+<p><strong><code>.text</code> (Təlimatlar)</strong></p>
+<p>Tətbiq, kitabxanalar və ISR-lər üçün kompilyasiya edilmiş maşın təlimatlarını ehtiva edir. CPU Execute-In-Place (XIP) istifadə edərək bu kodu birbaşa FLASH-dan icra edir.</p>
+<p><strong><code>.rodata</code> (Sabitlər)</strong></p>
+<p><code>const</code> qlobal dəyişənlər, axtarış cədvəlləri və sətir literalları kimi yalnız oxunan məlumatları saxlayır.</p>
+<p><strong>Niyə <code>const</code> RAM-a qənaət edir:</strong>
+<code>const int table[] = {1, 2, 3};</code> yazsanız, massiv <strong>yalnız</strong> Flash-da yaşayır. <code>const</code>-u unutsanız, bağlayıcı onu RAM-a məcbur edir (redaktə edə biləsiniz deyə), heç vaxt dəyişməyən məlumatlar üçün qiymətli SRAM-ı israf edir. <strong>Axtarış cədvəlləri üçün həmişə <code>const</code> istifadə edin.</strong></p>
+<p><strong>Sətir Literal Tələsi</strong></p>
+<ul>
+<li><code>const char *ptr = &quot;Hello&quot;;</code> → &quot;Hello&quot; sətri FLASH-da (<code>.rodata</code>) saxlanılır, lakin <code>ptr</code> göstəricisi RAM-da yaşayır. Təhlükəsiz və RAM-a qənaətli.</li>
+<li><code>char arr[] = &quot;Hello&quot;;</code> → &quot;Hello&quot; sətri Flash-da saxlanılır <em>və</em> başlanğıcda <strong>RAM</strong>-a kopyalanır. (Əlavə RAM xərcləyir, dəyişiklik lazım olduqda modifikasiyaya icazə verir).</li>
+</ul>
+<p><strong>Xəbərdarlıq:</strong> Göstəricidən <code>const</code>-u çıxarsanız (<code>char *ptr = &quot;Hello&quot;;</code>), sətir <em>hələ də</em> Flash-da (<code>.rodata</code>) yaşayır.</p>
+<ul>
+<li><strong><code>const</code> ilə:</strong> Kompilyator ona yazmağa çalışsanız xəta verir.</li>
+<li><strong><code>const</code> olmadan:</strong> Kompilyator yazmağa icazə verir, çünki tip sistemi artıq yalnız oxunan girişi tətbiq etmir, baxmayaraq ki, əsas yaddaş hələ də yalnız oxunandır, lakin CPU Yalnız Oxunan Flash ünvanına yazmağa çalışdıqda, sistem <strong>HARD FAULT</strong> yaradır və çökür.</li>
+</ul>
+<blockquote>
+<p>Qayda: const-u silmək sətri RAM-a köçürmür. Yalnız qorumanı silir və qeyri-müəyyən davranışı mümkün edir.</p>
+</blockquote>
+<h3>FLASH-da Gizli Məlumat Bölmələri: <code>.data</code> və <code>.bss</code></h3>
+<p><code>.data</code> və <code>.bss</code> işləmə zamanı RAM bölmələri olsa da, FLASH onların inisializasiyasında mühüm rol oynayır. Saxlama (Flash) və icra (RAM) arasında körpünü təmsil edir.</p>
+<p><strong><code>.data</code> İnisializasiya Edilmiş Qlobal Dəyişənlər (LMA vs VMA)</strong></p>
+<p>Qlobal inisializasiya edilmiş dəyişənlər (məs., <code>int score = 100;</code>). Bu dəyişən dəyişdirə biləsiniz deyə <em>mütləq</em> RAM-da yaşamalıdır. Lakin RAM enerji itkisində silinir. Bəs <code>100</code> haradan gəlir?</p>
+<p>Bu bölmə ikili həyat yaşayır.</p>
+<ul>
+<li><strong>Flash-da (LMA - Load Memory Address):</strong> İlkin dəyər (<code>100</code>) enerji itkisindən sağ qalmaq üçün burada saxlanılır.</li>
+<li><strong>RAM-da (VMA - Virtual Memory Address):</strong> Başlanğıc kodu burada dəyişən üçün yer ayırır.</li>
+<li><strong>Mexanizm:</strong> <code>main()</code> işləməzdən əvvəl başlanğıc kodu dəyərləri Flash-dan (LMA) RAM-a (VMA) kopyalayır.</li>
+</ul>
+<p><strong><code>.bss</code> — Sıfır-İnisializasiyalı Qlobal</strong></p>
+<p><code>.bss</code> bölməsi inisializasiya edilməmiş və ya açıq şəkildə sıfıra təyin edilmiş qlobal və statik dəyişənləri ehtiva edir
+(məs., <code>int counter;</code>, <code>static int flag;</code>).</p>
+<p>Bu dəyişənlər üçün FLASH-da yer ayrılmır; yalnız RAM ayrılır.
+Başlanğıcda işləmə zamanı <code>main()</code> icra edilməzdən əvvəl bütün <code>.bss</code> bölgəsini sıfıra təmizləyir.
+Bu, sıfırları saxlamaq üçün FLASH yerinin israfından qaçır, buna görə <code>.bss</code> <strong>yalnız RAM</strong> istifadə edir.</p>
+<h2>RAM Yaddaş Strukturu (Uçucu Bölmələr)</h2>
+<p>RAM sistemin <strong>işçi yaddaşıdır</strong>. Bütün yazıla bilən işləmə zamanı vəziyyətini saxlayır və hər yenidən başlatmada yenidən qurulur.</p>
+<p><img src="https://media2.dev.to/dynamic/image/width=800%2Cheight=%2Cfit=scale-down%2Cgravity=auto%2Cformat=auto/https%3A%2F%2Fdev-to-uploads.s3.amazonaws.com%2Fuploads%2Farticles%2Fb6ubl9acng5qbn9pib6t.png" alt="RAM Yaddaş Strukturu"></p>
+<p><strong><code>.data</code> (Aktiv Dəyişənlər)</strong></p>
+<p>Başlanğıc zamanı FLASH-dan kopyalanan inisializasiya edilmiş qlobal və statik dəyişənləri ehtiva edir. Bu dəyişənlər icra zamanı sərbəst oxunur və dəyişdirilir.</p>
+<p><strong><code>.bss</code> (Sıfırlanmış Dəyişənlər)</strong></p>
+<p>Açıq ilkin dəyərləri olmayan qlobal və statik dəyişənləri saxlayır. Bu bütün bölgə proqnozlaşdırıla bilən davranış üçün başlanğıcda sıfıra təmizlənir.</p>
+<p><strong>Heap (Dinamik Yaddaş)</strong></p>
+<ul>
+<li><code>.bss</code>-dən sonra başlayır</li>
+<li>Yuxarıya doğru böyüyür</li>
+<li><code>malloc()</code> / <code>free()</code> tərəfindən istifadə olunur</li>
+<li>Fraqmentasiyaya meyilli</li>
+<li>Sərhəd yoxlaması yoxdur</li>
+<li>Gömülü sistemlərdə nəzarətsiz heap istifadəsi <strong>Fraqmentasiyaya</strong> səbəb olur. Bir çox təhlükəsizlik-kritik sistemlər qeyri-sabitlikdən qaçmaq üçün heap istifadəsini məhdudlaşdırır və ya tamamilə qarşısını alır.</li>
+</ul>
+<p><strong>Stack (İcra Konteksti)</strong></p>
+<ul>
+<li>RAM-ın yuxarısından başlayır</li>
+<li>RAM-ın sonundan <strong>aşağıya doğru</strong> böyüyür.</li>
+<li>Funksiya çağırış çərçivələrini, lokal dəyişənləri, qayıdış ünvanlarını və kəsmə kontekstini saxlayır</li>
+</ul>
+<p>Stack aşağıya, Heap isə yuxarıya böyüdüyündən, onlar toqquşma kursundadırlar. Stack çox dərinə getsə (rekursiya), Heap və ya <code>.bss</code> dəyişənlərini səssizcə üzərinə yazacaq. Bu, &quot;xəyal xətaları&quot;nın 1 nömrəli səbəbidir.</p>
+<h2>Başlanğıc Kodu: <code>main()</code>-dən Əvvəl Görünməz Əl</h2>
+<p>Standart C kursunda sizə &quot;icra <code>main()</code>-dən başlayır&quot; öyrədilir. <strong>Mikrokontrollerdə bu yalandır.</strong></p>
+<p>Mikrokontrollerdə icra <code>main()</code>-dən <strong>başlamır</strong>.</p>
+<p>İstifadəçi kodu işləməzdən əvvəl başlanğıc kodu icra mühitini hazırlayır:</p>
+<ol>
+<li><strong>Stek Göstəricisi İnisializasiyası:</strong> Vektor cədvəlindən Əsas Stek Göstəricisini (MSP) yükləyir. Bu olmadan funksiyalar çağırıla bilməz.</li>
+<li><strong><code>.data</code> Kopyalama:</strong> İlkin dəyərləri Flash-dan RAM-a kopyalayır. Bu uğursuz olarsa, dəyişənlər zibil dəyərlərlə başlayır.</li>
+<li><strong><code>.bss</code> Sıfırlama:</strong> Bütün <code>.bss</code> bölgəsi RAM-da sıfıra təmizlənir.</li>
+<li><strong>Sistem İnisializasiyası:</strong> Saat və aşağı səviyyəli hardware konfiqurasiyası həyata keçirilir.</li>
+<li><strong><code>main()</code>-ə Keçid:</strong> Yalnız yaddaş hazırlandıqdan sonra icra tətbiqə daxil olur.</li>
+</ol>
+<p>Bu addımlardan hər hansı biri uğursuz olarsa, dəyişənlər zibil ehtiva edir, stek yaddaşı pozur və uğursuzluqlar əsl səbəblə əlaqəsiz görünür.</p>
+<h2>Həqiqət Cədvəli: Hara Gedir?</h2>
+<p>Dəyişənlərinizin harada yerləşəcəyini proqnozlaşdırmaq üçün qısa bir istinad bələdçisi.</p>
+<table>
+<thead>
+<tr>
+<th><strong>Dəyişən Elanı</strong></th>
+<th><strong>Seqment</strong></th>
+<th><strong>Niyə?</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>int x;</code> (Qlobal)</td>
+<td><strong>.bss</strong></td>
+<td>İlkin dəyər yoxdur. Başlanğıc kodu tərəfindən sıfırlanır.</td>
+</tr>
+<tr>
+<td><code>int x = 10;</code> (Qlobal)</td>
+<td><strong>.data</strong></td>
+<td>Sıfırdan fərqli ilkin dəyər lazımdır. Flash-dan kopyalanır.</td>
+</tr>
+<tr>
+<td><code>const int x = 10;</code> (Qlobal)</td>
+<td><strong>.rodata</strong></td>
+<td>Yalnız oxunan. Flash-da qalır.</td>
+</tr>
+<tr>
+<td><code>static int x = 5;</code> (Lokal)</td>
+<td><strong>.data</strong></td>
+<td><code>static</code> &quot;həmişəlik qal&quot; deməkdir. Stack-da yaşaya bilməz.</td>
+</tr>
+<tr>
+<td><code>int x = 5;</code> (Lokal)</td>
+<td><strong>Stack</strong></td>
+<td>Müvəqqəti. Yalnız funksiya işləyərkən mövcuddur.</td>
+</tr>
+<tr>
+<td><code>char *s = &quot;Text&quot;;</code></td>
+<td><strong>.rodata</strong></td>
+<td>Sətir Flash-dadır; Göstərici RAM-dadır.</td>
+</tr>
+<tr>
+<td><code>char s[] = &quot;Text&quot;;</code></td>
+<td><strong>Stack</strong></td>
+<td>Massiv Stack-dadır; Sətir ona kopyalanır.</td>
+</tr>
+<tr>
+<td><code>malloc(10)</code></td>
+<td><strong>Heap</strong></td>
+<td>Proqramçı tərəfindən əl ilə tələb edilir.</td>
+</tr>
+</tbody></table>
+<h2>Yaddaş Yerləşdirməsinin Yoxlanılması</h2>
+<p>Yaddaş strukturunu anlamaq <strong>yoxlanılmadıqca</strong> mənasızdır. Gömülü sistemlər fərziyyələrə tolerant deyil. Nəzəriyyəni mühəndisliyə çevirmək üçün bu alətlərdən istifadə edin.</p>
+<p><strong>Addım 1:</strong> Dəyişənləri yaddaşın hər bölməsinə məcbur etmək üçün bu minimal kod parçasından istifadə edin.</p>
+<pre><code class="language-c">#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+
+int var_bss;                    // İnisializasiya edilməmiş -&gt; .bss
+int var_data = 42;              // İnisializasiya edilmiş   -&gt; .data
+const int var_rodata = 100;     // Yalnız oxunan     -&gt; .rodata (Flash)
+
+void memory_map_test() {
+    int var_stack = 5;          // Lokal         -&gt; Stack
+    static int var_static = 10; // Statik Lokal  -&gt; .data
+    int *var_heap = malloc(4);  // Dinamik       -&gt; Heap
+
+    printf(&quot;Code (.text):   %p\n&quot;, memory_map_test);
+    free(var_heap);
+}
+
+int main() {
+    memory_map_test();
+    return 0;
+}
+</code></pre>
+<p><strong>Addım 2:</strong> Yüksək Səviyyəli İz (<code>size</code>)
+Ümumi istehlakı görmək üçün <code>size &lt;filename.exe&gt;</code> əmrini icra edin.</p>
+<pre><code class="language-c">size test.exe
+text    data     bss     dec     hex filename
+14696    1560     116   16372    3ff4 test.exe
+</code></pre>
+<p><strong>Addım 3:</strong> Məhkəmə Araşdırması (<code>nm</code>)
+Hər dəyişənin hansı bölməni tutduğunu sübut etmək üçün <code>nm</code>-dən istifadə edin.
+Bu əmri icra edin</p>
+<pre><code class="language-shell">nm test.exe | grep var_
+</code></pre>
+<pre><code class="language-c">nm  test.exe | grep var_
+00407070 B _var_bss
+00404004 D _var_data
+00405064 R _var_rodata
+0040400 8 d _var_static.2277
+</code></pre>
+<ul>
+<li><strong>T</strong> = Text (Flash)</li>
+<li><strong>R</strong> = Read-only (Flash)</li>
+<li><strong>D</strong> = Data (RAM)</li>
+<li><strong>B</strong> = BSS (RAM)</li>
+</ul>
+<p><strong>Addım 4:</strong> Əsl Həqiqət (Map Faylı)</p>
+<p>IDE-nizdə bağlayıcı map faylını (<code>-Wl,-Map=output.map</code>) aktiv edin. Bu, hər simvolu və onun fiziki ünvanını göstərən son sənəddir. Simvollarınızın toqquşmadığını və <code>.ld</code> skriptinizdə müəyyən edilmiş düzgün yaddaş sərhədləri daxilində yerləşdirildiyini yoxlamaq üçün istifadə edin.</p>
+<h2>Yadda Saxlanılmalı Son Qaydalar</h2>
+<ul>
+<li>CPU yalnız ünvanları başa düşür</li>
+<li>Bağlayıcı yaddaş yerləşdirməsini qərar verir</li>
+<li><code>.data</code> FLASH + RAM xərcləyir</li>
+<li><code>.bss</code> yalnız RAM xərcləyir</li>
+<li>Stack daşqınları səssizdir</li>
+<li>Həmişə alətlərlə yaddaşı yoxlayın</li>
+</ul>
+<h2>Nəticə</h2>
+<p>Ya siz yaddaşı idarə edirsiniz, ya da yaddaş sizi idarə edir. Kompilyatordan Bağlayıcıya qədər boru kəmərini anlayaraq və alətlərlə strukturunuzu yoxlayaraq, C proqramçısından Gömülü Mühəndisə çevrilirsiniz.</p>
+
+            </div>
+
+            <aside class="attribution-box" role="complementary" aria-label="Mənbə məlumatı">
+                <div class="attribution-header">
+                    <span class="ai-badge" title="AI ilə tərcümə edilib">AI</span>
+                    <span class="attribution-title">Tərcümə və Mənbə Məlumatı</span>
+                </div>
+                <p class="attribution-source">
+                    <strong>Orijinal məqalə:</strong>
+                    <a href="https://dev.to/amanprasad/memory-layout-in-embedded-systems-how-c-code-really-ends-up-in-flash-and-ram-34c0" target="_blank" rel="noopener noreferrer" title="Orijinal məqaləni oxuyun">
+                        Dev.to - "Memory Layout in Embedded Systems: How C Code Really Ends Up in FLASH and RAM"
+                    </a>
+                </p>
+                <p class="ai-notice">
+                    <strong>Tərcümə:</strong> Bu məqalə Claude AI tərəfindən avtomatik tərcümə edilmişdir.
+                    Texniki terminlər orijinal (İngilis) dilində saxlanılmışdır.
+                </p>
+                <p class="attribution-copyright">
+                    <small>&copy; 2026 Dev.to. Orijinal məzmunun bütün hüquqları müəllifə məxsusdur.</small>
+                </p>
+            </aside>
+
+            <!-- Share Buttons -->
+            <div class="share-buttons" aria-label="Paylaşma düymələri">
+                <span class="share-label">Paylaş:</span>
+                <a href="https://twitter.com/intent/tweet?url=https://nometa.az/news/memory-layout-in-embedded-systems-how-c-code-really-ends-up-in-flash-and-ram/&text=G%C3%B6m%C3%BCl%C3%BC%20Sisteml%C9%99rd%C9%99%20Yadda%C5%9F%20Strukturu%3A%20C%20Kodu%20H%C9%99qiq%C9%99t%C9%99n%20FLASH%20v%C9%99%20RAM-a%20Nec%C9%99%20Yerl%C9%99%C5%9Fdirilir"
+                   target="_blank" rel="noopener noreferrer" class="share-btn share-twitter" title="Twitter-da paylaş">
+                    Twitter
+                </a>
+                <a href="https://www.linkedin.com/sharing/share-offsite/?url=https://nometa.az/news/memory-layout-in-embedded-systems-how-c-code-really-ends-up-in-flash-and-ram/"
+                   target="_blank" rel="noopener noreferrer" class="share-btn share-linkedin" title="LinkedIn-də paylaş">
+                    LinkedIn
+                </a>
+                <a href="https://t.me/share/url?url=https://nometa.az/news/memory-layout-in-embedded-systems-how-c-code-really-ends-up-in-flash-and-ram/&text=G%C3%B6m%C3%BCl%C3%BC%20Sisteml%C9%99rd%C9%99%20Yadda%C5%9F%20Strukturu%3A%20C%20Kodu%20H%C9%99qiq%C9%99t%C9%99n%20FLASH%20v%C9%99%20RAM-a%20Nec%C9%99%20Yerl%C9%99%C5%9Fdirilir"
+                   target="_blank" rel="noopener noreferrer" class="share-btn share-telegram" title="Telegram-da paylaş">
+                    Telegram
+                </a>
+            </div>
+
+            <nav class="article-nav" aria-label="Məqalə naviqasiyası">
+                <a href="/news/" class="back-to-list">&larr; Bütün məqalələr</a>
+                <a href="https://dev.to/amanprasad/memory-layout-in-embedded-systems-how-c-code-really-ends-up-in-flash-and-ram-34c0" target="_blank" rel="noopener noreferrer" class="view-original">
+                    Orijinalı oxu (EN) &rarr;
+                </a>
+            </nav>
+        </article>
+    </main>
+
+    <footer role="contentinfo">
+        <p>
+            <a href="https://nometa.xyz" target="_blank" rel="me noopener noreferrer">nometa.xyz</a>,
+            <a href="https://nohello.com" target="_blank" rel="noopener noreferrer">nohello.com</a>,
+            <a href="https://xyproblem.info" target="_blank" rel="noopener noreferrer">xyproblem.info</a> və
+            <a href="https://dontasktoask.com" target="_blank" rel="noopener noreferrer">dontasktoask.com</a> saytlarından ilhamlanıb.
+        </p>
+        <p class="copyright">
+            <small>&copy; <span id="year"></span> NoMeta Azərbaycan. Bütün hüquqlar qorunur.</small>
+        </p>
+    </footer>
+    <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>
