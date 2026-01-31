@@ -33,6 +33,33 @@ const selectionCountEl = document.getElementById('selection-count');
 const savedView = document.getElementById('saved-view');
 const savedList = document.getElementById('saved-list');
 
+/**
+ * Safely parse JSON from a fetch response
+ * Handles non-JSON responses (HTML error pages, timeouts, etc.)
+ */
+async function safeJsonParse(response) {
+    const text = await response.text();
+
+    // Check if response looks like HTML (error page from proxy/server)
+    if (text.startsWith('<!') || text.startsWith('<html')) {
+        throw new Error(`Server returned HTML error page (status: ${response.status})`);
+    }
+
+    // Empty response
+    if (!text || text.trim() === '') {
+        throw new Error('Server returned empty response');
+    }
+
+    // Try to parse JSON
+    try {
+        return JSON.parse(text);
+    } catch (e) {
+        // Show first 100 chars of response for debugging
+        const preview = text.substring(0, 100);
+        throw new Error(`Invalid JSON response: ${preview}...`);
+    }
+}
+
 // Initialize
 document.addEventListener('DOMContentLoaded', () => {
     initNavigation();
@@ -1112,7 +1139,13 @@ async function translateArticleFromCard(articleId) {
             })
         });
 
-        const data = await response.json();
+        // Check HTTP status first
+        if (!response.ok) {
+            const errorText = await response.text();
+            throw new Error(`Server error (${response.status}): ${errorText.substring(0, 100)}`);
+        }
+
+        const data = await safeJsonParse(response);
 
         if (data.success) {
             showToast('Translation complete!', 'success');
@@ -1398,7 +1431,13 @@ async function translateArticle() {
             })
         });
 
-        const data = await response.json();
+        // Check HTTP status first
+        if (!response.ok) {
+            const errorText = await response.text();
+            throw new Error(`Server error (${response.status}): ${errorText.substring(0, 100)}`);
+        }
+
+        const data = await safeJsonParse(response);
 
         if (data.success) {
             status.className = 'translation-status success';
