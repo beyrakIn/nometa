@@ -229,7 +229,9 @@ async function translateWithOpenAI(text, title) {
  * Uses spawn with stdin to avoid shell injection vulnerabilities
  */
 async function translateWithClaudeCLI(text, title) {
-    return new Promise((resolve, reject) => {
+    const CLI_TIMEOUT = 600000; // 10 minutes for large articles
+
+    const attemptTranslation = () => new Promise((resolve, reject) => {
         const prompt = TRANSLATION_PROMPT
             .replace('{{title}}', title)
             .replace('{{content}}', text);
@@ -240,12 +242,21 @@ async function translateWithClaudeCLI(text, title) {
 
         // Use spawn with stdin to avoid shell injection (no temp file or shell command)
         const claudeProcess = spawn('claude', ['--print'], {
-            stdio: ['pipe', 'pipe', 'pipe'],
-            timeout: 300000 // 5 minute timeout
+            stdio: ['pipe', 'pipe', 'pipe']
         });
 
         let stdout = '';
         let stderr = '';
+        let killed = false;
+
+        // Set up manual timeout (spawn timeout option doesn't work reliably)
+        const timeoutId = setTimeout(() => {
+            killed = true;
+            claudeProcess.kill('SIGTERM');
+            logger.warn('translate', 'Claude CLI timed out, killing process', {
+                timeout: CLI_TIMEOUT
+            });
+        }, CLI_TIMEOUT);
 
         claudeProcess.stdout.on('data', (data) => {
             stdout += data.toString();
@@ -256,6 +267,7 @@ async function translateWithClaudeCLI(text, title) {
         });
 
         claudeProcess.on('error', (error) => {
+            clearTimeout(timeoutId);
             logger.error('translate', 'Claude CLI spawn failed', {
                 error: error.message,
                 stack: error.stack
@@ -263,13 +275,34 @@ async function translateWithClaudeCLI(text, title) {
             reject(new Error(`Claude CLI error: ${error.message}`));
         });
 
-        claudeProcess.on('close', (code) => {
+        claudeProcess.on('close', (code, signal) => {
+            clearTimeout(timeoutId);
+
+            // Handle process killed by signal (code is null)
+            if (code === null) {
+                const reason = killed ? 'timeout' : (signal || 'unknown signal');
+                logger.error('translate', 'Claude CLI was killed', {
+                    signal,
+                    reason,
+                    stdoutLength: stdout.length,
+                    stderr
+                });
+                reject(new Error(`Claude CLI was killed (${reason}). Try using claude-api instead for large articles.`));
+                return;
+            }
+
             if (code !== 0) {
                 logger.error('translate', 'Claude CLI execution failed', {
                     exitCode: code,
                     stderr
                 });
                 reject(new Error(`Claude CLI exited with code ${code}: ${stderr}`));
+                return;
+            }
+
+            if (!stdout.trim()) {
+                logger.error('translate', 'Claude CLI returned empty response');
+                reject(new Error('Claude CLI returned empty response'));
                 return;
             }
 
@@ -284,6 +317,29 @@ async function translateWithClaudeCLI(text, title) {
         claudeProcess.stdin.write(prompt);
         claudeProcess.stdin.end();
     });
+
+    // Retry logic for CLI
+    let lastError;
+    for (let attempt = 1; attempt <= MAX_RETRIES; attempt++) {
+        try {
+            logger.info('translate', 'Claude CLI attempt', { attempt, maxRetries: MAX_RETRIES });
+            return await attemptTranslation();
+        } catch (error) {
+            lastError = error;
+            logger.warn('translate', 'Claude CLI attempt failed', {
+                attempt,
+                error: error.message
+            });
+
+            if (attempt < MAX_RETRIES) {
+                const delay = INITIAL_RETRY_DELAY * Math.pow(2, attempt - 1);
+                logger.info('translate', `Retrying CLI in ${delay / 1000}s...`, { attempt, delay });
+                await sleep(delay);
+            }
+        }
+    }
+
+    throw lastError;
 }
 
 /**
