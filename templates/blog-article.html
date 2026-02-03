@@ -115,9 +115,9 @@
         "@context": "https://schema.org",
         "@type": "TechArticle",
         "@id": "https://nometa.az/news/{{slug}}/#article",
-        "headline": "{{title}}",
-        "alternativeHeadline": "{{originalTitle}}",
-        "description": "{{description}}",
+        "headline": "{{titleJson}}",
+        "alternativeHeadline": "{{originalTitleJson}}",
+        "description": "{{descriptionJson}}",
         "image": {
             "@type": "ImageObject",
             "url": "{{ogImage}}",
@@ -164,7 +164,7 @@
         "isBasedOn": {
             "@type": "Article",
             "url": "{{originalUrl}}",
-            "name": "{{originalTitle}}",
+            "name": "{{originalTitleJson}}",
             "inLanguage": "en",
             "author": {
                 "@type": "Organization",
@@ -223,7 +223,7 @@
             {
                 "@type": "ListItem",
                 "position": 3,
-                "name": "{{title}}",
+                "name": "{{titleJson}}",
                 "item": "https://nometa.az/news/{{slug}}/"
             }
         ]
@@ -237,8 +237,8 @@
         "@type": "WebPage",
         "@id": "https://nometa.az/news/{{slug}}/#webpage",
         "url": "https://nometa.az/news/{{slug}}/",
-        "name": "{{title}} | NoMeta.az",
-        "description": "{{description}}",
+        "name": "{{titleJson}} | NoMeta.az",
+        "description": "{{descriptionJson}}",
         "inLanguage": "az",
         "isPartOf": {
             "@type": "WebSite",

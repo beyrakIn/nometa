@@ -134,6 +134,29 @@ function extractPlainText(content, maxLength = 500) {
 }
 
 /**
+ * Escape text for use in JSON-LD structured data
+ * Handles quotes, backslashes, and special characters
+ */
+function escapeForJson(text) {
+    if (!text) return '';
+    return text
+        // Replace curly/smart quotes with regular quotes FIRST (before escaping)
+        // U+201C (") and U+201D (") -> regular quote
+        .replace(/[\u201C\u201D]/g, '"')
+        // Escape backslashes
+        .replace(/\\/g, '\\\\')
+        // Escape double quotes for JSON
+        .replace(/"/g, '\\"')
+        // Replace newlines and tabs
+        .replace(/\n/g, ' ')
+        .replace(/\r/g, '')
+        .replace(/\t/g, ' ')
+        // Collapse multiple spaces
+        .replace(/\s+/g, ' ')
+        .trim();
+}
+
+/**
  * Generate keywords from content
  */
 function extractKeywords(title, source, content) {
@@ -206,9 +229,12 @@ function generateArticlePage(article, template) {
     const data = {
         // Basic info
         title: article.title,
+        titleJson: escapeForJson(article.title), // Escaped for JSON-LD
         originalTitle: article.originalTitle || article.title,
+        originalTitleJson: escapeForJson(article.originalTitle || article.title), // Escaped for JSON-LD
         shortTitle: truncateTitle(article.title),
         description: translatedDescription,
+        descriptionJson: escapeForJson(translatedDescription), // Escaped for JSON-LD
         slug: article.slug,
         content: contentHtml,
 
@@ -230,7 +256,7 @@ function generateArticlePage(article, template) {
         wordCount: wordCount,
         readingTime: readingTime,
         keywords: keywords,
-        articleBodyText: articleBodyText.replace(/"/g, '\\"'), // Escape quotes for JSON
+        articleBodyText: escapeForJson(articleBodyText), // Escaped for JSON-LD
 
         // Share URLs
         encodedTitle: encodeURIComponent(article.title),
