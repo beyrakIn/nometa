@@ -12,6 +12,39 @@ const logger = require('./logger');
 /**
  * Translation prompt template for Azerbaijani
  */
+// Retry configuration for transient errors
+const MAX_RETRIES = 3;
+const INITIAL_RETRY_DELAY = 5000; // 5 seconds
+const API_TIMEOUT = 120000; // 2 minutes
+
+/**
+ * Sleep helper for retry delays
+ */
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+/**
+ * Check if error is retryable (timeout, server error, rate limit)
+ */
+function isRetryableError(error) {
+    const message = error.message || '';
+    const status = error.status || error.statusCode || 0;
+
+    // Cloudflare errors (520-530)
+    if (status >= 520 && status <= 530) return true;
+    // Server errors (500-599)
+    if (status >= 500 && status < 600) return true;
+    // Rate limiting
+    if (status === 429) return true;
+    // Timeout errors
+    if (message.includes('timeout') || message.includes('ETIMEDOUT') || message.includes('ECONNRESET')) return true;
+    // Cloudflare HTML error pages
+    if (message.includes('524') || message.includes('Server error')) return true;
+
+    return false;
+}
+
 const TRANSLATION_PROMPT = `You are a professional translator specializing in technical content.
 Translate the following article from English to Azerbaijani (az).
 
@@ -36,7 +69,7 @@ Content:
 {{content}}`;
 
 /**
- * Translate using Claude API (Anthropic SDK)
+ * Translate using Claude API (Anthropic SDK) with retry logic
  */
 async function translateWithClaudeAPI(text, title) {
     const Anthropic = require('@anthropic-ai/sdk');
@@ -50,47 +83,71 @@ async function translateWithClaudeAPI(text, title) {
         throw error;
     }
 
-    const client = new Anthropic({ apiKey });
+    const client = new Anthropic({
+        apiKey,
+        timeout: API_TIMEOUT
+    });
 
     const prompt = TRANSLATION_PROMPT
         .replace('{{title}}', title)
         .replace('{{content}}', text);
 
-    logger.debug('translate', 'Sending to Claude API', {
-        model: 'claude-sonnet-4-20250514',
-        contentLength: text.length
-    });
-
-    try {
-        const response = await client.messages.create({
+    let lastError;
+    for (let attempt = 1; attempt <= MAX_RETRIES; attempt++) {
+        logger.debug('translate', 'Sending to Claude API', {
             model: 'claude-sonnet-4-20250514',
-            max_tokens: 8192,
-            messages: [
-                { role: 'user', content: prompt }
-            ]
+            contentLength: text.length,
+            attempt
         });
 
-        // Validate response structure
-        if (!response.content || !response.content[0] || !response.content[0].text) {
-            throw new Error('Invalid Claude API response: missing content');
+        try {
+            const response = await client.messages.create({
+                model: 'claude-sonnet-4-20250514',
+                max_tokens: 8192,
+                messages: [
+                    { role: 'user', content: prompt }
+                ]
+            });
+
+            // Validate response structure
+            if (!response.content || !response.content[0] || !response.content[0].text) {
+                throw new Error('Invalid Claude API response: missing content');
+            }
+
+            logger.debug('translate', 'Claude API response received', {
+                outputLength: response.content[0].text.length,
+                attempt
+            });
+
+            return response.content[0].text;
+        } catch (error) {
+            lastError = error;
+            logger.warn('translate', 'Claude API request failed', {
+                error: error.message,
+                status: error.status,
+                attempt,
+                maxRetries: MAX_RETRIES
+            });
+
+            if (attempt < MAX_RETRIES && isRetryableError(error)) {
+                const delay = INITIAL_RETRY_DELAY * Math.pow(2, attempt - 1);
+                logger.info('translate', `Retrying in ${delay / 1000}s...`, { attempt, delay });
+                await sleep(delay);
+            } else {
+                break;
+            }
         }
-
-        logger.debug('translate', 'Claude API response received', {
-            outputLength: response.content[0].text.length
-        });
-
-        return response.content[0].text;
-    } catch (error) {
-        logger.error('translate', 'Claude API request failed', {
-            error: error.message,
-            stack: error.stack
-        });
-        throw error;
     }
+
+    logger.error('translate', 'Claude API request failed after retries', {
+        error: lastError.message,
+        stack: lastError.stack
+    });
+    throw lastError;
 }
 
 /**
- * Translate using OpenAI API
+ * Translate using OpenAI API with retry logic
  */
 async function translateWithOpenAI(text, title) {
     const OpenAI = require('openai');
@@ -104,43 +161,67 @@ async function translateWithOpenAI(text, title) {
         throw error;
     }
 
-    const client = new OpenAI({ apiKey });
+    const client = new OpenAI({
+        apiKey,
+        timeout: API_TIMEOUT
+    });
 
     const prompt = TRANSLATION_PROMPT
         .replace('{{title}}', title)
         .replace('{{content}}', text);
 
-    logger.debug('translate', 'Sending to OpenAI API', {
-        model: 'gpt-4-turbo-preview',
-        contentLength: text.length
-    });
-
-    try {
-        const response = await client.chat.completions.create({
+    let lastError;
+    for (let attempt = 1; attempt <= MAX_RETRIES; attempt++) {
+        logger.debug('translate', 'Sending to OpenAI API', {
             model: 'gpt-4-turbo-preview',
-            max_tokens: 8192,
-            messages: [
-                { role: 'user', content: prompt }
-            ]
+            contentLength: text.length,
+            attempt
         });
 
-        // Validate response structure
-        if (!response.choices || !response.choices[0] || !response.choices[0].message || !response.choices[0].message.content) {
-            throw new Error('Invalid OpenAI API response: missing content');
+        try {
+            const response = await client.chat.completions.create({
+                model: 'gpt-4-turbo-preview',
+                max_tokens: 8192,
+                messages: [
+                    { role: 'user', content: prompt }
+                ]
+            });
+
+            // Validate response structure
+            if (!response.choices || !response.choices[0] || !response.choices[0].message || !response.choices[0].message.content) {
+                throw new Error('Invalid OpenAI API response: missing content');
+            }
+
+            logger.debug('translate', 'OpenAI API response received', {
+                outputLength: response.choices[0].message.content.length,
+                attempt
+            });
+
+            return response.choices[0].message.content;
+        } catch (error) {
+            lastError = error;
+            logger.warn('translate', 'OpenAI API request failed', {
+                error: error.message,
+                status: error.status,
+                attempt,
+                maxRetries: MAX_RETRIES
+            });
+
+            if (attempt < MAX_RETRIES && isRetryableError(error)) {
+                const delay = INITIAL_RETRY_DELAY * Math.pow(2, attempt - 1);
+                logger.info('translate', `Retrying in ${delay / 1000}s...`, { attempt, delay });
+                await sleep(delay);
+            } else {
+                break;
+            }
         }
-
-        logger.debug('translate', 'OpenAI API response received', {
-            outputLength: response.choices[0].message.content.length
-        });
-
-        return response.choices[0].message.content;
-    } catch (error) {
-        logger.error('translate', 'OpenAI API request failed', {
-            error: error.message,
-            stack: error.stack
-        });
-        throw error;
     }
+
+    logger.error('translate', 'OpenAI API request failed after retries', {
+        error: lastError.message,
+        stack: lastError.stack
+    });
+    throw lastError;
 }
 
 /**
