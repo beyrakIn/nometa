@@ -46,7 +46,7 @@ LOG_FORMAT=json                # Set for JSON output (auto-enabled in CI)
 ## Architecture
 
 ### Main Site
-- `index.html` - Main educational page with Schema.org structured data
+- `index.html` - Main educational page with Schema.org structured data (WebPage, Article, FAQPage)
 - `assets/css/styles.css` - All styling (dark mode, responsive, animations)
 
 ### Blog System (`scripts/`)
@@ -54,41 +54,57 @@ The blog system fetches articles from tech blogs, translates them to Azerbaijani
 
 **Pipeline**: RSS feeds → SQLite DB (`content/nometa.db`) → Translation → `news/` HTML
 
-**Article statuses**: `pending` | `saved` | `translated` | `published` | `disabled`
+**Article status lifecycle**: `pending` → `saved` → `translated` → `published` (or `disabled` at any point)
 
-- `scripts/fetch-rss.js` - Fetches articles from configured RSS feeds (managed via admin panel); filters promotional content
-- `scripts/translate.js` - Multi-provider translation (Claude API, OpenAI, Claude CLI)
-- `scripts/generate-blog.js` - Generates HTML pages, RSS feed, updates sitemap
-- `scripts/server.js` - Express admin panel for managing articles
-- `scripts/db.js` - SQLite database wrapper (better-sqlite3)
-- `scripts/logger.js` - Structured logging with log levels and JSON output for CI
+- `scripts/fetch-rss.js` - Fetches articles from configured RSS feeds (managed via admin panel); filters promotional content via keyword list; minimum content length 1000 chars
+- `scripts/translate.js` - Multi-provider translation (Claude API, OpenAI, Claude CLI) with retry logic (3 retries, exponential backoff from 5s, 2-min API timeout)
+- `scripts/generate-blog.js` - Generates HTML pages, RSS feed, updates sitemap, injects recent articles into homepage
+- `scripts/server.js` - Express admin panel for managing articles; publishing auto-commits `news/` and `sitemap.xml` then pushes to GitHub
+- `scripts/db.js` - SQLite database wrapper (better-sqlite3, WAL mode); all queries use prepared statements
+- `scripts/logger.js` - Structured logging: `logger.info('component', 'message', { meta })`
 
 **Translation providers** (in order of preference):
-1. `claude-api` - Requires `ANTHROPIC_API_KEY` (env var or Settings tab)
-2. `openai` - Requires `OPENAI_API_KEY` (env var or Settings tab)
-3. `claude-cli` - Uses local Claude Code CLI (no API key needed)
+1. `claude-api` - Uses `claude-sonnet-4-20250514`, requires `ANTHROPIC_API_KEY` (env var or Settings tab)
+2. `openai` - Uses `gpt-4-turbo-preview`, requires `OPENAI_API_KEY` (env var or Settings tab)
+3. `claude-cli` - Uses local Claude Code CLI (no API key needed, 10-min timeout)
 
 **Admin panel workflow**: Run `npm run admin`, open browser at http://localhost:3000. Use the UI to fetch articles, translate them, and publish. Publishing auto-generates HTML and pushes to GitHub (triggering deploy). API keys can be configured via the Settings tab (stored in SQLite) or environment variables.
 
+### Database Schema (`content/nometa.db`)
+
+Key tables:
+- `articles` - Core data: `id`, `title`, `original_url`, `source`, `slug` (unique), `status`, `content`, `translated_title`, `translated_content`, `translation_provider`
+- `rss_feeds` - Feed sources: `name`, `url` (unique), `source_url`, `enabled`
+- `api_keys` - Provider credentials: `provider` (primary key), `api_key`, `enabled`
+- `metadata` - Key-value store (e.g., `last_fetched` timestamp)
+
+The `db.js` module converts snake_case DB columns to camelCase JS objects via `rowToArticle()`.
+
+### Templates
+- `templates/blog-article.html` and `templates/blog-index.html` use `{{variableName}}` placeholders replaced by `generate-blog.js`
+- Templates include full SEO markup: JSON-LD Schema.org, OpenGraph, Twitter Card, breadcrumbs
+- Key generation helpers: `escapeForJson()` for JSON-LD safety, `removeDuplicateTitle()` to strip first h1 from content, `formatDate()` with Azerbaijani month names, `extractKeywords()` for meta tags
+
 ### Content & Output Directories
 - `content/nometa.db` - SQLite database (single source of truth for articles)
-- `news/` - Generated blog HTML (index + individual articles)
-- `templates/` - Blog HTML templates (`blog-index.html`, `blog-article.html`)
+- `news/` - Generated blog HTML (index + individual articles at `news/{slug}/index.html`)
+- `news/feed.xml` - Auto-generated RSS feed (top 20 articles)
+- `sitemap.xml` - Auto-generated sitemap (all published articles + main pages)
 - `admin/` - Local-only admin panel (removed before deployment)
 
 ### CSS Design System
 CSS custom properties: `--bg-color`, `--text-color`, `--bad-color` (#9a3a3a), `--good-color` (#2d7a4f)
 Dark mode via `prefers-color-scheme` media query
 Mobile breakpoint at 600px
-
-### SEO & Structured Data
-- Keep FAQ structured data in sync with HTML `<details>` elements
-- Update `dateModified` timestamps in index.html (see comment at top for locations)
-- Blog generation auto-updates sitemap.xml
+Font: Inter, system-ui stack
 
 ## Key Conventions
 
 1. **Cache busting**: Update version in CSS links: `styles.css?v=YYYYMMDDNN`. For blog pages, update the `CSS_VERSION` constant in `scripts/generate-blog.js:18`
-2. **Accessibility**: Maintain ARIA labels, focus-visible patterns, reduced-motion support
-3. **No frameworks**: Vanilla HTML/CSS/JS only
-4. **robots.txt**: Blocks AI training bots (GPTBot, CCBot, Claude-Web, anthropic-ai)
+2. **Homepage markers**: `index.html` contains `<!-- RECENT_ARTICLES_START -->` / `<!-- RECENT_ARTICLES_END -->` markers that `generate-blog.js` uses to inject the 3 most recent articles. Do not remove these comments.
+3. **dateModified in index.html**: When main page content changes, update `dateModified` in 6 locations (see comment block at top of `index.html` for exact line numbers): `article:modified_time`, `og:updated_time`, two `itemprop="dateModified"` tags, and two JSON-LD `dateModified` fields (WebPage + Article).
+4. **FAQ structured data**: Keep JSON-LD FAQ schema in sync with HTML `<details>` elements in `index.html`
+5. **Accessibility**: Maintain ARIA labels, focus-visible patterns, reduced-motion support
+6. **No frameworks**: Vanilla HTML/CSS/JS only
+7. **Security patterns**: Shell commands use `execFileSync()` (not `exec`) to prevent injection; DB uses prepared statements; API keys are masked in responses
+8. **robots.txt**: Blocks AI training bots (GPTBot, CCBot, Claude-Web, anthropic-ai)
