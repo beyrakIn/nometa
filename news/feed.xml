@@ -5,9 +5,17 @@
     <link>https://nometa.az/news/</link>
     <description>Texnologiya şirkətlərinin mühəndislik bloqlarından Azərbaycan dilinə tərcümə edilmiş məqalələr.</description>
     <language>az</language>
-    <lastBuildDate>Tue, 03 Feb 2026 10:23:18 GMT</lastBuildDate>
+    <lastBuildDate>Sat, 07 Feb 2026 14:45:39 GMT</lastBuildDate>
     <atom:link href="https://nometa.az/news/feed.xml" rel="self" type="application/rss+xml"/>
     
+    <item>
+      <title><![CDATA[Mastering Efficiency: Best Practices for Embracing the DRY Principle]]></title>
+      <link>https://nometa.az/news/mastering-efficiency-best-practices-for-embracing-the-dry-principle/</link>
+      <guid>https://nometa.az/news/mastering-efficiency-best-practices-for-embracing-the-dry-principle/</guid>
+      <pubDate>Fri, 06 Feb 2026 10:00:01 GMT</pubDate>
+      <description><![CDATA[Proqram təminatının inkişafı sahəsində səmərəlilik əsas amildir. Tərtibatçıların riayət etdiyi fundamental prinsiplərdən biri DRY prinsipidir - Don't Repeat Yourself (Özünü Təkrarlama). Bu prinsip artıqlığın qarşısını almaq və təkrar istifadəni təşviq etmək üçün DRY, qısa və dəstəklənə bilən kod...]]></description>
+      <source url="https://dev.to">Dev.to</source>
+    </item>
     <item>
       <title><![CDATA[Gömülü Sistemlərdə Yaddaş Strukturu: C Kodu Həqiqətən FLASH və RAM-a Necə Yerləşdirilir]]></title>
       <link>https://nometa.az/news/memory-layout-in-embedded-systems-how-c-code-really-ends-up-in-flash-and-ram/</link>
