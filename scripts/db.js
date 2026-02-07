@@ -467,8 +467,8 @@ function toggleApiKey(provider, enabled) {
  * Mask API key for display (show first 4 and last 4 chars)
  */
 function maskApiKey(key) {
-    if (!key || key.length < 12) return '****';
-    return key.substring(0, 4) + '****' + key.substring(key.length - 4);
+    if (!key || key.length < 8) return '****';
+    return '****' + key.substring(key.length - 4);
 }
 
 /**

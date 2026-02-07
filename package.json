@@ -2,14 +2,14 @@
   "name": "nometa",
   "version": "1.0.0",
   "description": "NoMeta.az - Educational website teaching developers to avoid meta questions in online chats",
-  "main": "index.js",
+  "main": "scripts/server.js",
   "scripts": {
     "admin": "node scripts/server.js",
     "fetch": "node scripts/fetch-rss.js",
     "translate": "node scripts/translate.js",
     "generate": "node scripts/generate-blog.js",
     "build": "npm run generate",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "vitest run"
   },
   "repository": {
     "type": "git",
@@ -29,15 +29,16 @@
   },
   "homepage": "https://github.com/beyrakIn/nometa#readme",
   "dependencies": {
-    "rss-parser": "^3.13.0",
     "@anthropic-ai/sdk": "^0.30.0",
-    "openai": "^4.0.0",
+    "better-sqlite3": "^11.0.0",
     "express": "^4.18.0",
     "marked": "^12.0.0",
-    "better-sqlite3": "^11.0.0"
+    "openai": "^4.0.0",
+    "rss-parser": "^3.13.0"
   },
   "devDependencies": {
     "png-to-ico": "^3.0.1",
-    "sharp": "^0.34.5"
+    "sharp": "^0.34.5",
+    "vitest": "^4.0.18"
   }
 }

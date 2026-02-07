@@ -3,7 +3,7 @@
  * Supports: Claude API, OpenAI API, Claude Code CLI
  */
 
-const { spawn, execSync } = require('child_process');
+const { spawn, execFileSync } = require('child_process');
 const fs = require('fs');
 const path = require('path');
 const db = require('./db');
@@ -539,7 +539,7 @@ function checkProviders() {
 
     // Check Claude CLI
     try {
-        execSync('which claude', { encoding: 'utf-8' });
+        execFileSync('which', ['claude'], { encoding: 'utf-8' });
         available.push('claude-cli');
     } catch {
         logger.debug('translate', 'Claude CLI not available');
@@ -555,8 +555,7 @@ module.exports = {
     translateArticle,
     getTranslatedArticles,
     getTranslatedArticle,
-    checkProviders,
-    TRANSLATION_PROMPT
+    checkProviders
 };
 
 // Run if called directly

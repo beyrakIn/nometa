@@ -5,7 +5,7 @@
 
 const express = require('express');
 const path = require('path');
-const { execSync, execFileSync } = require('child_process');
+const { execFileSync } = require('child_process');
 
 // Import database module
 const db = require('./db');
@@ -20,7 +20,7 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 // Middleware
-app.use(express.json());
+app.use(express.json({ limit: '5mb' }));
 app.use(express.static(path.join(__dirname, '..', 'admin')));
 
 // CORS for local development
@@ -141,10 +141,10 @@ function pushToGitHub(articleTitle) {
 
     try {
         // Add news directory and sitemap
-        execSync('git add news/ sitemap.xml', { cwd: rootDir, encoding: 'utf-8' });
+        execFileSync('git', ['add', 'news/', 'sitemap.xml'], { cwd: rootDir, encoding: 'utf-8' });
 
         // Check if there are changes to commit
-        const status = execSync('git status --porcelain news/ sitemap.xml', { cwd: rootDir, encoding: 'utf-8' });
+        const status = execFileSync('git', ['status', '--porcelain', 'news/', 'sitemap.xml'], { cwd: rootDir, encoding: 'utf-8' });
         if (!status.trim()) {
             logger.info('server', 'No changes to push');
             return { pushed: false, message: 'No changes to push' };
@@ -593,8 +593,11 @@ app.post('/api/articles/bulk-delete', (req, res) => {
     try {
         const { ids } = req.body;
 
-        if (!ids || !Array.isArray(ids) || ids.length === 0) {
-            return res.status(400).json({ success: false, error: 'Article IDs required' });
+        if (!ids || !Array.isArray(ids) || ids.length === 0 || ids.length > 500) {
+            return res.status(400).json({ success: false, error: 'Provide 1-500 article IDs' });
+        }
+        if (!ids.every(id => typeof id === 'string')) {
+            return res.status(400).json({ success: false, error: 'All IDs must be strings' });
         }
 
         let deleted = 0;
@@ -615,8 +618,11 @@ app.post('/api/articles/bulk-disable', (req, res) => {
     try {
         const { ids } = req.body;
 
-        if (!ids || !Array.isArray(ids) || ids.length === 0) {
-            return res.status(400).json({ success: false, error: 'Article IDs required' });
+        if (!ids || !Array.isArray(ids) || ids.length === 0 || ids.length > 500) {
+            return res.status(400).json({ success: false, error: 'Provide 1-500 article IDs' });
+        }
+        if (!ids.every(id => typeof id === 'string')) {
+            return res.status(400).json({ success: false, error: 'All IDs must be strings' });
         }
 
         let disabled = 0;
@@ -654,11 +660,11 @@ function shutdown(signal) {
 process.on('SIGTERM', () => shutdown('SIGTERM'));
 process.on('SIGINT', () => shutdown('SIGINT'));
 
+// Initialize database before starting server
+db.initDb();
+
 // Start server
 app.listen(PORT, () => {
-    // Initialize database
-    db.initDb();
-
     // Display database statistics
     const stats = {
         total: db.getArticleCount(),

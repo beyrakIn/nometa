@@ -17,13 +17,29 @@ const HOMEPAGE_FILE = path.join(__dirname, '..', 'index.html');
 // Current CSS version for cache busting (format: YYYYMMDDNN)
 const CSS_VERSION = '2026012601';
 
+// Configure marked once at module load
+marked.setOptions({
+    gfm: true,
+    breaks: false,
+    headerIds: true,
+    mangle: false
+});
+
+// Template cache
+const templateCache = new Map();
+
 /**
  * Load template file with error handling
  */
 function loadTemplate(name) {
+    if (templateCache.has(name)) {
+        return templateCache.get(name);
+    }
     const filepath = path.join(TEMPLATES_DIR, name);
     try {
-        return fs.readFileSync(filepath, 'utf-8');
+        const content = fs.readFileSync(filepath, 'utf-8');
+        templateCache.set(name, content);
+        return content;
     } catch (error) {
         const message = `Failed to load template "${name}": ${error.message}`;
         logger.error('generate', message, { filepath, error: error.code });
@@ -84,14 +100,6 @@ function renderTemplate(template, data) {
  * Convert markdown to HTML with custom options
  */
 function markdownToHtml(markdown) {
-    // Configure marked
-    marked.setOptions({
-        gfm: true,
-        breaks: false,
-        headerIds: true,
-        mangle: false
-    });
-
     return marked.parse(markdown);
 }
 
@@ -509,6 +517,15 @@ module.exports = {
     updateSitemap,
     getPublishedArticles,
     formatDate,
+    formatDateISO,
+    renderTemplate,
+    markdownToHtml,
+    escapeForJson,
+    extractPlainText,
+    extractKeywords,
+    truncateTitle,
+    removeDuplicateTitle,
+    calculateReadingTime,
     CSS_VERSION
 };
 

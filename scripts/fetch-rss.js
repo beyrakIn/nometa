@@ -191,15 +191,26 @@ async function fetchAllFeeds() {
         }
     });
 
-    // Fetch from all feeds
+    // Fetch from all feeds in parallel
     let newCount = 0;
     let feedErrors = [];
-    for (const feed of feeds) {
-        const result = await fetchFeed(feed, parser);
+    const results = await Promise.allSettled(
+        feeds.map(feed => fetchFeed(feed, parser))
+    );
+
+    for (let i = 0; i < results.length; i++) {
+        const settlement = results[i];
+
+        if (settlement.status === 'rejected') {
+            feedErrors.push({ source: feeds[i].name, error: settlement.reason.message });
+            continue;
+        }
+
+        const result = settlement.value;
 
         // Track feed errors
         if (result.error) {
-            feedErrors.push({ source: feed.name, error: result.error });
+            feedErrors.push({ source: feeds[i].name, error: result.error });
         }
 
         // Insert new articles (duplicates are automatically skipped by unique URL constraint)
@@ -230,20 +241,6 @@ async function fetchAllFeeds() {
         lastFetched: new Date().toISOString(),
         feedErrors: feedErrors.length > 0 ? feedErrors : null
     };
-}
-
-/**
- * Get articles filtered by status
- */
-function getArticlesByStatus(status) {
-    return db.getAllArticles({ status });
-}
-
-/**
- * Get articles filtered by source
- */
-function getArticlesBySource(source) {
-    return db.getAllArticles({ source });
 }
 
 /**
@@ -281,8 +278,6 @@ function loadExistingArticles() {
 module.exports = {
     fetchAllFeeds,
     loadExistingArticles,
-    getArticlesByStatus,
-    getArticlesBySource,
     updateArticleStatus,
     getArticleById,
     shouldFilterArticle,
