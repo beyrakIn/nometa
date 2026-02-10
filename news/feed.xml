@@ -5,9 +5,17 @@
     <link>https://nometa.az/news/</link>
     <description>Texnologiya şirkətlərinin mühəndislik bloqlarından Azərbaycan dilinə tərcümə edilmiş məqalələr.</description>
     <language>az</language>
-    <lastBuildDate>Sat, 07 Feb 2026 14:48:11 GMT</lastBuildDate>
+    <lastBuildDate>Tue, 10 Feb 2026 13:02:12 GMT</lastBuildDate>
     <atom:link href="https://nometa.az/news/feed.xml" rel="self" type="application/rss+xml"/>
     
+    <item>
+      <title><![CDATA[Agent uğursuzluq rejimləri və həll yolları]]></title>
+      <link>https://nometa.az/news/agent-failure-modes-and-solutions/</link>
+      <guid>https://nometa.az/news/agent-failure-modes-and-solutions/</guid>
+      <pubDate>Wed, 26 Nov 2025 00:00:00 GMT</pubDate>
+      <description><![CDATA[Uzunmüddətli agentlər üçün effektiv idarəetmə strukturları. 26 Noyabr, 2025-ci ildə dərc edilib. Agentlər hələ də bir çox kontekst pəncərəsi boyunca işləməkdə çətinliklərlə üzləşir. Uzunmüddətli agentlər üçün daha effektiv idarəetmə strukturu yaratmaqda ilham mənbəyi olaraq insan mühəndislərə...]]></description>
+      <source url="https://www.anthropic.com">Anthropic</source>
+    </item>
     <item>
       <title><![CDATA[Səmərəliliyi Mənimsəmək: DRY Prinsipini Tətbiq Etməyin Ən Yaxşı Təcrübələri]]></title>
       <link>https://nometa.az/news/mastering-efficiency-best-practices-for-embracing-the-dry-principle/</link>
