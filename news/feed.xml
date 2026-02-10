@@ -5,15 +5,15 @@
     <link>https://nometa.az/news/</link>
     <description>Texnologiya şirkətlərinin mühəndislik bloqlarından Azərbaycan dilinə tərcümə edilmiş məqalələr.</description>
     <language>az</language>
-    <lastBuildDate>Tue, 10 Feb 2026 13:03:46 GMT</lastBuildDate>
+    <lastBuildDate>Tue, 10 Feb 2026 14:06:23 GMT</lastBuildDate>
     <atom:link href="https://nometa.az/news/feed.xml" rel="self" type="application/rss+xml"/>
     
     <item>
-      <title><![CDATA[AI-yə davamlı texniki qiymətləndirmələrin dizaynı]]></title>
-      <link>https://nometa.az/news/designing-ai-resistant-technical-evaluations/</link>
-      <guid>https://nometa.az/news/designing-ai-resistant-technical-evaluations/</guid>
-      <pubDate>Wed, 21 Jan 2026 00:00:00 GMT</pubDate>
-      <description><![CDATA[AI-yə davamlı texniki qiymətləndirmələrin dizaynı 21 Yanvar 2026-cı ildə dərc edilib Claude-un davamlı olaraq məğlub etdiyi performans mühəndisliyi ev tapşırığının üç iterasiyasından öyrəndiklərimiz. Anthropic-in performans optimizasiyası komandasının rəhbəri Tristan Hume tərəfindən yazılmışdır....]]></description>
+      <title><![CDATA[İcazə sorğularından kənara: Claude Code-u daha təhlükəsiz və avtonom etmək]]></title>
+      <link>https://nometa.az/news/beyond-permission-prompts-making-claude-code-more-secure-and-autonomous/</link>
+      <guid>https://nometa.az/news/beyond-permission-prompts-making-claude-code-more-secure-and-autonomous/</guid>
+      <pubDate>Mon, 20 Oct 2025 00:00:00 GMT</pubDate>
+      <description><![CDATA[Claude Code(https://www.claude.com/product/claude-code)-da Claude sizinlə birlikdə kod yazır, test edir və debug edir, kod bazanızda naviqasiya edir, bir neçə faylı redaktə edir və işini yoxlamaq üçün əmrləri icra edir. Claude-a kod bazanıza və fayllarınıza bu qədər geniş giriş vermək risklər...]]></description>
       <source url="https://www.anthropic.com">Anthropic</source>
     </item>
     <item>
@@ -21,7 +21,23 @@
       <link>https://nometa.az/news/agent-failure-modes-and-solutions/</link>
       <guid>https://nometa.az/news/agent-failure-modes-and-solutions/</guid>
       <pubDate>Wed, 26 Nov 2025 00:00:00 GMT</pubDate>
-      <description><![CDATA[Uzunmüddətli agentlər üçün effektiv idarəetmə strukturları. 26 Noyabr, 2025-ci ildə dərc edilib. Agentlər hələ də bir çox kontekst pəncərəsi boyunca işləməkdə çətinliklərlə üzləşir. Uzunmüddətli agentlər üçün daha effektiv idarəetmə strukturu yaratmaqda ilham mənbəyi olaraq insan mühəndislərə...]]></description>
+      <description><![CDATA[AI agentləri daha bacarıqlı olduqca, tərtibatçılar onlardan saatlarla, hətta günlərlə davam edən mürəkkəb tapşırıqları yerinə yetirmələrini tələb edirlər. Lakin agentlərin çoxsaylı kontekst pəncərələri boyunca ardıcıl irəliləyiş göstərməsini təmin etmək hələ də açıq bir problemdir. Uzunmüddətli...]]></description>
+      <source url="https://www.anthropic.com">Anthropic</source>
+    </item>
+    <item>
+      <title><![CDATA[AI agentləri üçün qiymətləndirmələrin sirlərini açmaq]]></title>
+      <link>https://nometa.az/news/demystifying-evals-for-ai-agents/</link>
+      <guid>https://nometa.az/news/demystifying-evals-for-ai-agents/</guid>
+      <pubDate>Fri, 09 Jan 2026 00:00:00 GMT</pubDate>
+      <description><![CDATA[Giriş Yaxşı qiymətləndirmələr komandalara AI agentlərini daha əminliklə buraxmağa kömək edir. Onlar olmadan, reaktiv dövrələrdə ilişib qalmaq asandır — problemləri yalnız istehsalda tutmaq, burada bir uğursuzluğu düzəltmək digərlərini yaradır. Qiymətləndirmələr problemləri və davranış...]]></description>
+      <source url="https://www.anthropic.com">Anthropic</source>
+    </item>
+    <item>
+      <title><![CDATA[AI-yə davamlı texniki qiymətləndirmələrin dizaynı]]></title>
+      <link>https://nometa.az/news/designing-ai-resistant-technical-evaluations/</link>
+      <guid>https://nometa.az/news/designing-ai-resistant-technical-evaluations/</guid>
+      <pubDate>Wed, 21 Jan 2026 00:00:00 GMT</pubDate>
+      <description><![CDATA[Anthropic-in performans optimallaşdırma komandasının lideri Tristan Hume tərəfindən yazılıb. Tristan, Anthropic-ə onlarla performans mühəndisi işə götürməyə kömək edən ev tapşırığı testini dizayn edib — və yenidən dizayn edib. Texniki namizədlərin qiymətləndirilməsi AI imkanları artdıqca...]]></description>
       <source url="https://www.anthropic.com">Anthropic</source>
     </item>
     <item>

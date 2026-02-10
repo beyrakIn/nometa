@@ -14,13 +14,25 @@
     </url>
     
     <url>
-        <loc>https://nometa.az/news/designing-ai-resistant-technical-evaluations/</loc>
+        <loc>https://nometa.az/news/beyond-permission-prompts-making-claude-code-more-secure-and-autonomous/</loc>
         <lastmod>2026-02-10</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.7</priority>
     </url>
     <url>
         <loc>https://nometa.az/news/agent-failure-modes-and-solutions/</loc>
+        <lastmod>2026-02-10</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    <url>
+        <loc>https://nometa.az/news/demystifying-evals-for-ai-agents/</loc>
+        <lastmod>2026-02-10</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    <url>
+        <loc>https://nometa.az/news/designing-ai-resistant-technical-evaluations/</loc>
         <lastmod>2026-02-10</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.7</priority>
