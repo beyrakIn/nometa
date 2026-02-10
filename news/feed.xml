@@ -5,9 +5,17 @@
     <link>https://nometa.az/news/</link>
     <description>Texnologiya şirkətlərinin mühəndislik bloqlarından Azərbaycan dilinə tərcümə edilmiş məqalələr.</description>
     <language>az</language>
-    <lastBuildDate>Tue, 10 Feb 2026 13:02:12 GMT</lastBuildDate>
+    <lastBuildDate>Tue, 10 Feb 2026 13:03:46 GMT</lastBuildDate>
     <atom:link href="https://nometa.az/news/feed.xml" rel="self" type="application/rss+xml"/>
     
+    <item>
+      <title><![CDATA[AI-yə davamlı texniki qiymətləndirmələrin dizaynı]]></title>
+      <link>https://nometa.az/news/designing-ai-resistant-technical-evaluations/</link>
+      <guid>https://nometa.az/news/designing-ai-resistant-technical-evaluations/</guid>
+      <pubDate>Wed, 21 Jan 2026 00:00:00 GMT</pubDate>
+      <description><![CDATA[AI-yə davamlı texniki qiymətləndirmələrin dizaynı 21 Yanvar 2026-cı ildə dərc edilib Claude-un davamlı olaraq məğlub etdiyi performans mühəndisliyi ev tapşırığının üç iterasiyasından öyrəndiklərimiz. Anthropic-in performans optimizasiyası komandasının rəhbəri Tristan Hume tərəfindən yazılmışdır....]]></description>
+      <source url="https://www.anthropic.com">Anthropic</source>
+    </item>
     <item>
       <title><![CDATA[Agent uğursuzluq rejimləri və həll yolları]]></title>
       <link>https://nometa.az/news/agent-failure-modes-and-solutions/</link>
