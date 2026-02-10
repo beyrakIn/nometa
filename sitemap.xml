@@ -14,6 +14,12 @@
     </url>
     
     <url>
+        <loc>https://nometa.az/news/building-ai-for-cyber-defenders/</loc>
+        <lastmod>2026-02-10</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    <url>
         <loc>https://nometa.az/news/beyond-permission-prompts-making-claude-code-more-secure-and-autonomous/</loc>
         <lastmod>2026-02-10</lastmod>
         <changefreq>monthly</changefreq>
