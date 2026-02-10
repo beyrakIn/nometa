@@ -22,11 +22,22 @@ npm run translate              # Check available translation providers
 npm run generate               # Generate blog HTML from translated articles
 npm run build                  # Alias for generate
 
+# Testing (Vitest)
+npm test                       # Run all tests (vitest run)
+npx vitest run tests/db.test.js          # Run a single test file
+npx vitest run -t "test name"            # Run a specific test by name
+
 # Image generation
 node generate-images.js        # Generate favicon/OG images from SVG
 ```
 
-No test framework configured.
+## Testing
+
+- **Framework**: Vitest 4.x with `vitest.config.mjs` (must be `.mjs`, not `.js`, because the project is CommonJS)
+- **Test files**: `tests/` directory — `db.test.js`, `server.test.js`, `fetch-rss.test.js`, `generate-blog.test.js`
+- **CJS/ESM bridge**: Test files use ESM `import` syntax with `createRequire(import.meta.url)` to require CommonJS source modules
+- **Database tests**: Use the real SQLite database (`content/nometa.db`) — tests clean up after themselves
+- **Globals**: Vitest globals are enabled (`describe`, `it`, `expect` available without import, though test files import them explicitly)
 
 ## Environment Variables
 

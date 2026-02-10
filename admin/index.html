@@ -67,6 +67,10 @@
                     <button id="fetch-btn" class="btn btn-primary">Fetch New</button>
                 </div>
             </div>
+            <div class="import-bar">
+                <input type="text" id="import-url-input" placeholder="Paste article URL to import..." class="import-url-input">
+                <button id="import-url-btn" class="btn btn-secondary">Import</button>
+            </div>
 
             <!-- Bulk Actions Bar -->
             <div id="bulk-actions-bar" class="bulk-actions-bar hidden">
@@ -181,7 +185,14 @@
                             <input type="text" id="feed-name" placeholder="e.g., Tech Blog">
                         </div>
                         <div class="form-row">
-                            <label for="feed-url">Feed URL:</label>
+                            <label for="feed-type">Type:</label>
+                            <select id="feed-type">
+                                <option value="rss">RSS Feed</option>
+                                <option value="web">Web Page</option>
+                            </select>
+                        </div>
+                        <div class="form-row">
+                            <label for="feed-url">Feed/Page URL:</label>
                             <input type="text" id="feed-url" placeholder="https://example.com/feed.xml">
                         </div>
                         <div class="form-row">

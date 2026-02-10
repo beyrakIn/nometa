@@ -6,6 +6,7 @@
 const Parser = require('rss-parser');
 const db = require('./db');
 const logger = require('./logger');
+const { fetchWebFeed } = require('./fetch-web');
 
 // Configuration
 const CONFIG = {
@@ -195,7 +196,7 @@ async function fetchAllFeeds() {
     let newCount = 0;
     let feedErrors = [];
     const results = await Promise.allSettled(
-        feeds.map(feed => fetchFeed(feed, parser))
+        feeds.map(feed => feed.type === 'web' ? fetchWebFeed(feed) : fetchFeed(feed, parser))
     );
 
     for (let i = 0; i < results.length; i++) {
@@ -281,6 +282,8 @@ module.exports = {
     updateArticleStatus,
     getArticleById,
     shouldFilterArticle,
+    generateSlug,
+    extractDescription,
     getRSSFeeds,
     FILTER_KEYWORDS,
     CONFIG

@@ -15,6 +15,7 @@ const logger = require('./logger');
 const { fetchAllFeeds, loadExistingArticles, updateArticleStatus, getArticleById, getRSSFeeds, CONFIG, FILTER_KEYWORDS } = require('./fetch-rss');
 const { translateArticle, getTranslatedArticles, getTranslatedArticle, checkProviders } = require('./translate');
 const { generateBlog } = require('./generate-blog');
+const { fetchArticleContent, importArticleFromUrl } = require('./fetch-web');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -265,6 +266,79 @@ app.get('/api/articles/:id', (req, res) => {
     }
 });
 
+// Fetch full content for an article from its original URL
+app.post('/api/articles/:id/fetch-content', async (req, res) => {
+    try {
+        const articleId = req.params.id;
+        const article = db.getArticleById(articleId);
+
+        if (!article) {
+            return res.status(404).json({ success: false, error: 'Article not found' });
+        }
+
+        let content = '';
+        let hasFullContent = false;
+
+        try {
+            const url = new URL(article.originalUrl);
+            if (url.hostname.includes('anthropic.com')) {
+                // Use specialized Anthropic content fetcher
+                const result = await fetchArticleContent(article.originalUrl);
+                content = result.content;
+                hasFullContent = result.hasFullContent;
+            } else {
+                // Generic HTML fetch + tag stripping
+                const controller = new AbortController();
+                const timeout = setTimeout(() => controller.abort(), 15000);
+                try {
+                    const response = await fetch(article.originalUrl, {
+                        headers: { 'User-Agent': 'NoMeta.az Blog Fetcher/1.0' },
+                        signal: controller.signal
+                    });
+                    const html = await response.text();
+                    // Strip HTML tags for plain text
+                    content = html
+                        .replace(/<script[^>]*>[\s\S]*?<\/script>/gi, '')
+                        .replace(/<style[^>]*>[\s\S]*?<\/style>/gi, '')
+                        .replace(/<[^>]+>/g, ' ')
+                        .replace(/\s+/g, ' ')
+                        .trim();
+                    if (content.length > 10000) content = content.substring(0, 10000);
+                    hasFullContent = content.length > 500;
+                } finally {
+                    clearTimeout(timeout);
+                }
+            }
+        } catch (fetchError) {
+            logger.error('server', 'Failed to fetch article content', {
+                articleId,
+                url: article.originalUrl,
+                error: fetchError.message
+            });
+            return res.status(500).json({
+                success: false,
+                error: `Failed to fetch content: ${fetchError.message}`
+            });
+        }
+
+        // Update article content in database
+        if (content) {
+            db.updateArticle(articleId, { content });
+        }
+
+        const updatedArticle = db.getArticleById(articleId);
+
+        res.json({
+            success: true,
+            article: updatedArticle,
+            contentLength: content.length,
+            hasFullContent
+        });
+    } catch (error) {
+        res.status(500).json({ success: false, error: error.message });
+    }
+});
+
 // Get fetch config
 app.get('/api/config', (req, res) => {
     const feeds = getRSSFeeds();
@@ -318,7 +392,7 @@ app.get('/api/feeds', (req, res) => {
 // Add a new RSS feed
 app.post('/api/feeds', (req, res) => {
     try {
-        const { name, url, sourceUrl } = req.body;
+        const { name, url, sourceUrl, type } = req.body;
 
         if (!name || !url || !sourceUrl) {
             return res.status(400).json({
@@ -338,7 +412,7 @@ app.post('/api/feeds', (req, res) => {
             });
         }
 
-        const feed = db.insertFeed({ name, url, sourceUrl });
+        const feed = db.insertFeed({ name, url, sourceUrl, type: type || 'rss' });
         res.json({ success: true, feed });
     } catch (error) {
         res.status(500).json({ success: false, error: error.message });
@@ -349,7 +423,7 @@ app.post('/api/feeds', (req, res) => {
 app.put('/api/feeds/:id', (req, res) => {
     try {
         const id = parseInt(req.params.id);
-        const { name, url, sourceUrl, enabled } = req.body;
+        const { name, url, sourceUrl, type, enabled } = req.body;
 
         if (isNaN(id)) {
             return res.status(400).json({ success: false, error: 'Invalid feed ID' });
@@ -371,7 +445,7 @@ app.put('/api/feeds/:id', (req, res) => {
             }
         }
 
-        const feed = db.updateFeed(id, { name, url, sourceUrl, enabled });
+        const feed = db.updateFeed(id, { name, url, sourceUrl, type, enabled });
 
         if (feed) {
             res.json({ success: true, feed });
@@ -584,6 +658,58 @@ app.post('/api/articles/:id/toggle-save', (req, res) => {
             message: newStatus === 'saved' ? 'Article saved' : 'Article unsaved'
         });
     } catch (error) {
+        res.status(500).json({ success: false, error: error.message });
+    }
+});
+
+// Import article from a URL
+app.post('/api/articles/import-url', async (req, res) => {
+    try {
+        const { url } = req.body;
+
+        if (!url) {
+            return res.status(400).json({ success: false, error: 'URL is required' });
+        }
+
+        // Validate URL format
+        try {
+            new URL(url);
+        } catch {
+            return res.status(400).json({ success: false, error: 'Invalid URL format' });
+        }
+
+        // Check for duplicates
+        const existing = db.getArticleByUrl(url);
+        if (existing) {
+            return res.status(409).json({
+                success: false,
+                error: 'Article with this URL already exists',
+                article: existing
+            });
+        }
+
+        const article = await importArticleFromUrl(url);
+        const inserted = db.insertArticle(article);
+
+        if (!inserted) {
+            return res.status(409).json({
+                success: false,
+                error: 'Article already exists (duplicate slug or URL)'
+            });
+        }
+
+        const savedArticle = db.getArticleByUrl(url);
+
+        res.json({
+            success: true,
+            article: savedArticle
+        });
+    } catch (error) {
+        logger.error('server', 'URL import failed', {
+            url: req.body.url,
+            error: error.message,
+            stack: error.stack
+        });
         res.status(500).json({ success: false, error: error.message });
     }
 });

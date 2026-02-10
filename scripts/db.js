@@ -94,8 +94,19 @@ function initDb() {
             )
         `);
 
+        // Migration: add type column to rss_feeds
+        try {
+            db.exec(`ALTER TABLE rss_feeds ADD COLUMN type TEXT DEFAULT 'rss'`);
+            logger.info('db', 'Added type column to rss_feeds');
+        } catch (e) {
+            // Column already exists — ignore
+        }
+
         // Seed default feeds if table is empty
         initFeedsTable();
+
+        // Seed Anthropic web feeds if they don't exist
+        seedAnthropicFeeds();
 
         logger.info('db', 'Database initialized', { path: DB_PATH });
         return db;
@@ -579,6 +590,7 @@ function getAllFeeds(enabledOnly = false) {
         name: row.name,
         url: row.url,
         sourceUrl: row.source_url,
+        type: row.type || 'rss',
         enabled: row.enabled === 1,
         createdAt: row.created_at,
         updatedAt: row.updated_at
@@ -600,6 +612,7 @@ function getFeedById(id) {
         name: row.name,
         url: row.url,
         sourceUrl: row.source_url,
+        type: row.type || 'rss',
         enabled: row.enabled === 1,
         createdAt: row.created_at,
         updatedAt: row.updated_at
@@ -608,18 +621,19 @@ function getFeedById(id) {
 
 /**
  * Insert a new RSS feed
- * @param {Object} feed - Feed data { name, url, sourceUrl }
+ * @param {Object} feed - Feed data { name, url, sourceUrl, type }
  * @returns {Object} The inserted feed
  */
 function insertFeed(feed) {
     const database = getDb();
     const now = new Date().toISOString();
+    const type = feed.type || 'rss';
 
     try {
         const result = database.prepare(`
-            INSERT INTO rss_feeds (name, url, source_url, enabled, created_at, updated_at)
-            VALUES (?, ?, ?, 1, ?, ?)
-        `).run(feed.name, feed.url, feed.sourceUrl, now, now);
+            INSERT INTO rss_feeds (name, url, source_url, type, enabled, created_at, updated_at)
+            VALUES (?, ?, ?, ?, 1, ?, ?)
+        `).run(feed.name, feed.url, feed.sourceUrl, type, now, now);
 
         logger.info('db', 'Feed inserted', { name: feed.name, id: result.lastInsertRowid });
         return getFeedById(result.lastInsertRowid);
@@ -656,6 +670,10 @@ function updateFeed(id, data) {
     if (data.sourceUrl !== undefined) {
         fields.push('source_url = ?');
         params.push(data.sourceUrl);
+    }
+    if (data.type !== undefined) {
+        fields.push('type = ?');
+        params.push(data.type);
     }
     if (data.enabled !== undefined) {
         fields.push('enabled = ?');
@@ -713,6 +731,34 @@ function deleteFeed(id) {
  */
 function toggleFeed(id, enabled) {
     return updateFeed(id, { enabled });
+}
+
+/**
+ * Seed Anthropic web feeds if they don't already exist
+ */
+function seedAnthropicFeeds() {
+    const database = getDb();
+    const now = new Date().toISOString();
+    const anthropicFeeds = [
+        { name: 'Anthropic Engineering', url: 'https://www.anthropic.com/engineering', sourceUrl: 'https://www.anthropic.com/engineering', type: 'web' },
+        { name: 'Anthropic Research', url: 'https://www.anthropic.com/research', sourceUrl: 'https://www.anthropic.com/research', type: 'web' }
+    ];
+
+    const stmt = database.prepare(`
+        INSERT OR IGNORE INTO rss_feeds (name, url, source_url, type, enabled, created_at, updated_at)
+        VALUES (?, ?, ?, ?, 1, ?, ?)
+    `);
+
+    for (const feed of anthropicFeeds) {
+        try {
+            const result = stmt.run(feed.name, feed.url, feed.sourceUrl, feed.type, now, now);
+            if (result.changes > 0) {
+                logger.info('db', 'Seeded Anthropic feed', { name: feed.name });
+            }
+        } catch (error) {
+            // Already exists — ignore
+        }
+    }
 }
 
 // Export functions

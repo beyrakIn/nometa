@@ -106,6 +106,15 @@ function initNavigation() {
     // Fetch button
     document.getElementById('fetch-btn').addEventListener('click', fetchArticles);
 
+    // Import URL button and Enter key handler
+    document.getElementById('import-url-btn').addEventListener('click', importFromUrl);
+    document.getElementById('import-url-input').addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            importFromUrl();
+        }
+    });
+
     // Generate button
     document.getElementById('generate-btn').addEventListener('click', generateBlog);
 
@@ -182,6 +191,56 @@ async function fetchArticles() {
     } finally {
         btn.disabled = false;
         btn.textContent = 'Fetch New';
+    }
+}
+
+/**
+ * Import article from URL
+ */
+async function importFromUrl() {
+    const input = document.getElementById('import-url-input');
+    const btn = document.getElementById('import-url-btn');
+    const url = input.value.trim();
+
+    if (!url) {
+        showToast('Please enter a URL', 'error');
+        input.focus();
+        return;
+    }
+
+    // Basic URL validation
+    try {
+        new URL(url);
+    } catch {
+        showToast('Please enter a valid URL', 'error');
+        input.focus();
+        return;
+    }
+
+    btn.disabled = true;
+    btn.textContent = 'Importing...';
+
+    try {
+        const response = await fetch(`${API_BASE}/articles/import-url`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ url })
+        });
+
+        const data = await safeJsonParse(response);
+
+        if (data.success) {
+            showToast(`Imported: ${data.article.title}`, 'success');
+            input.value = '';
+            await loadArticles();
+        } else {
+            throw new Error(data.error || 'Import failed');
+        }
+    } catch (error) {
+        showToast(`Import failed: ${error.message}`, 'error');
+    } finally {
+        btn.disabled = false;
+        btn.textContent = 'Import';
     }
 }
 
@@ -581,6 +640,7 @@ async function loadRSSFeeds() {
             <div class="feed-item" data-id="${feed.id}">
                 <div class="feed-info">
                     <span class="feed-name">${escapeHtml(feed.name)}</span>
+                    <span class="feed-type-badge feed-type-${feed.type || 'rss'}">${(feed.type || 'rss').toUpperCase()}</span>
                     <span class="feed-url">${escapeHtml(feed.url)}</span>
                     <span class="feed-status ${feed.enabled ? 'enabled' : 'disabled'}">${feed.enabled ? 'Enabled' : 'Disabled'}</span>
                 </div>
@@ -640,6 +700,7 @@ function initFeedHandlers() {
 async function saveFeed() {
     const editId = document.getElementById('feed-edit-id').value;
     const name = document.getElementById('feed-name').value.trim();
+    const type = document.getElementById('feed-type').value;
     const url = document.getElementById('feed-url').value.trim();
     const sourceUrl = document.getElementById('feed-source-url').value.trim();
 
@@ -668,7 +729,7 @@ async function saveFeed() {
         const response = await fetch(endpoint, {
             method,
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ name, url, sourceUrl })
+            body: JSON.stringify({ name, url, sourceUrl, type })
         });
 
         const data = await response.json();
@@ -694,6 +755,7 @@ async function saveFeed() {
 function startEditFeed(feed) {
     document.getElementById('feed-edit-id').value = feed.id;
     document.getElementById('feed-name').value = feed.name;
+    document.getElementById('feed-type').value = feed.type || 'rss';
     document.getElementById('feed-url').value = feed.url;
     document.getElementById('feed-source-url').value = feed.sourceUrl;
 
@@ -711,6 +773,7 @@ function startEditFeed(feed) {
 function cancelEditFeed() {
     document.getElementById('feed-edit-id').value = '';
     document.getElementById('feed-name').value = '';
+    document.getElementById('feed-type').value = 'rss';
     document.getElementById('feed-url').value = '';
     document.getElementById('feed-source-url').value = '';
 

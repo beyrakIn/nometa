@@ -137,4 +137,41 @@ describe('db module', () => {
             expect(db.getArticleById('test-audit-1')).toBeNull();
         });
     });
+
+    describe('feed type support', () => {
+        let testFeedId;
+
+        it('inserts feed with type web', () => {
+            const feed = db.insertFeed({
+                name: 'Test Web Feed',
+                url: 'https://example.com/web-test-' + Date.now(),
+                sourceUrl: 'https://example.com',
+                type: 'web'
+            });
+            expect(feed).toBeDefined();
+            expect(feed.type).toBe('web');
+            testFeedId = feed.id;
+        });
+
+        it('retrieves feed with correct type', () => {
+            const feed = db.getFeedById(testFeedId);
+            expect(feed).toBeDefined();
+            expect(feed.type).toBe('web');
+        });
+
+        it('existing feeds default to type rss', () => {
+            const feeds = db.getAllFeeds();
+            const rssFeeds = feeds.filter(f => f.type === 'rss');
+            expect(rssFeeds.length).toBeGreaterThan(0);
+        });
+
+        it('updates feed type', () => {
+            const updated = db.updateFeed(testFeedId, { type: 'rss' });
+            expect(updated.type).toBe('rss');
+        });
+
+        it('cleans up test feed', () => {
+            expect(db.deleteFeed(testFeedId)).toBe(true);
+        });
+    });
 });
