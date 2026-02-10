@@ -3,6 +3,8 @@
  * Runs only on localhost for article management
  */
 
+require("./instrument.js");
+
 const express = require('express');
 const path = require('path');
 const { execFileSync } = require('child_process');
@@ -770,6 +772,10 @@ app.post('/api/articles/bulk-disable', (req, res) => {
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, '..', 'admin', 'index.html'));
 });
+
+// Sentry error handler (must be after all controllers and before other error middleware)
+const Sentry = require("@sentry/node");
+Sentry.setupExpressErrorHandler(app);
 
 // Graceful shutdown handler
 function shutdown(signal) {
