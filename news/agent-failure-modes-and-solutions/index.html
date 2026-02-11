@@ -20,7 +20,7 @@
     <title>Agent uğursuzluq rejimləri və həll yolları | NoMeta.az Xəbərlər</title>
     <meta name="title" content="Agent uğursuzluq rejimləri və həll yolları | NoMeta.az Xəbərlər">
     <meta name="description" content="AI agentləri daha bacarıqlı olduqca, tərtibatçılar onlardan saatlarla, hətta günlərlə davam edən mürəkkəb tapşırıqları yerinə yetirmələrini tələb edirlər....">
-    <meta name="keywords" content="Anthropic, AI, texnologiya, proqramlaşdırma, mühəndislik, Anthropic, Azərbaycan">
+    <meta name="keywords" content="Anthropic, AI, texnologiya, proqramlaşdırma, mühəndislik, Azərbaycan">
     <meta name="author" content="Anthropic (NoMeta.az tərəfindən tərcümə)">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
     <meta name="googlebot" content="index, follow">
@@ -47,6 +47,7 @@
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
     <meta property="og:image:alt" content="Agent uğursuzluq rejimləri və həll yolları - NoMeta.az">
+    <meta property="og:image:type" content="image/png">
     <meta property="og:locale" content="az_AZ">
     <meta property="og:locale:alternate" content="en_US">
     <meta property="og:site_name" content="NoMeta Azerbaijan">
@@ -101,9 +102,12 @@
     <meta name="theme-color" content="#0a0a0a" media="(prefers-color-scheme: dark)">
     <meta name="msapplication-TileColor" content="#ffffff">
 
+    <!-- RSS Autodiscovery -->
+    <link rel="alternate" type="application/rss+xml" title="NoMeta.az Xəbərlər" href="https://nometa.az/news/feed.xml">
+
     <!-- Performance Hints -->
-    <link rel="dns-prefetch" href="//nometa.az">
-    <link rel="preconnect" href="https://nometa.az">
+    <link rel="dns-prefetch" href="https://cdn.sanity.io">
+    <link rel="preconnect" href="https://cdn.sanity.io" crossorigin>
 
     <!-- Stylesheet -->
     <link rel="preload" href="../../assets/css/styles.css?v=2026012601" as="style" fetchpriority="high">
@@ -390,7 +394,7 @@
 <h4>Test etmə</h4>
 <p>Müşahidə etdiyimiz son əsas uğursuzluq rejimi Claude-un düzgün test etmədən funksionallığı tamamlanmış kimi qeyd etmə meyli idi. Açıq prompt olmadan, Claude kod dəyişiklikləri edirdi, hətta unit testlər və ya inkişaf serverinə qarşı <code>curl</code> əmrləri ilə test edirdi, lakin funksionallığın uçdan-uca işləmədiyini dərk edə bilmirdi.</p>
 <p>Veb tətbiq yaratma halında, Claude brauzer avtomatlaşdırma alətlərindən istifadə etməyə və bütün testləri insan istifadəçi kimi aparmağa açıq şəkildə yönəldildikdə, funksionallıqları uçdan-uca yoxlamaqda əsasən yaxşı nəticə göstərdi.</p>
-<p><img src="https://cdn.sanity.io/images/4zrzovbb/website/f94c2257964fb2d623f1e81f874977ebfc0986bc-1920x1080.gif" alt=" Claude-un claude.ai klonunu test edərkən Puppeteer MCP serveri vasitəsilə çəkdiyi ekran görüntüləri. ">
+<p><img src="undefined" alt="undefined" loading="lazy" decoding="async">
 <em>Claude-un claude.ai klonunu test edərkən Puppeteer MCP serveri vasitəsilə çəkdiyi ekran görüntüləri.</em></p>
 <p>Claude-a bu cür test alətləri təmin etmək performansı kəskin şəkildə yaxşılaşdırdı, çünki agent yalnız koddan aydın olmayan xətaları müəyyən edib düzəldə bildi.</p>
 <p>Bəzi problemlər hələ də mövcuddur — məsələn, Claude-un görmə qabiliyyətinin məhdudiyyətləri və brauzer avtomatlaşdırma alətlərinin hər növ xətanı müəyyən etməyi çətinləşdirməsi. Məsələn, Claude Puppeteer MCP vasitəsilə brauzerin yerli alert modallarını görə bilmir və bu modallara əsaslanan funksionallıqlar nəticədə daha çox xətalı olurdu.</p>
@@ -514,7 +518,7 @@
             <a href="https://dontasktoask.com" target="_blank" rel="noopener noreferrer">dontasktoask.com</a> saytlarından ilhamlanıb.
         </p>
         <p class="copyright">
-            <small>&copy; <span id="year"></span> NoMeta Azərbaycan. Bütün hüquqlar qorunur.</small>
+            <small>&copy; <span id="year">2026</span> NoMeta Azərbaycan. Bütün hüquqlar qorunur.</small>
         </p>
     </footer>
     <script>document.getElementById('year').textContent = new Date().getFullYear();</script>

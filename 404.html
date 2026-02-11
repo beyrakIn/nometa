@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="az" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>404 - Səhifə tapılmadı | NoMeta.az</title>
+    <meta name="description" content="Axtardığınız səhifə tapılmadı. Ana səhifəyə və ya xəbərlər bölməsinə keçin.">
+    <meta name="robots" content="noindex, follow">
+    <link rel="canonical" href="https://nometa.az/">
+    <link rel="icon" type="image/svg+xml" href="/assets/images/favicon.svg">
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/images/favicon-32x32.png">
+    <link rel="stylesheet" href="/assets/css/styles.css?v=2026012601">
+    <style>
+        .error-page {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 60vh;
+            text-align: center;
+            padding: 2rem;
+        }
+        .error-code {
+            font-size: 6rem;
+            font-weight: 700;
+            color: var(--text-muted);
+            line-height: 1;
+            margin-bottom: 1rem;
+        }
+        .error-message {
+            font-size: 1.25rem;
+            color: var(--text-color);
+            margin-bottom: 0.5rem;
+        }
+        .error-description {
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+            max-width: 400px;
+        }
+        .error-links {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .error-links a {
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: opacity 0.2s;
+        }
+        .error-links a:hover {
+            opacity: 0.8;
+        }
+        .error-link-primary {
+            background: var(--text-color);
+            color: var(--bg-color);
+        }
+        .error-link-secondary {
+            border: 1px solid var(--border-color);
+            color: var(--text-color);
+        }
+    </style>
+</head>
+<body>
+    <header class="site-header">
+        <nav class="site-nav" aria-label="Naviqasiya">
+            <a href="/" class="nav-brand">
+                <span class="brand">nometa</span><span class="domain">.az</span>
+            </a>
+            <a href="/news/" class="nav-link">Xəbərlər</a>
+        </nav>
+    </header>
+
+    <main class="error-page" role="main">
+        <div class="error-code">404</div>
+        <h1 class="error-message">Səhifə tapılmadı</h1>
+        <p class="error-description">Axtardığınız səhifə mövcud deyil, silinib və ya ünvan səhvdir.</p>
+        <div class="error-links">
+            <a href="/" class="error-link-primary">Ana səhifə</a>
+            <a href="/news/" class="error-link-secondary">Xəbərlər</a>
+        </div>
+    </main>
+
+    <footer role="contentinfo">
+        <p class="copyright">
+            <small>&copy; <span id="year">2026</span> NoMeta Azərbaycan. Bütün hüquqlar qorunur.</small>
+        </p>
+    </footer>
+    <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>

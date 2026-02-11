@@ -20,7 +20,7 @@
     <title>İcazə sorğularından kənara: Claude Code-u daha təhlükəsiz və avtonom etmək | NoMeta.az Xəbərlər</title>
     <meta name="title" content="İcazə sorğularından kənara: Claude Code-u daha təhlükəsiz və avtonom etmək | NoMeta.az Xəbərlər">
     <meta name="description" content="Claude Code(https://www.claude.com/product/claude-code)-da Claude sizinlə birlikdə kod yazır, test edir və debug edir, kod bazanızda naviqasiya edir, bir neçə...">
-    <meta name="keywords" content="Anthropic, AI, texnologiya, proqramlaşdırma, mühəndislik, Anthropic, Azərbaycan">
+    <meta name="keywords" content="Anthropic, AI, texnologiya, proqramlaşdırma, mühəndislik, Azərbaycan">
     <meta name="author" content="Anthropic (NoMeta.az tərəfindən tərcümə)">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
     <meta name="googlebot" content="index, follow">
@@ -47,6 +47,7 @@
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
     <meta property="og:image:alt" content="İcazə sorğularından kənara: Claude Code-u daha təhlükəsiz və avtonom etmək - NoMeta.az">
+    <meta property="og:image:type" content="image/png">
     <meta property="og:locale" content="az_AZ">
     <meta property="og:locale:alternate" content="en_US">
     <meta property="og:site_name" content="NoMeta Azerbaijan">
@@ -101,9 +102,12 @@
     <meta name="theme-color" content="#0a0a0a" media="(prefers-color-scheme: dark)">
     <meta name="msapplication-TileColor" content="#ffffff">
 
+    <!-- RSS Autodiscovery -->
+    <link rel="alternate" type="application/rss+xml" title="NoMeta.az Xəbərlər" href="https://nometa.az/news/feed.xml">
+
     <!-- Performance Hints -->
-    <link rel="dns-prefetch" href="//nometa.az">
-    <link rel="preconnect" href="https://nometa.az">
+    <link rel="dns-prefetch" href="https://cdn.sanity.io">
+    <link rel="preconnect" href="https://cdn.sanity.io" crossorigin>
 
     <!-- Stylesheet -->
     <link rel="preload" href="../../assets/css/styles.css?v=2026012601" as="style" fetchpriority="high">
@@ -374,7 +378,7 @@
 <li><strong>Şəbəkə izolyasiyası</strong> — internetə girişə yalnız sandbox xaricində işləyən proxy serverə qoşulmuş unix domain socket vasitəsilə icazə verir. Bu proxy server prosesin qoşula biləcəyi domenlərə məhdudiyyətlər tətbiq edir və yeni tələb olunan domenlər üçün istifadəçi təsdiqini idarə edir. Əgər daha yüksək təhlükəsizlik istəyirsinizsə, biz həmçinin bu proxy-ni gedən trafikə ixtiyari qaydalar tətbiq etmək üçün fərdiləşdirməyi dəstəkləyirik.</li>
 </ol>
 <p>Hər iki komponent konfiqurasiya edilə bilər: müəyyən fayl yollarını və ya domenlərə asanlıqla icazə verə və ya bloklaya bilərsiniz.</p>
-<p><img src="https://cdn.sanity.io/images/4zrzovbb/website/0d1c612947c798aef48e6ab4beb7e8544da9d41a-4096x2305.png" alt="Bu şəkil Claude Code-da sandbox-un necə işlədiyini göstərir.">
+<p><img src="undefined" alt="undefined" loading="lazy" decoding="async">
 <em>Claude Code-un sandbox arxitekturası kod icrasını fayl sistemi və şəbəkə nəzarətləri ilə izolyasiya edir, təhlükəsiz əməliyyatlara avtomatik icazə verir, zərərli olanları bloklayır və yalnız lazım olduqda icazə istəyir.</em></p>
 <p>Sandbox uğurlu prompt injection-ın belə tam izolyasiya olunmasını və ümumi istifadəçi təhlükəsizliyinə təsir edə bilməməsini təmin edir. Bu yolla kompromis edilmiş Claude Code SSH açarlarınızı oğurlaya və ya hücumçunun serverinə qoşula bilməz.</p>
 <p>Bu funksiyaya başlamaq üçün Claude Code-da <code>/sandbox</code> əmrini icra edin və təhlükəsizlik modelimiz haqqında <a href="https://docs.claude.com/en/docs/claude-code/sandboxing">daha ətraflı texniki məlumatları</a> nəzərdən keçirin.</p>
@@ -382,7 +386,7 @@
 <h4><strong>Claude Code vebdə: Claude Code-u buludda təhlükəsiz işlətmək</strong></h4>
 <p>Bu gün biz həmçinin <a href="https://docs.claude.com/en/docs/claude-code/claude-code-on-the-web">Claude Code vebdə</a> funksiyasını buraxırıq — istifadəçilərə Claude Code-u buludda izolyasiya edilmiş sandbox-da işlətməyə imkan verir. Claude Code vebdə hər bir Claude Code sessiyasını izolyasiya edilmiş sandbox-da icra edir, burada o öz serverinə təhlükəsiz şəkildə tam giriş əldə edir. Biz bu sandbox-u həssas etimadnamələrin (git etimadnamələri və ya imzalama açarları kimi) heç vaxt Claude Code ilə birlikdə sandbox daxilində olmamasını təmin etmək üçün dizayn etmişik. Bu yolla, sandbox-da işləyən kod kompromis edilsə belə, istifadəçi əlavə zərərdən qorunur.</p>
 <p>Claude Code vebdə bütün git qarşılıqlı əlaqələrini şəffaf şəkildə idarə edən fərdi proxy xidmətindən istifadə edir. Sandbox daxilində git klienti bu xidmətə fərdi qurulmuş əhatəli etimadnamə ilə autentifikasiya edir. Proxy bu etimadnaməni və git qarşılıqlı əlaqəsinin məzmununu yoxlayır (məsələn, yalnız konfiqurasiya edilmiş branch-a push edilməsini təmin edir), sonra sorğunu GitHub-a göndərməzdən əvvəl düzgün autentifikasiya tokenini əlavə edir.</p>
-<p><img src="https://cdn.sanity.io/images/4zrzovbb/website/e8f66bcf73d9d23cae67e67776b2d31373c13050-4096x2305.png" alt="Bu illüstrasiya Claude Code vebdə-nin bütün git qarşılıqlı əlaqələrini idarə etmək üçün fərdi proxy-dən necə istifadə etdiyini göstərir.">
+<p><img src="undefined" alt="undefined" loading="lazy" decoding="async">
 <em>Claude Code-un Git inteqrasiyası əmrləri autentifikasiya tokenlərini, branch adlarını və repozitoriya təyinatlarını yoxlayan təhlükəsiz proxy vasitəsilə yönləndirir — icazəsiz push-ların qarşısını alarkən təhlükəsiz versiya nəzarəti iş axınlarına imkan verir.</em></p>
 <h2>Başlamaq</h2>
 <p>Yeni sandbox-laşdırılmış bash alətimiz və Claude Code vebdə mühəndislik işləri üçün Claude istifadə edən tərtibatçılar üçün həm təhlükəsizlik, həm də məhsuldarlıq sahəsində əhəmiyyətli təkmilləşdirmələr təqdim edir.</p>
@@ -452,7 +456,7 @@
             <a href="https://dontasktoask.com" target="_blank" rel="noopener noreferrer">dontasktoask.com</a> saytlarından ilhamlanıb.
         </p>
         <p class="copyright">
-            <small>&copy; <span id="year"></span> NoMeta Azərbaycan. Bütün hüquqlar qorunur.</small>
+            <small>&copy; <span id="year">2026</span> NoMeta Azərbaycan. Bütün hüquqlar qorunur.</small>
         </p>
     </footer>
     <script>document.getElementById('year').textContent = new Date().getFullYear();</script>

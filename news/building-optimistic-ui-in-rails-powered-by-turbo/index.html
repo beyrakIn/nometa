@@ -20,7 +20,7 @@
     <title>Turbo ilə Rails-də Optimistik UI Qurma | NoMeta.az Xəbərlər</title>
     <meta name="title" content="Turbo ilə Rails-də Optimistik UI Qurma | NoMeta.az Xəbərlər">
     <meta name="description" content="Rails-də Turbo ilə İşləyən Optimist UI Yaratmaq Bu məqalə əvvəlcə Rails Designer bloqunda(https://railsdesigner.com/turbo-powered-optimistic-ui/) dərc...">
-    <meta name="keywords" content="Dev.to, JavaScript, AWS, AI, texnologiya, proqramlaşdırma, mühəndislik, Dev.to, Azərbaycan">
+    <meta name="keywords" content="Dev.to, JavaScript, AWS, AI, texnologiya, proqramlaşdırma, mühəndislik, Azərbaycan">
     <meta name="author" content="Dev.to (NoMeta.az tərəfindən tərcümə)">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
     <meta name="googlebot" content="index, follow">
@@ -47,6 +47,7 @@
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
     <meta property="og:image:alt" content="Turbo ilə Rails-də Optimistik UI Qurma - NoMeta.az">
+    <meta property="og:image:type" content="image/png">
     <meta property="og:locale" content="az_AZ">
     <meta property="og:locale:alternate" content="en_US">
     <meta property="og:site_name" content="NoMeta Azerbaijan">
@@ -101,9 +102,12 @@
     <meta name="theme-color" content="#0a0a0a" media="(prefers-color-scheme: dark)">
     <meta name="msapplication-TileColor" content="#ffffff">
 
+    <!-- RSS Autodiscovery -->
+    <link rel="alternate" type="application/rss+xml" title="NoMeta.az Xəbərlər" href="https://nometa.az/news/feed.xml">
+
     <!-- Performance Hints -->
-    <link rel="dns-prefetch" href="//nometa.az">
-    <link rel="preconnect" href="https://nometa.az">
+    <link rel="dns-prefetch" href="https://cdn.sanity.io">
+    <link rel="preconnect" href="https://cdn.sanity.io" crossorigin>
 
     <!-- Stylesheet -->
     <link rel="preload" href="../../assets/css/styles.css?v=2026012601" as="style" fetchpriority="high">
@@ -355,7 +359,7 @@
 <p>Amma bir şey məni narahat edirdi. Custom element wrapper əlavə mərasim kimi hiss olunurdu. Bəs əlavə markup olmadan eyni ani əks-əlaqəni əldə edə bilsəydim? Sadəcə bir form, bir neçə data atributu (Rails developerları data atributlarını ❤️ edir) və bir az (xüsusi) JavaScript? 😊</p>
 <p>Təxmin edin nə oldu? Edə bilərsiniz! Və daha da sadədir. 🎉</p>
 <p>Belə bir şey (xeyr, həqiqətən, bu custom elements məqaləsindəki eyni gif deyil):</p>
-<p><a href="https://media2.dev.to/dynamic/image/width=800%2Cheight=%2Cfit=scale-down%2Cgravity=auto%2Cformat=auto/https%3A%2F%2Fdev-to-uploads.s3.amazonaws.com%2Fuploads%2Farticles%2Fsybuzc3rj98z3k5gka05.gif"><img src="https://media2.dev.to/dynamic/image/width=800%2Cheight=%2Cfit=scale-down%2Cgravity=auto%2Cformat=auto/https%3A%2F%2Fdev-to-uploads.s3.amazonaws.com%2Fuploads%2Farticles%2Fsybuzc3rj98z3k5gka05.gif" alt=" "></a></p>
+<p><a href="https://media2.dev.to/dynamic/image/width=800%2Cheight=%2Cfit=scale-down%2Cgravity=auto%2Cformat=auto/https%3A%2F%2Fdev-to-uploads.s3.amazonaws.com%2Fuploads%2Farticles%2Fsybuzc3rj98z3k5gka05.gif"><img src="undefined" alt="undefined" loading="lazy" decoding="async"></a></p>
 <p><a href="https://github.com/rails-designer-repos/optimistic-forms/">Kod GitHub-da mövcuddur</a> (son commit-ə baxın).</p>
 <p>Custom element yanaşması belə görünürdü:</p>
 <pre><code class="language-erb">&lt;optimistic-form&gt;
@@ -607,7 +611,7 @@ constructor(form) {
             <a href="https://dontasktoask.com" target="_blank" rel="noopener noreferrer">dontasktoask.com</a> saytlarından ilhamlanıb.
         </p>
         <p class="copyright">
-            <small>&copy; <span id="year"></span> NoMeta Azərbaycan. Bütün hüquqlar qorunur.</small>
+            <small>&copy; <span id="year">2026</span> NoMeta Azərbaycan. Bütün hüquqlar qorunur.</small>
         </p>
     </footer>
     <script>document.getElementById('year').textContent = new Date().getFullYear();</script>

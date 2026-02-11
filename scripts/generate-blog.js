@@ -17,12 +17,20 @@ const HOMEPAGE_FILE = path.join(__dirname, '..', 'index.html');
 // Current CSS version for cache busting (format: YYYYMMDDNN)
 const CSS_VERSION = '2026012601';
 
+// Custom renderer for lazy loading images
+const renderer = new marked.Renderer();
+renderer.image = function({ href, title, text }) {
+    const titleAttr = title ? ` title="${title}"` : '';
+    return `<img src="${href}" alt="${text}"${titleAttr} loading="lazy" decoding="async">`;
+};
+
 // Configure marked once at module load
 marked.setOptions({
     gfm: true,
     breaks: false,
     headerIds: true,
-    mangle: false
+    mangle: false,
+    renderer
 });
 
 // Template cache
@@ -315,9 +323,30 @@ function generateIndexPage(articles, template) {
         }
     }
 
+    // Generate ItemList JSON-LD for rich search results
+    let itemListSchema = '';
+    if (articles.length > 0) {
+        const itemListItems = articles.map((article, index) => `
+            {
+                "@type": "ListItem",
+                "position": ${index + 1},
+                "url": "https://nometa.az/news/${article.slug}/"
+            }`).join(',');
+
+        itemListSchema = `<script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "ItemList",
+        "itemListElement": [${itemListItems}
+        ]
+    }
+    </script>`;
+    }
+
     // Replace the template placeholders
     let html = template
         .replace(/\{\{cssVersion\}\}/g, CSS_VERSION)
+        .replace(/\{\{itemListSchema\}\}/g, itemListSchema)
         .replace(/\{\{#if articles\}\}[\s\S]*?\{\{\/if\}\}/g, articlesHtml);
 
     // Write index HTML file

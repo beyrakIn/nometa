@@ -20,7 +20,7 @@
     <title>MongoDB-ni Bilməməyin Dəyəri – Giriş | NoMeta.az Xəbərlər</title>
     <meta name="title" content="MongoDB-ni Bilməməyin Dəyəri – Giriş | NoMeta.az Xəbərlər">
     <meta name="description" content="MongoDB-nu Bilməməyin Dəyəri – Giriş Bu seriyanın əsas məqsədi MongoDB-ni düzgün istifadə etməklə əldə edə biləcəyiniz əhəmiyyətli performans artımlarını və...">
-    <meta name="keywords" content="Dev.to, AWS, texnologiya, proqramlaşdırma, mühəndislik, Dev.to, Azərbaycan">
+    <meta name="keywords" content="Dev.to, AWS, texnologiya, proqramlaşdırma, mühəndislik, Azərbaycan">
     <meta name="author" content="Dev.to (NoMeta.az tərəfindən tərcümə)">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
     <meta name="googlebot" content="index, follow">
@@ -47,6 +47,7 @@
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
     <meta property="og:image:alt" content="MongoDB-ni Bilməməyin Dəyəri – Giriş - NoMeta.az">
+    <meta property="og:image:type" content="image/png">
     <meta property="og:locale" content="az_AZ">
     <meta property="og:locale:alternate" content="en_US">
     <meta property="og:site_name" content="NoMeta Azerbaijan">
@@ -101,9 +102,12 @@
     <meta name="theme-color" content="#0a0a0a" media="(prefers-color-scheme: dark)">
     <meta name="msapplication-TileColor" content="#ffffff">
 
+    <!-- RSS Autodiscovery -->
+    <link rel="alternate" type="application/rss+xml" title="NoMeta.az Xəbərlər" href="https://nometa.az/news/feed.xml">
+
     <!-- Performance Hints -->
-    <link rel="dns-prefetch" href="//nometa.az">
-    <link rel="preconnect" href="https://nometa.az">
+    <link rel="dns-prefetch" href="https://cdn.sanity.io">
+    <link rel="preconnect" href="https://cdn.sanity.io" crossorigin>
 
     <!-- Stylesheet -->
     <link rel="preload" href="../../assets/css/styles.css?v=2026012601" as="style" fetchpriority="high">
@@ -411,7 +415,7 @@
 <p><code>Get Reports</code> funksiyası hər icrada bir <code>reports</code> sənədi yaradır. Hər icranın müddəti vaxtlanır və ikinci dərəcəli verilənlər bazasında qeyd edilir.</p>
 <p><code>reports</code> yaratma sürəti dörd <code>Bulk Upsert</code> fazasının hər birində 10 alt-faza olaraq paylanmış 40 fazaya bölünür. Hər <code>Bulk Upsert</code> fazası daxilində <code>Get Reports</code> sürəti saniyədə 25 hesabat sorğusu ilə başlayır və hər beş dəqiqədə saniyədə 25 sorğu artır. Bu, həmin <code>Bulk Upsert</code> fazasının sonunda saniyədə 250 hesabat sorğusuna çatır.</p>
 <p>Aşağıdakı qrafik test ssenarisi boyu <code>Bulk Upsert</code> və <code>Get Reports</code> üçün hədəf sürətlərini göstərir:</p>
-<p><img src="https://media2.dev.to/dynamic/image/width=800%2Cheight=%2Cfit=scale-down%2Cgravity=auto%2Cformat=auto/https%3A%2F%2Fdev-to-uploads.s3.amazonaws.com%2Fuploads%2Farticles%2Fccpscpm19v4dgt6ekco8.png" alt="Bulk Upsert və Get Reports üçün istənilən sürətlər"></p>
+<p><img src="undefined" alt="undefined" loading="lazy" decoding="async"></p>
 <h2>İlkin Ssenari və Məlumat Yaradılması</h2>
 <p>Tətbiq versiyaları arasında ədalətli müqayisə üçün testlər üçün ilkin məlumat dəsti (işçi dəst) MongoDB serverindəki mövcud yaddaşdan böyük olacaq şəkildə dizayn edilmişdir. Bu yanaşma əhəmiyyətli keş fəaliyyətini təmin edir və bütün işçi dəstinin yaddaşda yerləşməsinin qarşısını alır.</p>
 <p>İlkin məlumat dəsti üçün aşağıdakı parametrlər müəyyən edilmişdir:</p>
@@ -421,7 +425,7 @@
 <li>İstifadəçi (<code>key</code>) başına ildə orta hesabla 60 event.</li>
 </ul>
 <p>İldə 50 milyon event və istifadəçi başına ildə 60 event nəzərə alınanda, unikal istifadəçilərin ümumi sayı təqribən 833,333-dür (50,000,000 / 60). İstifadəçi <code>key</code> generatoru təqribən normal (Gauss) paylanmasına əməl edən açarlar yaratmaq üçün konfiqurasiya edilmişdir. Bu, bəzi istifadəçilərin digərlərindən daha çox event yaratdığı real dünya ssenarisi simulyasiya edir. Aşağıdakı qrafik yaradılmış 50 milyon açarın paylanmasını göstərir:</p>
-<p><img src="https://media2.dev.to/dynamic/image/width=800%2Cheight=%2Cfit=scale-down%2Cgravity=auto%2Cformat=auto/https%3A%2F%2Fdev-to-uploads.s3.amazonaws.com%2Fuploads%2Farticles%2Ftod5eeqtg3xbz9exonaa.png" alt="Açarların Paylanması"></p>
+<p><img src="undefined" alt="undefined" loading="lazy" decoding="async"></p>
 <p>Real dünya ssenarisi daha da simulyasiya etmək üçün event statuslarının paylanması aşağıdakı kimi müəyyən edilmişdir:</p>
 <ul>
 <li>80% <code>approved</code></li>
@@ -641,7 +645,7 @@
             <a href="https://dontasktoask.com" target="_blank" rel="noopener noreferrer">dontasktoask.com</a> saytlarından ilhamlanıb.
         </p>
         <p class="copyright">
-            <small>&copy; <span id="year"></span> NoMeta Azərbaycan. Bütün hüquqlar qorunur.</small>
+            <small>&copy; <span id="year">2026</span> NoMeta Azərbaycan. Bütün hüquqlar qorunur.</small>
         </p>
     </footer>
     <script>document.getElementById('year').textContent = new Date().getFullYear();</script>

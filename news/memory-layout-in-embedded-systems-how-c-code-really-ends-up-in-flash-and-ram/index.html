@@ -20,7 +20,7 @@
     <title>Gömülü Sistemlərdə Yaddaş Strukturu: C Kodu Həqiqətən FLASH və RAM-a Necə Yerləşdirilir | NoMeta.az Xəbərlər</title>
     <meta name="title" content="Gömülü Sistemlərdə Yaddaş Strukturu: C Kodu Həqiqətən FLASH və RAM-a Necə Yerləşdirilir | NoMeta.az Xəbərlər">
     <meta name="description" content="Gömülü Sistemlərdə Yaddaş Strukturu: C Kodu Həqiqətən FLASH və RAM-a Necə Yerləşdirilir CPU dəyişənləri, tipləri və ya bölmələri anlamır. O, yalnız "X ünvanını...">
-    <meta name="keywords" content="Dev.to, AWS, AI, texnologiya, proqramlaşdırma, mühəndislik, Dev.to, Azərbaycan">
+    <meta name="keywords" content="Dev.to, AWS, AI, texnologiya, proqramlaşdırma, mühəndislik, Azərbaycan">
     <meta name="author" content="Dev.to (NoMeta.az tərəfindən tərcümə)">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
     <meta name="googlebot" content="index, follow">
@@ -47,6 +47,7 @@
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
     <meta property="og:image:alt" content="Gömülü Sistemlərdə Yaddaş Strukturu: C Kodu Həqiqətən FLASH və RAM-a Necə Yerləşdirilir - NoMeta.az">
+    <meta property="og:image:type" content="image/png">
     <meta property="og:locale" content="az_AZ">
     <meta property="og:locale:alternate" content="en_US">
     <meta property="og:site_name" content="NoMeta Azerbaijan">
@@ -101,9 +102,12 @@
     <meta name="theme-color" content="#0a0a0a" media="(prefers-color-scheme: dark)">
     <meta name="msapplication-TileColor" content="#ffffff">
 
+    <!-- RSS Autodiscovery -->
+    <link rel="alternate" type="application/rss+xml" title="NoMeta.az Xəbərlər" href="https://nometa.az/news/feed.xml">
+
     <!-- Performance Hints -->
-    <link rel="dns-prefetch" href="//nometa.az">
-    <link rel="preconnect" href="https://nometa.az">
+    <link rel="dns-prefetch" href="https://cdn.sanity.io">
+    <link rel="preconnect" href="https://cdn.sanity.io" crossorigin>
 
     <!-- Stylesheet -->
     <link rel="preload" href="../../assets/css/styles.css?v=2026012601" as="style" fetchpriority="high">
@@ -376,7 +380,7 @@ Siz <code>int x = 10;</code> yazırsınız, lakin o <code>10</code>-un <code>0x2
 </blockquote>
 <h2>FLASH Yaddaş Strukturu (Qeyri-Uçucu Bölmələr)</h2>
 <p>Flash, proqramınızın bildiyi, lakin dəyişdirməyə ehtiyac duymadığı hər şey üçün daimi evdir. Məzmunu yenidən başlatmalardan və enerji itkisindən sağ çıxır.</p>
-<p><img src="https://media2.dev.to/dynamic/image/width=800%2Cheight=%2Cfit=scale-down%2Cgravity=auto%2Cformat=auto/https%3A%2F%2Fdev-to-uploads.s3.amazonaws.com%2Fuploads%2Farticles%2Fky8tcewpluhjnksu8s93.png" alt="FLASH Yaddaş Strukturu"></p>
+<p><img src="undefined" alt="undefined" loading="lazy" decoding="async"></p>
 <p><strong><code>.isr_vector</code> (Xəritə)</strong></p>
 <p>FLASH-ın ən başlanğıcında yerləşir (adətən <code>0x00000000</code>).</p>
 <p>O, ilkin stek göstəricisini və Reset Handler-in və bütün Kəsmə Xidmət Proqramlarının ünvanlarını ehtiva edir. Yenidən başlatmada CPU icranı necə başlayacağını bilmək üçün əvvəlcə bu cədvəli gətirir.</p>
@@ -417,7 +421,7 @@ Başlanğıcda işləmə zamanı <code>main()</code> icra edilməzdən əvvəl b
 Bu, sıfırları saxlamaq üçün FLASH yerinin israfından qaçır, buna görə <code>.bss</code> <strong>yalnız RAM</strong> istifadə edir.</p>
 <h2>RAM Yaddaş Strukturu (Uçucu Bölmələr)</h2>
 <p>RAM sistemin <strong>işçi yaddaşıdır</strong>. Bütün yazıla bilən işləmə zamanı vəziyyətini saxlayır və hər yenidən başlatmada yenidən qurulur.</p>
-<p><img src="https://media2.dev.to/dynamic/image/width=800%2Cheight=%2Cfit=scale-down%2Cgravity=auto%2Cformat=auto/https%3A%2F%2Fdev-to-uploads.s3.amazonaws.com%2Fuploads%2Farticles%2Fb6ubl9acng5qbn9pib6t.png" alt="RAM Yaddaş Strukturu"></p>
+<p><img src="undefined" alt="undefined" loading="lazy" decoding="async"></p>
 <p><strong><code>.data</code> (Aktiv Dəyişənlər)</strong></p>
 <p>Başlanğıc zamanı FLASH-dan kopyalanan inisializasiya edilmiş qlobal və statik dəyişənləri ehtiva edir. Bu dəyişənlər icra zamanı sərbəst oxunur və dəyişdirilir.</p>
 <p><strong><code>.bss</code> (Sıfırlanmış Dəyişənlər)</strong></p>
@@ -618,7 +622,7 @@ Bu əmri icra edin</p>
             <a href="https://dontasktoask.com" target="_blank" rel="noopener noreferrer">dontasktoask.com</a> saytlarından ilhamlanıb.
         </p>
         <p class="copyright">
-            <small>&copy; <span id="year"></span> NoMeta Azərbaycan. Bütün hüquqlar qorunur.</small>
+            <small>&copy; <span id="year">2026</span> NoMeta Azərbaycan. Bütün hüquqlar qorunur.</small>
         </p>
     </footer>
     <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
