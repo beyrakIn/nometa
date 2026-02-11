@@ -415,7 +415,7 @@
 <p><code>Get Reports</code> funksiyası hər icrada bir <code>reports</code> sənədi yaradır. Hər icranın müddəti vaxtlanır və ikinci dərəcəli verilənlər bazasında qeyd edilir.</p>
 <p><code>reports</code> yaratma sürəti dörd <code>Bulk Upsert</code> fazasının hər birində 10 alt-faza olaraq paylanmış 40 fazaya bölünür. Hər <code>Bulk Upsert</code> fazası daxilində <code>Get Reports</code> sürəti saniyədə 25 hesabat sorğusu ilə başlayır və hər beş dəqiqədə saniyədə 25 sorğu artır. Bu, həmin <code>Bulk Upsert</code> fazasının sonunda saniyədə 250 hesabat sorğusuna çatır.</p>
 <p>Aşağıdakı qrafik test ssenarisi boyu <code>Bulk Upsert</code> və <code>Get Reports</code> üçün hədəf sürətlərini göstərir:</p>
-<p><img src="undefined" alt="undefined" loading="lazy" decoding="async"></p>
+<p><img src="https://media2.dev.to/dynamic/image/width=800%2Cheight=%2Cfit=scale-down%2Cgravity=auto%2Cformat=auto/https%3A%2F%2Fdev-to-uploads.s3.amazonaws.com%2Fuploads%2Farticles%2Fccpscpm19v4dgt6ekco8.png" alt="Bulk Upsert və Get Reports üçün istənilən sürətlər" loading="lazy" decoding="async"></p>
 <h2>İlkin Ssenari və Məlumat Yaradılması</h2>
 <p>Tətbiq versiyaları arasında ədalətli müqayisə üçün testlər üçün ilkin məlumat dəsti (işçi dəst) MongoDB serverindəki mövcud yaddaşdan böyük olacaq şəkildə dizayn edilmişdir. Bu yanaşma əhəmiyyətli keş fəaliyyətini təmin edir və bütün işçi dəstinin yaddaşda yerləşməsinin qarşısını alır.</p>
 <p>İlkin məlumat dəsti üçün aşağıdakı parametrlər müəyyən edilmişdir:</p>
@@ -425,7 +425,7 @@
 <li>İstifadəçi (<code>key</code>) başına ildə orta hesabla 60 event.</li>
 </ul>
 <p>İldə 50 milyon event və istifadəçi başına ildə 60 event nəzərə alınanda, unikal istifadəçilərin ümumi sayı təqribən 833,333-dür (50,000,000 / 60). İstifadəçi <code>key</code> generatoru təqribən normal (Gauss) paylanmasına əməl edən açarlar yaratmaq üçün konfiqurasiya edilmişdir. Bu, bəzi istifadəçilərin digərlərindən daha çox event yaratdığı real dünya ssenarisi simulyasiya edir. Aşağıdakı qrafik yaradılmış 50 milyon açarın paylanmasını göstərir:</p>
-<p><img src="undefined" alt="undefined" loading="lazy" decoding="async"></p>
+<p><img src="https://media2.dev.to/dynamic/image/width=800%2Cheight=%2Cfit=scale-down%2Cgravity=auto%2Cformat=auto/https%3A%2F%2Fdev-to-uploads.s3.amazonaws.com%2Fuploads%2Farticles%2Ftod5eeqtg3xbz9exonaa.png" alt="Açarların Paylanması" loading="lazy" decoding="async"></p>
 <p>Real dünya ssenarisi daha da simulyasiya etmək üçün event statuslarının paylanması aşağıdakı kimi müəyyən edilmişdir:</p>
 <ul>
 <li>80% <code>approved</code></li>

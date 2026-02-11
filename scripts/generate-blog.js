@@ -19,7 +19,7 @@ const CSS_VERSION = '2026012601';
 
 // Custom renderer for lazy loading images
 const renderer = new marked.Renderer();
-renderer.image = function({ href, title, text }) {
+renderer.image = function(href, title, text) {
     const titleAttr = title ? ` title="${title}"` : '';
     return `<img src="${href}" alt="${text}"${titleAttr} loading="lazy" decoding="async">`;
 };
