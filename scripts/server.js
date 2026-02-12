@@ -133,6 +133,35 @@ app.post('/api/translate', async (req, res) => {
     }
 });
 
+// IndexNow API key for instant Bing + Yandex indexing
+const INDEXNOW_KEY = '284cab7f88e994f8b73f5ec6cdd317af';
+
+/**
+ * Notify Bing and Yandex of updated URLs via IndexNow protocol
+ */
+async function notifyIndexNow(urls) {
+    if (!urls || urls.length === 0) return;
+
+    const payload = {
+        host: 'nometa.az',
+        key: INDEXNOW_KEY,
+        keyLocation: `https://nometa.az/${INDEXNOW_KEY}.txt`,
+        urlList: urls
+    };
+
+    try {
+        const response = await fetch('https://api.indexnow.org/indexnow', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json; charset=utf-8' },
+            body: JSON.stringify(payload)
+        });
+        logger.info('server', 'IndexNow notified', { status: response.status, urlCount: urls.length });
+    } catch (error) {
+        // Non-blocking: log but don't fail the publish
+        logger.warn('server', 'IndexNow notification failed', { error: error.message });
+    }
+}
+
 /**
  * Push changes to GitHub (triggers GitHub Pages deployment)
  */
@@ -212,6 +241,15 @@ app.post('/api/publish', (req, res) => {
                 });
                 pushResult = { pushed: false, message: pushError.message };
             }
+        }
+
+        // Notify Bing + Yandex via IndexNow after successful push
+        if (pushResult.pushed) {
+            notifyIndexNow([
+                `https://nometa.az/news/${updatedArticle.slug}/`,
+                'https://nometa.az/news/',
+                'https://nometa.az/'
+            ]);
         }
 
         res.json({

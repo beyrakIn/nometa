@@ -83,10 +83,22 @@ function formatDate(dateString) {
 }
 
 /**
- * Format date for ISO
+ * Format date for ISO (date only, e.g. 2026-02-11)
  */
 function formatDateISO(dateString) {
     return new Date(dateString).toISOString().split('T')[0];
+}
+
+/**
+ * Format date for sitemap (ISO 8601 with Azerbaijan timezone offset +04:00)
+ * Bing prefers full datetime over date-only for better crawl prioritization
+ */
+function formatDateSitemap(dateString) {
+    const date = new Date(dateString);
+    const yyyy = date.getFullYear();
+    const mm = String(date.getMonth() + 1).padStart(2, '0');
+    const dd = String(date.getDate()).padStart(2, '0');
+    return `${yyyy}-${mm}-${dd}T00:00:00+04:00`;
 }
 
 /**
@@ -401,7 +413,7 @@ function updateSitemap(articles) {
     const newsUrls = articles.map(article => `
     <url>
         <loc>https://nometa.az/news/${article.slug}/</loc>
-        <lastmod>${formatDateISO(article.translatedAt || article.publishedDate)}</lastmod>
+        <lastmod>${formatDateSitemap(article.translatedAt || article.publishedDate)}</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.7</priority>
     </url>`).join('');
@@ -410,13 +422,13 @@ function updateSitemap(articles) {
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
         <loc>https://nometa.az/</loc>
-        <lastmod>${formatDateISO(new Date())}</lastmod>
+        <lastmod>${formatDateSitemap(new Date())}</lastmod>
         <changefreq>weekly</changefreq>
         <priority>1.0</priority>
     </url>
     <url>
         <loc>https://nometa.az/news/</loc>
-        <lastmod>${formatDateISO(new Date())}</lastmod>
+        <lastmod>${formatDateSitemap(new Date())}</lastmod>
         <changefreq>daily</changefreq>
         <priority>0.9</priority>
     </url>
@@ -547,6 +559,7 @@ module.exports = {
     getPublishedArticles,
     formatDate,
     formatDateISO,
+    formatDateSitemap,
     renderTemplate,
     markdownToHtml,
     escapeForJson,

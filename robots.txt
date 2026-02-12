@@ -1,6 +1,14 @@
 User-agent: *
 Allow: /
 
+# Yandex-specific directives
+User-agent: Yandex
+Crawl-delay: 0.5
+Clean-param: utm_source&utm_medium&utm_campaign&utm_term&utm_content /
+Clean-param: ref /
+Clean-param: fbclid /
+Clean-param: gclid /
+
 Host: https://nometa.az
 
 Sitemap: https://nometa.az/sitemap.xml

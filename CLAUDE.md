@@ -34,7 +34,7 @@ node generate-images.js        # Generate favicon/OG images from SVG
 ## Testing
 
 - **Framework**: Vitest 4.x with `vitest.config.mjs` (must be `.mjs`, not `.js`, because the project is CommonJS)
-- **Test files**: `tests/` directory — `db.test.js`, `server.test.js`, `fetch-rss.test.js`, `generate-blog.test.js`
+- **Test files**: `tests/` directory — `db.test.js`, `server.test.js`, `fetch-rss.test.js`, `fetch-web.test.js`, `generate-blog.test.js`
 - **CJS/ESM bridge**: Test files use ESM `import` syntax with `createRequire(import.meta.url)` to require CommonJS source modules
 - **Database tests**: Use the real SQLite database (`content/nometa.db`) — tests clean up after themselves
 - **Globals**: Vitest globals are enabled (`describe`, `it`, `expect` available without import, though test files import them explicitly)
@@ -48,6 +48,9 @@ OPENAI_API_KEY                 # OpenAI API key (fallback)
 
 # Server configuration
 PORT=3000                      # Admin panel port (default: 3000)
+
+# Error monitoring
+SENTRY_DSN                     # Sentry DSN for admin panel error tracking (optional)
 
 # Logging
 LOG_LEVEL=info                 # debug | info | warn | error
@@ -97,7 +100,7 @@ The `db.js` module converts snake_case DB columns to camelCase JS objects via `r
 - Key generation helpers: `escapeForJson()` for JSON-LD safety, `removeDuplicateTitle()` to strip first h1 from content, `formatDate()` with Azerbaijani month names, `extractKeywords()` for meta tags
 
 ### Content & Output Directories
-- `content/nometa.db` - SQLite database (single source of truth for articles)
+- `content/nometa.db` - SQLite database (single source of truth for articles); git-tracked despite `.gitignore` entry (was added before the rule)
 - `news/` - Generated blog HTML (index + individual articles at `news/{slug}/index.html`)
 - `news/feed.xml` - Auto-generated RSS feed (top 20 articles)
 - `sitemap.xml` - Auto-generated sitemap (all published articles + main pages)
@@ -113,7 +116,7 @@ Font: Inter, system-ui stack
 
 1. **Cache busting**: Update version in CSS links: `styles.css?v=YYYYMMDDNN`. For blog pages, update the `CSS_VERSION` constant in `scripts/generate-blog.js:18`
 2. **Homepage markers**: `index.html` contains `<!-- RECENT_ARTICLES_START -->` / `<!-- RECENT_ARTICLES_END -->` markers that `generate-blog.js` uses to inject the 3 most recent articles. Do not remove these comments.
-3. **dateModified in index.html**: When main page content changes, update `dateModified` in 6 locations (see comment block at top of `index.html` for exact line numbers): `article:modified_time`, `og:updated_time`, two `itemprop="dateModified"` tags, and two JSON-LD `dateModified` fields (WebPage + Article).
+3. **dateModified in index.html**: When main page content changes, update 8 locations total (see comment block at top of `index.html` for exact line numbers): 6 dates (`article:modified_time`, `og:updated_time`, two `itemprop="dateModified"` tags, two JSON-LD `dateModified` fields) + 2 CSS cache-buster versions on the preload and stylesheet links.
 4. **FAQ structured data**: Keep JSON-LD FAQ schema in sync with HTML `<details>` elements in `index.html`
 5. **Accessibility**: Maintain ARIA labels, focus-visible patterns, reduced-motion support
 6. **No frameworks**: Vanilla HTML/CSS/JS only
