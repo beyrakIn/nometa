@@ -218,9 +218,140 @@ function removeDuplicateTitle(html) {
 }
 
 /**
+ * Find up to 3 related articles: same source first, then most recent from other sources
+ */
+function findRelatedArticles(currentArticle, allArticles) {
+    const sameSource = allArticles.filter(a =>
+        a.slug !== currentArticle.slug && a.source === currentArticle.source
+    );
+    const related = sameSource.slice(0, 3);
+
+    if (related.length < 3) {
+        const otherSource = allArticles.filter(a =>
+            a.slug !== currentArticle.slug &&
+            a.source !== currentArticle.source &&
+            !related.some(r => r.slug === a.slug)
+        );
+        for (const a of otherSource) {
+            if (related.length >= 3) break;
+            related.push(a);
+        }
+    }
+
+    return related;
+}
+
+/**
+ * Generate HTML for related articles section
+ */
+function generateRelatedArticlesHtml(relatedArticles) {
+    if (relatedArticles.length === 0) return '';
+
+    const cards = relatedArticles.map(article => `
+            <article class="recent-article-card">
+                <div class="recent-article-meta">
+                    <span class="recent-article-source">${article.source}</span>
+                    <time datetime="${formatDateISO(article.publishedDate)}">${formatDate(article.publishedDate)}</time>
+                </div>
+                <h3><a href="/news/${article.slug}/">${article.title}</a></h3>
+            </article>`).join('');
+
+    return `<section class="related-articles" aria-labelledby="related-articles-heading">
+                <h2 id="related-articles-heading">Oxşar Məqalələr</h2>
+                <div class="related-articles-grid">${cards}
+                </div>
+            </section>`;
+}
+
+/**
+ * Extract a key phrase (3+ words, longest meaningful segment) from a title
+ */
+function extractKeyPhrase(title) {
+    // Remove common short/stop words and punctuation, take longest remaining segment of 3+ words
+    const words = title.replace(/[^\w\sğüşöçıəİĞÜŞÖÇƏ-]/gi, '').split(/\s+/).filter(w => w.length > 2);
+    if (words.length < 3) return null;
+    // Use the first 5 words (or fewer) as the key phrase
+    return words.slice(0, 5).join(' ');
+}
+
+/**
+ * Add contextual in-content links to other published articles
+ * Scans content HTML for mentions of other articles' title phrases,
+ * replaces first occurrence only, max 3 links per article
+ */
+function addContextualLinks(contentHtml, currentSlug, allArticles) {
+    // Build phrase map from other articles
+    const phrases = [];
+    for (const article of allArticles) {
+        if (article.slug === currentSlug) continue;
+        const phrase = extractKeyPhrase(article.title);
+        if (phrase) {
+            phrases.push({ phrase, slug: article.slug, title: article.title });
+        }
+    }
+
+    // Sort by phrase length descending to match longer phrases first
+    phrases.sort((a, b) => b.phrase.length - a.phrase.length);
+
+    let linkCount = 0;
+    let result = contentHtml;
+
+    for (const { phrase, slug, title } of phrases) {
+        if (linkCount >= 3) break;
+
+        // Escape regex special chars in the phrase
+        const escaped = phrase.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+
+        // Match the phrase only in text nodes (not inside HTML tags or existing links)
+        // This regex matches the phrase that is NOT inside < > (i.e., not inside a tag)
+        const regex = new RegExp(`(?<![<\\/\\w])(?:<[^>]*>)*?(${escaped})(?![^<]*>)`, 'i');
+
+        // Simpler approach: split on tags, replace in text segments only
+        const parts = result.split(/(<[^>]*>)/);
+        let replaced = false;
+        let insideAnchor = 0;
+
+        for (let i = 0; i < parts.length; i++) {
+            const part = parts[i];
+
+            // Track anchor depth
+            if (part.match(/^<a[\s>]/i)) {
+                insideAnchor++;
+                continue;
+            }
+            if (part.match(/^<\/a>/i)) {
+                insideAnchor--;
+                continue;
+            }
+
+            // Skip HTML tags
+            if (part.startsWith('<')) continue;
+
+            // Skip if inside an anchor tag
+            if (insideAnchor > 0) continue;
+
+            // Try case-insensitive match in this text node
+            const textRegex = new RegExp(`(${escaped})`, 'i');
+            if (textRegex.test(part)) {
+                parts[i] = part.replace(textRegex, `<a href="/news/${slug}/" title="${title}">$1</a>`);
+                replaced = true;
+                break;
+            }
+        }
+
+        if (replaced) {
+            result = parts.join('');
+            linkCount++;
+        }
+    }
+
+    return result;
+}
+
+/**
  * Generate article page
  */
-function generateArticlePage(article, template) {
+function generateArticlePage(article, template, allArticles) {
     logger.debug('generate', 'Generating article page', { slug: article.slug });
 
     // Create article directory
@@ -230,7 +361,16 @@ function generateArticlePage(article, template) {
     }
 
     // Convert content to HTML if it's markdown, then remove duplicate title
-    const contentHtml = removeDuplicateTitle(markdownToHtml(article.content));
+    let contentHtml = removeDuplicateTitle(markdownToHtml(article.content));
+
+    // Add contextual in-content links to other articles
+    if (allArticles) {
+        contentHtml = addContextualLinks(contentHtml, article.slug, allArticles);
+    }
+
+    // Generate related articles section
+    const relatedArticles = allArticles ? findRelatedArticles(article, allArticles) : [];
+    const relatedArticlesHtml = generateRelatedArticlesHtml(relatedArticles);
 
     // Calculate reading metrics
     const { wordCount, readingTime } = calculateReadingTime(article.content);
@@ -288,6 +428,9 @@ function generateArticlePage(article, template) {
 
         // Share URLs
         encodedTitle: encodeURIComponent(article.title),
+
+        // Related articles
+        relatedArticles: relatedArticlesHtml,
 
         // Assets
         ogImage: 'https://nometa.az/assets/images/og-image.png',
@@ -523,7 +666,7 @@ function generateBlog() {
 
     // Generate article pages
     for (const article of articles) {
-        generateArticlePage(article, articleTemplate);
+        generateArticlePage(article, articleTemplate, articles);
     }
 
     // Generate index page
@@ -568,6 +711,10 @@ module.exports = {
     truncateTitle,
     removeDuplicateTitle,
     calculateReadingTime,
+    findRelatedArticles,
+    generateRelatedArticlesHtml,
+    extractKeyPhrase,
+    addContextualLinks,
     CSS_VERSION
 };
 

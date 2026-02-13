@@ -667,6 +667,44 @@ section {
     font-style: italic;
 }
 
+/* Footer Navigation */
+.footer-nav {
+    display: flex;
+    justify-content: center;
+    gap: var(--spacing-lg);
+    margin-bottom: var(--spacing-md);
+}
+
+.footer-nav a {
+    color: var(--text-muted);
+    text-decoration: none;
+    font-weight: 500;
+    font-size: var(--text-sm);
+    transition: color 0.2s ease;
+}
+
+.footer-nav a:hover {
+    color: var(--text-color);
+}
+
+/* Related Articles */
+.related-articles {
+    margin-top: var(--spacing-xl);
+    padding-top: var(--spacing-xl);
+    border-top: 1px solid var(--border-color);
+}
+
+.related-articles h2 {
+    font-size: var(--text-lg);
+    margin-bottom: var(--spacing-md);
+    color: var(--text-color);
+}
+
+.related-articles-grid {
+    display: grid;
+    gap: var(--spacing-md);
+}
+
 /* Footer */
 footer {
     margin-top: var(--spacing-4xl);
