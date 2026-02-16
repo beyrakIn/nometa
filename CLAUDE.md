@@ -70,11 +70,11 @@ The blog system fetches articles from tech blogs, translates them to Azerbaijani
 
 **Article status lifecycle**: `pending` → `saved` → `translated` → `published` (or `disabled` at any point)
 
-- `scripts/fetch-rss.js` - Fetches articles from configured RSS feeds (managed via admin panel); filters promotional content via keyword list; minimum content length 1000 chars
+- `scripts/fetch-rss.js` - Fetches articles from configured RSS feeds (managed via admin panel); filters promotional content via keyword list (substring match, case-insensitive, first match wins); minimum content length 1000 chars; slug generation from title (80-char limit)
 - `scripts/translate.js` - Multi-provider translation (Claude API, OpenAI, Claude CLI) with retry logic (3 retries, exponential backoff from 5s, 2-min API timeout)
-- `scripts/generate-blog.js` - Generates HTML pages, RSS feed, updates sitemap, injects recent articles into homepage
-- `scripts/server.js` - Express admin panel for managing articles; publishing auto-commits `news/` and `sitemap.xml` then pushes to GitHub
-- `scripts/db.js` - SQLite database wrapper (better-sqlite3, WAL mode); all queries use prepared statements
+- `scripts/generate-blog.js` - Generates HTML pages, RSS feed, updates sitemap, injects recent articles into homepage. Related articles prefer same-source (up to 3). Contextual links: max 3 per article, first occurrence only, longest phrase matched first.
+- `scripts/server.js` - Express admin panel for managing articles; publishing auto-commits `news/` and `sitemap.xml` then pushes to GitHub; sends IndexNow notification after push (non-blocking)
+- `scripts/db.js` - SQLite database wrapper (better-sqlite3, WAL mode); all queries use prepared statements; lazy-initialized singleton connection (`getDb()`/`initDb()`); auto-seeds default feeds on first init; `updateArticle()` only updates fields present in the data object (partial updates); `setMetadata()`/`setApiKey()` use upsert semantics
 - `scripts/logger.js` - Structured logging: `logger.info('component', 'message', { meta })`
 
 **Translation providers** (in order of preference):
@@ -82,17 +82,19 @@ The blog system fetches articles from tech blogs, translates them to Azerbaijani
 2. `openai` - Uses `gpt-4-turbo-preview`, requires `OPENAI_API_KEY` (env var or Settings tab)
 3. `claude-cli` - Uses local Claude Code CLI (no API key needed, 10-min timeout)
 
+API keys stored in the `api_keys` DB table take precedence over environment variables.
+
 **Admin panel workflow**: Run `npm run admin`, open browser at http://localhost:3000. Use the UI to fetch articles, translate them, and publish. Publishing auto-generates HTML and pushes to GitHub (triggering deploy). API keys can be configured via the Settings tab (stored in SQLite) or environment variables.
 
 ### Database Schema (`content/nometa.db`)
 
 Key tables:
 - `articles` - Core data: `id`, `title`, `original_url`, `source`, `slug` (unique), `status`, `content`, `translated_title`, `translated_content`, `translation_provider`
-- `rss_feeds` - Feed sources: `name`, `url` (unique), `source_url`, `enabled`
+- `rss_feeds` - Feed sources: `name`, `url` (unique), `source_url`, `enabled`, `type` (`'rss'` default or `'web'` for HTML scraping)
 - `api_keys` - Provider credentials: `provider` (primary key), `api_key`, `enabled`
 - `metadata` - Key-value store (e.g., `last_fetched` timestamp)
 
-The `db.js` module converts snake_case DB columns to camelCase JS objects via `rowToArticle()`.
+The `db.js` module converts snake_case DB columns to camelCase JS objects via `rowToArticle()`. Duplicate articles are rejected silently via `original_url` UNIQUE constraint.
 
 ### Templates
 - `templates/blog-article.html` and `templates/blog-index.html` use `{{variableName}}` placeholders replaced by `generate-blog.js`

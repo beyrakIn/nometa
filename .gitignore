@@ -20,3 +20,6 @@ content/nometa.db-shm
 .vscode/
 *.swp
 *.swo
+
+# Claude Code local config
+.claude/
