@@ -251,7 +251,7 @@ function generateRelatedArticlesHtml(relatedArticles) {
             <article class="recent-article-card">
                 <div class="recent-article-meta">
                     <span class="recent-article-source">${article.source}</span>
-                    <time datetime="${formatDateISO(article.publishedDate)}">${formatDate(article.publishedDate)}</time>
+                    <time datetime="${formatDateISO(article.publishedAt || article.publishedDate)}">${formatDate(article.publishedAt || article.publishedDate)}</time>
                 </div>
                 <h3><a href="/news/${article.slug}/">${article.title}</a></h3>
             </article>`).join('');
@@ -467,7 +467,7 @@ function generateIndexPage(articles, template) {
             <article class="article-card">
                 <div class="article-card-meta">
                     <span class="article-source">${article.source}</span>
-                    <time datetime="${formatDateISO(article.publishedDate)}">${formatDate(article.publishedDate)}</time>
+                    <time datetime="${formatDateISO(article.publishedAt || article.publishedDate)}">${formatDate(article.publishedAt || article.publishedDate)}</time>
                 </div>
                 <h2 class="article-card-title">
                     <a href="/news/${article.slug}/">${article.title}</a>
@@ -608,7 +608,7 @@ function updateHomepageRecentArticles(articles) {
                     <article class="recent-article-card">
                         <div class="recent-article-meta">
                             <span class="recent-article-source">${article.source}</span>
-                            <time datetime="${formatDateISO(article.publishedDate)}">${formatDate(article.publishedDate)}</time>
+                            <time datetime="${formatDateISO(article.publishedAt || article.publishedDate)}">${formatDate(article.publishedAt || article.publishedDate)}</time>
                         </div>
                         <h3><a href="/news/${article.slug}/">${article.title}</a></h3>
                     </article>`;
