@@ -647,6 +647,9 @@ function generateBlog() {
 
     logger.info('generate', 'Starting blog generation');
 
+    // Clear template cache so long-running server processes pick up template changes
+    templateCache.clear();
+
     // Initialize database
     db.initDb();
 
