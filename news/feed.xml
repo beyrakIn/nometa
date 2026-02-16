@@ -5,9 +5,17 @@
     <link>https://nometa.az/news/</link>
     <description>Texnologiya şirkətlərinin mühəndislik bloqlarından Azərbaycan dilinə tərcümə edilmiş məqalələr.</description>
     <language>az</language>
-    <lastBuildDate>Fri, 13 Feb 2026 06:34:32 GMT</lastBuildDate>
+    <lastBuildDate>Mon, 16 Feb 2026 07:16:11 GMT</lastBuildDate>
     <atom:link href="https://nometa.az/news/feed.xml" rel="self" type="application/rss+xml"/>
     
+    <item>
+      <title><![CDATA[Effektiv agentlərin yaradılması]]></title>
+      <link>https://nometa.az/news/building-effective-agents/</link>
+      <guid>https://nometa.az/news/building-effective-agents/</guid>
+      <pubDate>Thu, 19 Dec 2024 00:00:00 GMT</pubDate>
+      <description><![CDATA[Son bir il ərzində biz müxtəlif sənaye sahələrində böyük dil modeli (LLM) agentləri quran onlarla komanda ilə işləmişik. Ardıcıl olaraq, ən uğurlu tətbiqlər mürəkkəb framework-lar və ya ixtisaslaşdırılmış kitabxanalardan istifadə etmirdilər. Bunun əvəzinə, onlar sadə, tərkib edilə bilən...]]></description>
+      <source url="https://www.anthropic.com/engineering">Anthropic Engineering</source>
+    </item>
     <item>
       <title><![CDATA[Kiber müdafiəçilər üçün süni intellektin yaradılması]]></title>
       <link>https://nometa.az/news/building-ai-for-cyber-defenders/</link>
