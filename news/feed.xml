@@ -5,7 +5,7 @@
     <link>https://nometa.az/news/</link>
     <description>Texnologiya şirkətlərinin mühəndislik bloqlarından Azərbaycan dilinə tərcümə edilmiş məqalələr.</description>
     <language>az</language>
-    <lastBuildDate>Tue, 24 Feb 2026 17:55:54 GMT</lastBuildDate>
+    <lastBuildDate>Tue, 24 Feb 2026 18:00:43 GMT</lastBuildDate>
     <atom:link href="https://nometa.az/news/feed.xml" rel="self" type="application/rss+xml"/>
     
     <item>
@@ -13,7 +13,7 @@
       <link>https://nometa.az/news/claude-code-best-practices-for-agentic-coding/</link>
       <guid>https://nometa.az/news/claude-code-best-practices-for-agentic-coding/</guid>
       <pubDate>Fri, 18 Apr 2025 00:00:00 GMT</pubDate>
-      <description><![CDATA[Now I have context on the project's style. This is a straightforward translation task — the article content needs to be translated to Azerbaijani. Here's the translation:  Claude Code: Agentli kodlaşdırma üçün ən yaxşı təcrübələr  Başlanğıc Claude Code sizin kod bazanızı oxuyan, faylları redaktə...]]></description>
+      <description><![CDATA[Claude Code: Agentli kodlaşdırma üçün ən yaxşı təcrübələr  Başlanğıc Claude Code sizin kod bazanızı oxuyan, faylları redaktə edən, əmrləri icra edən və inkişaf alətlərinizlə inteqrasiya edən agentli kodlaşdırma alətidir. Terminalınızda, IDE-də, masa üstü tətbiqində və brauzerdə istifadə edə...]]></description>
       <source url="https://www.anthropic.com/engineering">Anthropic Engineering</source>
     </item>
     <item>
