@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="az" dir="ltr" prefix="og: https://ogp.me/ns# article: https://ogp.me/ns/article#">
+<head>
+    <!--
+    SEO OPTIMIZED ARTICLE TEMPLATE
+    - Full Schema.org Article markup
+    - Open Graph article tags
+    - Twitter Card summary_large_image
+    - Canonical URLs
+    - Breadcrumb navigation
+    - Reading time estimation
+    - AI translation disclosure
+    -->
+
+    <!-- Primary Meta Tags -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>Son üç problemin post-mortem təhlili | NoMeta.az Xəbərlər</title>
+    <meta name="title" content="Son üç problemin post-mortem təhlili | NoMeta.az Xəbərlər">
+    <meta name="description" content="Avqust və sentyabrın əvvəlləri arasında üç infrastruktur xətası fasilələrlə Claude-un cavab keyfiyyətini aşağı saldı. Biz indi bu problemləri həll etdik və nə...">
+    <meta name="keywords" content="Anthropic Engineering, API, AWS, Cloud, AI, texnologiya, proqramlaşdırma, mühəndislik, Azərbaycan">
+    <meta name="author" content="Anthropic Engineering (NoMeta.az tərəfindən tərcümə)">
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+    <meta name="googlebot" content="index, follow">
+    <meta name="language" content="Azerbaijani">
+    <meta name="revisit-after" content="7 days">
+    <meta name="rating" content="general">
+    <meta name="generator" content="NoMeta.az Blog Generator">
+
+    <!-- Geographic Targeting (Azerbaijan) -->
+    <meta name="geo.region" content="AZ">
+    <meta name="geo.placename" content="Azerbaijan">
+    <meta name="geo.position" content="40.4093;49.8671">
+    <meta name="ICBM" content="40.4093, 49.8671">
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://nometa.az/news/a-postmortem-of-three-recent-issues/">
+
+    <!-- Alternate Languages -->
+    <link rel="alternate" hreflang="az" href="https://nometa.az/news/a-postmortem-of-three-recent-issues/">
+    <link rel="alternate" hreflang="en" href="https://www.anthropic.com/engineering/a-postmortem-of-three-recent-issues">
+    <link rel="alternate" hreflang="x-default" href="https://nometa.az/news/a-postmortem-of-three-recent-issues/">
+    <meta http-equiv="content-language" content="az">
+
+    <!-- Open Graph / Facebook - Article Type -->
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://nometa.az/news/a-postmortem-of-three-recent-issues/">
+    <meta property="og:title" content="Son üç problemin post-mortem təhlili">
+    <meta property="og:description" content="Avqust və sentyabrın əvvəlləri arasında üç infrastruktur xətası fasilələrlə Claude-un cavab keyfiyyətini aşağı saldı. Biz indi bu problemləri həll etdik və nə...">
+    <meta property="og:image" content="https://nometa.az/assets/images/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="Son üç problemin post-mortem təhlili - NoMeta.az">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:locale" content="az_AZ">
+    <meta property="og:locale:alternate" content="en_US">
+    <meta property="og:site_name" content="NoMeta Azerbaijan">
+    <meta property="og:see_also" content="https://www.anthropic.com/engineering/a-postmortem-of-three-recent-issues">
+
+    <!-- Article Specific Open Graph -->
+    <meta property="article:published_time" content="2025-09-17T00:00:00+04:00">
+    <meta property="article:modified_time" content="2026-02-10T00:00:00+04:00">
+    <meta property="article:author" content="Anthropic Engineering">
+    <meta property="article:section" content="Technology">
+    <meta property="article:tag" content="texnologiya">
+    <meta property="article:tag" content="proqramlaşdırma">
+    <meta property="article:tag" content="Anthropic Engineering">
+
+    <!-- Twitter Card - Large Image -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://nometa.az/news/a-postmortem-of-three-recent-issues/">
+    <meta name="twitter:title" content="Son üç problemin post-mortem təhlili">
+    <meta name="twitter:description" content="Avqust və sentyabrın əvvəlləri arasında üç infrastruktur xətası fasilələrlə Claude-un cavab keyfiyyətini aşağı saldı. Biz indi bu problemləri həll etdik və nə...">
+    <meta name="twitter:image" content="https://nometa.az/assets/images/og-image.png">
+    <meta name="twitter:image:alt" content="Son üç problemin post-mortem təhlili">
+    <meta name="twitter:site" content="@nometa_az">
+    <meta name="twitter:creator" content="@nometa_az">
+    <meta name="twitter:label1" content="Mənbə">
+    <meta name="twitter:data1" content="Anthropic Engineering">
+    <meta name="twitter:label2" content="Oxuma müddəti">
+    <meta name="twitter:data2" content="10 dəqiqə">
+
+    <!-- Dublin Core Metadata -->
+    <meta name="DC.title" content="Son üç problemin post-mortem təhlili">
+    <meta name="DC.creator" content="Anthropic Engineering">
+    <meta name="DC.subject" content="Technology, Software Engineering, Anthropic Engineering">
+    <meta name="DC.description" content="Avqust və sentyabrın əvvəlləri arasında üç infrastruktur xətası fasilələrlə Claude-un cavab keyfiyyətini aşağı saldı. Biz indi bu problemləri həll etdik və nə...">
+    <meta name="DC.publisher" content="NoMeta Azerbaijan">
+    <meta name="DC.contributor" content="Claude AI">
+    <meta name="DC.date" content="2025-09-17">
+    <meta name="DC.type" content="Text">
+    <meta name="DC.format" content="text/html">
+    <meta name="DC.identifier" content="https://nometa.az/news/a-postmortem-of-three-recent-issues/">
+    <meta name="DC.source" content="https://www.anthropic.com/engineering/a-postmortem-of-three-recent-issues">
+    <meta name="DC.language" content="az">
+    <meta name="DC.relation" content="https://www.anthropic.com/engineering/a-postmortem-of-three-recent-issues">
+    <meta name="DC.rights" content="Original content © Anthropic Engineering. Translation by NoMeta.az">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="../../assets/images/favicon.svg">
+    <link rel="icon" type="image/png" sizes="32x32" href="../../assets/images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../../assets/images/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="../../assets/images/apple-touch-icon.png">
+    <link rel="manifest" href="../../site.webmanifest">
+    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="#0a0a0a" media="(prefers-color-scheme: dark)">
+    <meta name="msapplication-TileColor" content="#ffffff">
+
+    <!-- RSS Autodiscovery -->
+    <link rel="alternate" type="application/rss+xml" title="NoMeta.az Xəbərlər" href="https://nometa.az/news/feed.xml">
+
+    <!-- Performance Hints -->
+    <link rel="dns-prefetch" href="https://cdn.sanity.io">
+    <link rel="preconnect" href="https://cdn.sanity.io" crossorigin>
+
+    <!-- Stylesheet -->
+    <link rel="preload" href="../../assets/css/styles.css?v=2026012601" as="style" fetchpriority="high">
+    <link rel="stylesheet" href="../../assets/css/styles.css?v=2026012601">
+
+    <!-- JSON-LD: Main Article Schema -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "TechArticle",
+        "@id": "https://nometa.az/news/a-postmortem-of-three-recent-issues/#article",
+        "headline": "Son üç problemin post-mortem təhlili",
+        "alternativeHeadline": "A postmortem of three recent issues",
+        "description": "Avqust və sentyabrın əvvəlləri arasında üç infrastruktur xətası fasilələrlə Claude-un cavab keyfiyyətini aşağı saldı. Biz indi bu problemləri həll etdik və nə...",
+        "image": {
+            "@type": "ImageObject",
+            "url": "https://nometa.az/assets/images/og-image.png",
+            "width": 1200,
+            "height": 630
+        },
+        "datePublished": "2025-09-17T00:00:00+04:00",
+        "dateModified": "2026-02-10T00:00:00+04:00",
+        "dateCreated": "2025-09-17T00:00:00+04:00",
+        "inLanguage": "az",
+        "wordCount": 1919,
+        "timeRequired": "PT10M",
+        "articleBody": "Avqust və sentyabrın əvvəlləri arasında üç infrastruktur xətası fasilələrlə Claude-un cavab keyfiyyətini aşağı saldı. Biz indi bu problemləri həll etdik və nə baş verdiyini izah etmək istəyirik. Avqustun əvvəlində bir sıra istifadəçilər Claude-dan alınan cavabların keyfiyyətinin aşağı düşdüyünü bildirməyə başladılar. Bu ilkin hesabatları istifadəçi rəylərindəki normal dəyişikliklərdən fərqləndirmək çətin idi. Avqustun sonlarında bu hesabatların artan tezliyi və davamlılığı bizi araşdırma açmağa vadar etdi və bu, üç ayrı infrastruktur xətasını aşkar etməyimizə səbəb oldu. Açıq şəkildə bildirək: Biz heç vaxt tələb, günün vaxtı və ya server yükünə görə model keyfiyyətini azaltmırıq. İstifadəçilərimizin bildirdiyi problemlər yalnız infrastruktur xətalarından qaynaqlanırdı. Biz anlayırıq ki, istifadəçilər Claude-dan ardıcıl keyfiyyət gözləyirlər və biz infrastruktur dəyişikliklərinin model çıxışlarına təsir etməməsini təmin etmək üçün son dərəcə yüksək standartlar saxlayırıq. Bu son...",
+        "articleSection": "Technology",
+        "keywords": ["texnologiya", "proqramlaşdırma", "mühəndislik", "Anthropic Engineering"],
+        "author": {
+            "@type": "Organization",
+            "@id": "https://www.anthropic.com/engineering/#organization",
+            "name": "Anthropic Engineering",
+            "url": "https://www.anthropic.com/engineering"
+        },
+        "translator": {
+            "@type": "SoftwareApplication",
+            "name": "Claude AI",
+            "applicationCategory": "AI Translation"
+        },
+        "publisher": {
+            "@type": "Organization",
+            "@id": "https://nometa.az/#organization",
+            "name": "NoMeta Azerbaijan",
+            "url": "https://nometa.az/",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "https://nometa.az/assets/images/favicon.svg",
+                "width": 512,
+                "height": 512
+            }
+        },
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https://nometa.az/news/a-postmortem-of-three-recent-issues/"
+        },
+        "isAccessibleForFree": true,
+        "isBasedOn": {
+            "@type": "Article",
+            "url": "https://www.anthropic.com/engineering/a-postmortem-of-three-recent-issues",
+            "name": "A postmortem of three recent issues",
+            "inLanguage": "en",
+            "author": {
+                "@type": "Organization",
+                "name": "Anthropic Engineering"
+            }
+        },
+        "isPartOf": {
+            "@type": "Blog",
+            "@id": "https://nometa.az/news/#blog",
+            "name": "NoMeta.az Xəbərlər",
+            "url": "https://nometa.az/news/"
+        },
+        "copyrightHolder": {
+            "@type": "Organization",
+            "name": "Anthropic Engineering",
+            "url": "https://www.anthropic.com/engineering"
+        },
+        "copyrightYear": "2025",
+        "license": "https://www.anthropic.com/engineering/a-postmortem-of-three-recent-issues",
+        "speakable": {
+            "@type": "SpeakableSpecification",
+            "cssSelector": [".article-content p:first-of-type", ".article-header h1"]
+        },
+        "potentialAction": [
+            {
+                "@type": "ReadAction",
+                "target": "https://nometa.az/news/a-postmortem-of-three-recent-issues/"
+            },
+            {
+                "@type": "ShareAction",
+                "target": "https://nometa.az/news/a-postmortem-of-three-recent-issues/"
+            }
+        ]
+    }
+    </script>
+
+    <!-- JSON-LD: BreadcrumbList -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "@id": "https://nometa.az/news/a-postmortem-of-three-recent-issues/#breadcrumb",
+        "itemListElement": [
+            {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Ana səhifə",
+                "item": "https://nometa.az/"
+            },
+            {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Xəbərlər",
+                "item": "https://nometa.az/news/"
+            },
+            {
+                "@type": "ListItem",
+                "position": 3,
+                "name": "Son üç problemin post-mortem təhlili",
+                "item": "https://nometa.az/news/a-postmortem-of-three-recent-issues/"
+            }
+        ]
+    }
+    </script>
+
+    <!-- JSON-LD: WebPage -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebPage",
+        "@id": "https://nometa.az/news/a-postmortem-of-three-recent-issues/#webpage",
+        "url": "https://nometa.az/news/a-postmortem-of-three-recent-issues/",
+        "name": "Son üç problemin post-mortem təhlili | NoMeta.az",
+        "description": "Avqust və sentyabrın əvvəlləri arasında üç infrastruktur xətası fasilələrlə Claude-un cavab keyfiyyətini aşağı saldı. Biz indi bu problemləri həll etdik və nə...",
+        "inLanguage": "az",
+        "isPartOf": {
+            "@type": "WebSite",
+            "@id": "https://nometa.az/#website"
+        },
+        "about": {
+            "@type": "Thing",
+            "name": "Anthropic Engineering Engineering"
+        },
+        "breadcrumb": {
+            "@id": "https://nometa.az/news/a-postmortem-of-three-recent-issues/#breadcrumb"
+        },
+        "primaryImageOfPage": {
+            "@type": "ImageObject",
+            "url": "https://nometa.az/assets/images/og-image.png"
+        },
+        "datePublished": "2025-09-17",
+        "dateModified": "2026-02-10",
+        "speakable": {
+            "@type": "SpeakableSpecification",
+            "cssSelector": [".article-header h1", ".article-content"]
+        }
+    }
+    </script>
+
+    <!-- JSON-LD: Organization (Publisher) -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "@id": "https://nometa.az/#organization",
+        "name": "NoMeta Azerbaijan",
+        "url": "https://nometa.az/",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://nometa.az/assets/images/favicon.svg",
+            "width": 512,
+            "height": 512
+        },
+        "sameAs": [
+            "https://nometa.xyz"
+        ]
+    }
+    </script>
+</head>
+<body>
+    <header class="blog-header">
+        <nav class="blog-nav" aria-label="Əsas naviqasiya">
+            <a href="/" class="nav-brand" title="NoMeta.az Ana Səhifə">
+                <span class="brand">nometa</span><span class="domain">.az</span>
+            </a>
+            <a href="/news/" class="nav-link" title="Bütün xəbərlər">Xəbərlər</a>
+        </nav>
+    </header>
+
+    <!-- Breadcrumb Navigation -->
+    <nav class="breadcrumb" aria-label="Breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList">
+        <div class="breadcrumb-container">
+            <span itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+                <a itemprop="item" href="/">
+                    <span itemprop="name">Ana səhifə</span>
+                </a>
+                <meta itemprop="position" content="1">
+            </span>
+            <span class="breadcrumb-separator" aria-hidden="true">/</span>
+            <span itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+                <a itemprop="item" href="/news/">
+                    <span itemprop="name">Xəbərlər</span>
+                </a>
+                <meta itemprop="position" content="2">
+            </span>
+            <span class="breadcrumb-separator" aria-hidden="true">/</span>
+            <span itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+                <span itemprop="name" class="breadcrumb-current">Son üç problemin post-mortem təhlili</span>
+                <meta itemprop="position" content="3">
+            </span>
+        </div>
+    </nav>
+
+    <main class="blog-container" role="main">
+        <article class="blog-article" itemscope itemtype="https://schema.org/TechArticle">
+            <meta itemprop="mainEntityOfPage" content="https://nometa.az/news/a-postmortem-of-three-recent-issues/">
+            <meta itemprop="inLanguage" content="az">
+            <meta itemprop="wordCount" content="1919">
+
+            <header class="article-header">
+                <div class="article-meta">
+                    <a href="https://www.anthropic.com/engineering" target="_blank" rel="noopener noreferrer" class="article-source" itemprop="author" itemscope itemtype="https://schema.org/Organization">
+                        <span itemprop="name">Anthropic Engineering</span>
+                    </a>
+                    <span class="article-date">
+                        <time datetime="2025-09-17" itemprop="datePublished">17 Sentyabr 2025</time>
+                    </span>
+                </div>
+                <h1 itemprop="headline">Son üç problemin post-mortem təhlili</h1>
+                <meta itemprop="dateModified" content="2026-02-10">
+                <div itemprop="image" itemscope itemtype="https://schema.org/ImageObject" style="display:none;">
+                    <meta itemprop="url" content="https://nometa.az/assets/images/og-image.png">
+                    <meta itemprop="width" content="1200">
+                    <meta itemprop="height" content="630">
+                </div>
+                <div itemprop="publisher" itemscope itemtype="https://schema.org/Organization" style="display:none;">
+                    <meta itemprop="name" content="NoMeta Azerbaijan">
+                    <meta itemprop="url" content="https://nometa.az/">
+                    <div itemprop="logo" itemscope itemtype="https://schema.org/ImageObject">
+                        <meta itemprop="url" content="https://nometa.az/assets/images/favicon.svg">
+                    </div>
+                </div>
+            </header>
+
+            <div class="article-content" itemprop="articleBody">
+                <p>Avqust və sentyabrın əvvəlləri arasında üç infrastruktur xətası fasilələrlə Claude-un cavab keyfiyyətini aşağı saldı. Biz indi bu problemləri həll etdik və nə baş verdiyini izah etmək istəyirik.</p>
+<p>Avqustun əvvəlində bir sıra istifadəçilər Claude-dan alınan cavabların keyfiyyətinin aşağı düşdüyünü bildirməyə başladılar. Bu ilkin hesabatları istifadəçi rəylərindəki normal dəyişikliklərdən fərqləndirmək çətin idi. Avqustun sonlarında bu hesabatların artan tezliyi və davamlılığı bizi araşdırma açmağa vadar etdi və bu, üç ayrı infrastruktur xətasını aşkar etməyimizə səbəb oldu.</p>
+<p>Açıq şəkildə bildirək: Biz heç vaxt tələb, günün vaxtı və ya server yükünə görə model keyfiyyətini azaltmırıq. İstifadəçilərimizin bildirdiyi problemlər yalnız infrastruktur xətalarından qaynaqlanırdı.</p>
+<p>Biz anlayırıq ki, istifadəçilər Claude-dan ardıcıl keyfiyyət gözləyirlər və biz infrastruktur dəyişikliklərinin model çıxışlarına təsir etməməsini təmin etmək üçün son dərəcə yüksək standartlar saxlayırıq. Bu son insidentlərdə biz həmin standartlara cavab verə bilmədik. Aşağıdakı post-mortem təhlil nəyin səhv getdiyini, aşkarlanma və həllin niyə istədiyimizdən daha uzun çəkdiyini və gələcəkdə oxşar insidentlərin qarşısını almaq üçün nəyi dəyişdirdiyimizi izah edir.</p>
+<p>Biz adətən infrastrukturumuz haqqında bu səviyyədə texniki detalları paylaşmırıq, lakin bu problemlərin miqyası və mürəkkəbliyi daha əhatəli bir izahatı zəruri etdi.</p>
+<h2>Claude-u miqyaslı şəkildə necə xidmət edirik</h2>
+<p>Biz Claude-u milyonlarla istifadəçiyə birinci tərəf API-miz, Amazon Bedrock və Google Cloud-un Vertex AI vasitəsilə xidmət edirik. Claude-u müxtəlif hardware platformalarında yerləşdiririk, yəni AWS Trainium, NVIDIA GPU-lar və Google TPU-lar. Bu yanaşma dünya üzrə istifadəçilərə xidmət göstərmək üçün lazım olan tutum və coğrafi paylanmanı təmin edir.</p>
+<p>Hər bir hardware platformasının fərqli xüsusiyyətləri var və xüsusi optimallaşdırmalar tələb edir. Bu fərqliliklərə baxmayaraq, model tətbiqləri üçün ciddi ekvivalentlik standartlarımız var. Məqsədimiz odur ki, istifadəçilər sorğularını hansı platformanın xidmət göstərməsindən asılı olmayaraq eyni keyfiyyətdə cavablar alsınlar. Bu mürəkkəblik o deməkdir ki, hər hansı bir infrastruktur dəyişikliyi bütün platformalar və konfiqurasiyalar üzrə diqqətli validasiya tələb edir.</p>
+<h2>Hadisələrin xronologiyası</h2>
+<p><img src="https://cdn.sanity.io/images/4zrzovbb/website/d707dfc2effceba608d04007bc776132a3e57838-3840x1800.png" alt="Claude API-də hadisələrin illüstrativ xronologiyası. Sarı: problem aşkar edildi, Qırmızı: deqradasiya pisləşdi, Yaşıl: düzəliş tətbiq edildi." loading="lazy" decoding="async">
+<em><strong>Claude API</strong>-də hadisələrin illüstrativ xronologiyası. Sarı: problem aşkar edildi, Qırmızı: deqradasiya pisləşdi, Yaşıl: düzəliş tətbiq edildi.</em></p>
+<p>Bu xətaların üst-üstə düşən xarakteri diaqnozu xüsusilə çətinləşdirdi. Birinci xəta avqustun 5-də tətbiq edildi və Sonnet 4-ə edilən sorğuların təxminən 0,8%-nə təsir etdi. Daha iki xəta avqustun 25-i və 26-sı yerləşdirmələrindən yarandı.</p>
+<p>İlkin təsirlər məhdud olsa da, avqustun 29-da yük balanslaşdırma dəyişikliyi təsirlənmiş trafiki artırmağa başladı. Bu, daha çox istifadəçinin problemlərlə üzləşməsinə səbəb oldu, digərləri isə normal performans görməyə davam etdi və bu da qarışıq və ziddiyyətli hesabatlar yaratdı.</p>
+<h2>Üç üst-üstə düşən problem</h2>
+<p>Aşağıda deqradasiyaya səbəb olan üç xətanı, nə vaxt baş verdiklərini və onları necə həll etdiyimizi təsvir edirik:</p>
+<h3>1. Kontekst pəncərəsi yönləndirmə xətası</h3>
+<p>Avqustun 5-də bəzi Sonnet 4 sorğuları qarşıdan gələn <a href="https://docs.claude.com/en/docs/build-with-claude/context-windows#1m-token-context-window">1M token</a> <a href="https://docs.claude.com/en/docs/build-with-claude/context-windows">kontekst pəncərəsi</a> üçün konfiqurasiya edilmiş serverlərə səhv yönləndirildi. Bu xəta əvvəlcə sorğuların 0,8%-nə təsir edirdi. Avqustun 29-da adi yük balanslaşdırma dəyişikliyi təsadüfən qısa kontekst sorğularının 1M kontekst serverlərinə yönləndirilən sayını artırdı. Avqustun 31-də ən çox təsirlənmiş saatda Sonnet 4 sorğularının 16%-i təsirləndi.</p>
+<p>Bu dövrdə sorğu göndərən Claude Code istifadəçilərinin təxminən 30%-nin ən azı bir mesajı səhv server tipinə yönləndirildi və bu, aşağı keyfiyyətli cavablarla nəticələndi. Amazon Bedrock-da səhv yönləndirilmiş trafik avqustun 12-dən etibarən bütün Sonnet 4 sorğularının 0,18%-nə çatdı. Google Cloud-un Vertex AI-da avqustun 27-si ilə sentyabrın 16-sı arasında sorğuların 0,0004%-dən azı səhv yönləndirilmədən təsirləndi.</p>
+<p>Lakin bəzi istifadəçilər daha ciddi şəkildə təsirləndi, çünki yönləndirməmiz &quot;yapışqan&quot; xarakter daşıyır. Bu o demək idi ki, bir sorğu səhv server tərəfindən xidmət edildikdən sonra, sonrakı sorğular da eyni səhv server tərəfindən xidmət edilmə ehtimalı yüksək idi.</p>
+<p><strong>Həll:</strong> Qısa və uzun kontekst sorğularının düzgün server hovuzlarına yönləndirilməsini təmin etmək üçün yönləndirmə məntiqini düzəltdik. Düzəlişi sentyabrın 4-də tətbiq etdik. Birinci tərəf platformamıza və Google Cloud-un Vertex AI-na yayılması sentyabrın 16-da, AWS Bedrock-a isə sentyabrın 18-də tamamlandı.</p>
+<h3>2. Çıxış korrupsiyası</h3>
+<p>Avqustun 25-də Claude API TPU serverlərinə token generasiyası zamanı xətaya səbəb olan yanlış konfiqurasiya tətbiq etdik. İcra zamanı performans optimallaşdırmasından qaynaqlanan bir problem ara-sıra kontekstə görə nadir hallarda yaranmalı olan tokenlərə yüksək ehtimal təyin edirdi — məsələn, İngilis dilli sorğulara cavab olaraq Tay və ya Çin hərfləri istehsal etmək və ya kodda aşkar sintaksis xətaları yaratmaq. İngiliscə sual verən kiçik bir istifadəçi qrupu, məsələn, cavabın ortasında &quot;สวัสดี&quot; görə bilərdi.</p>
+<p>Bu korrupsiya avqustun 25-28-i arasında Opus 4.1 və Opus 4-ə, avqustun 25-i – sentyabrın 2-si arasında isə Sonnet 4-ə edilən sorğulara təsir etdi. Üçüncü tərəf platformaları bu problemdən təsirlənmədi.</p>
+<p><strong>Həll:</strong> Problemi müəyyən etdik və dəyişikliyi sentyabrın 2-də geri qaytardıq. Gözlənilməz simvol çıxışları üçün aşkarlama testlərini yerləşdirmə prosesimizə əlavə etdik.</p>
+<h3>3. Approximate top-k XLA:TPU kompilyasiya xətası</h3>
+<p>Avqustun 25-də Claude-un mətn generasiyası zamanı tokenləri necə seçdiyini yaxşılaşdırmaq üçün kod tətbiq etdik. Bu dəyişiklik təsadüfən XLA:TPU[1] kompilyatorunda gizli bir xətanı aktivləşdirdi və bunun Claude Haiku 3.5-ə edilən sorğulara təsir etdiyi təsdiqləndi.</p>
+<p>Həmçinin inanırıq ki, bu, Claude API-də Sonnet 4 və Opus 3-ün bir hissəsinə təsir edə bilərdi. Üçüncü tərəf platformaları bu problemdən təsirlənmədi.</p>
+<p><strong>Həll:</strong> Əvvəlcə xətanın Haiku 3.5-ə təsir etdiyini müşahidə etdik və sentyabrın 4-də geri qaytardıq. Daha sonra Opus 3 ilə bağlı bu xətaya uyğun gələn istifadəçi hesabatlarını gördük və sentyabrın 12-də geri qaytardıq. Geniş araşdırmadan sonra bu xətanı Sonnet 4-də təkrarlaya bilmədik, lakin ehtiyat məqsədi ilə onu da geri qaytarmaq qərarına gəldik.</p>
+<p>Eyni zamanda, biz (a) kompilyator xətasının həlli üçün XLA:TPU komandası ilə işləyirik və (b) artırılmış dəqiqliklə exact top-k istifadəsinə keçid düzəlişini tətbiq etdik. Ətraflı məlumat üçün aşağıdakı dərin təhlilə baxın.</p>
+<h2>XLA kompilyator xətasına daha yaxından baxış</h2>
+<p>Bu problemlərin mürəkkəbliyini göstərmək üçün XLA kompilyator xətasının necə özünü göstərdiyini və niyə diaqnozunun xüsusilə çətin olduğunu izah edirik.</p>
+<p>Claude mətn generasiya edərkən hər mümkün növbəti söz üçün ehtimalları hesablayır, sonra bu ehtimal paylanmasından təsadüfi nümunə seçir. Mənasız çıxışların qarşısını almaq üçün &quot;top-p sampling&quot; istifadə edirik — yalnız kumulyativ ehtimalı müəyyən bir həddə (adətən 0,99 və ya 0,999) çatan sözləri nəzərə alırıq. TPU-larda modellərimiz çoxlu çiplər üzrə işləyir və ehtimal hesablamaları müxtəlif yerlərdə baş verir. Bu ehtimalları sıralamaq üçün çiplər arasında məlumat koordinasiyası lazımdır ki, bu da mürəkkəbdir.[2]</p>
+<p>2024-cü ilin dekabrında aşkar etdik ki, TPU tətbiqimiz <a href="https://docs.claude.com/en/docs/about-claude/glossary#temperature">temperature</a> sıfır olduqda ara-sıra ən yüksək ehtimallı tokeni itirir. Bu halı həll etmək üçün müvəqqəti həll tətbiq etdik.</p>
+<p><img src="https://cdn.sanity.io/images/4zrzovbb/website/efee0d3d25f6b03cbfc57e70e0e364dcd8b82fe0-2000x500.png" alt="Temperature = 0 olduqda gözlənilməz itirilmiş token xətası üçün 2024-cü il dekabr yamağının kod fraqmenti." loading="lazy" decoding="async">
+<em>Temperature = 0 olduqda gözlənilməz itirilmiş token xətası üçün 2024-cü il dekabr yamağının kod fraqmenti.</em></p>
+<p>Əsas səbəb qarışıq dəqiqlik arifmetikası idi. Modellərimiz növbəti token ehtimallarını <a href="https://github.com/tensorflow/tensorflow/blob/f41959ccb2d9d4c722fe8fc3351401d53bcf4900/tensorflow/core/framework/bfloat16.h">bf16</a> (16-bit üzən nöqtə) formatında hesablayır. Lakin vektor prosessoru <a href="https://dl.acm.org/doi/pdf/10.1145/3360307">fp32-native</a> olduğundan, TPU kompilyatoru (XLA) bəzi əməliyyatları fp32-yə (32-bit) çevirərək icra zamanı performansı optimallaşdıra bilər. Bu optimallaşdırma addımı defolt olaraq <code>true</code> olan <code>xla_allow_excess_precision</code> bayrağı ilə idarə olunur.</p>
+<p>Bu uyğunsuzluğa səbəb oldu: ən yüksək ehtimallı token üzərində razılaşmalı olan əməliyyatlar fərqli dəqiqlik səviyyələrində işləyirdi. Dəqiqlik uyğunsuzluğu onların hansı tokenin ən yüksək ehtimala malik olduğu barədə razılığa gəlməməsinə səbəb oldu. Bu, ən yüksək ehtimallı tokenin bəzən tamamilə nəzərdən kənar qalmasına gətirib çıxardı.</p>
+<p>Avqustun 26-da dəqiqlik problemlərini həll etmək və top-p həddinə çatan ehtimalları idarə etmə tərzimizi yaxşılaşdırmaq üçün sampling kodunun yenidən yazılmasını tətbiq etdik. Lakin bu problemləri həll edərkən daha çətin bir problemi üzə çıxardıq.</p>
+<p><img src="https://cdn.sanity.io/images/4zrzovbb/website/6d10e58c0bd5fd7cb03dc0adc716cb1e4f039343-2000x2560.png" alt="Avqustun 11-i dəyişikliyi ilə birləşdirilmiş minimizə edilmiş reproducer-in kod fraqmenti. Bu dəyişiklik 2024-cü il dekabrında müvəqqəti həll edilən &quot;xəta&quot;nın əsas səbəbini tapdı; əslində bu, xla_allow_excess_precision bayrağının gözlənilən davranışıdır." loading="lazy" decoding="async">
+<em>Avqustun 11-i dəyişikliyi ilə birləşdirilmiş minimizə edilmiş reproducer-in kod fraqmenti. Bu dəyişiklik 2024-cü il dekabrında müvəqqəti həll edilən &quot;xəta&quot;nın əsas səbəbini tapdı; əslində bu, <code>xla_allow_excess_precision</code> bayrağının gözlənilən davranışıdır.</em></p>
+<p>Düzəlişimiz dekabr müvəqqəti həllini sildi, çünki əsas səbəbi həll etdiyimizə inanırdıq. Bu, <a href="https://docs.jax.dev/en/latest/_autosummary/jax.lax.approx_max_k.html">approximate top-k</a> əməliyyatında — ən yüksək ehtimallı tokenləri tez tapan performans optimallaşdırmasında — daha dərin bir xətaya gətirib çıxardı.[3] Bu yaxınlaşdırma bəzən tamamilə yanlış nəticələr qaytarırdı, lakin yalnız müəyyən batch ölçüləri və model konfiqurasiyaları üçün. Dekabr müvəqqəti həlli təsadüfən bu problemi maskalamışdı.</p>
+<p><img src="https://cdn.sanity.io/images/4zrzovbb/website/7e42db934d0e84ea40fc56b416ddb09b2097a5ff-2400x1404.png" alt="XLA:TPU mühəndisləri ilə paylaşılan əsas approximate top-k xətasının reproducer-i. Slack mesajı. Kod CPU-larda işlədildikdə düzgün nəticələr qaytarır." loading="lazy" decoding="async">
+<em>Alqoritmi <a href="https://arxiv.org/pdf/2206.14286">hazırlayan</a> XLA:TPU mühəndisləri ilə paylaşılan əsas approximate top-k xətasının reproducer-i. Kod CPU-larda işlədildikdə düzgün nəticələr qaytarır.</em></p>
+<p>Xətanın davranışı məyusedici dərəcədə qeyri-ardıcıl idi. Ondan əvvəl və ya sonra hansı əməliyyatların icra edilməsi, debugginq alətlərinin aktiv olub-olmaması kimi əlaqəsiz amillərdən asılı olaraq dəyişirdi. Eyni sorğu bir istəkdə mükəmməl işləyə, növbətisində isə uğursuz ola bilərdi.</p>
+<p>Araşdırma zamanı həmçinin aşkar etdik ki, exact top-k əməliyyatının artıq əvvəlki kimi yüksək performans cəriməsi yoxdur. Approximate-dən exact top-k-ya keçdik və bəzi əlavə əməliyyatları fp32 dəqiqliyinə standartlaşdırdıq.[4] Model keyfiyyəti müzakirə olunmazdır, ona görə də cüzi effektivlik təsirini qəbul etdik.</p>
+<h2>Aşkarlamanın niyə çətin olduğu</h2>
+<p>Validasiya prosesimiz adətən benchmarklar, təhlükəsizlik qiymətləndirmələri və performans metriklərindən istifadə edir. Mühəndislik komandaları nöqtəvi yoxlamalar aparır və əvvəlcə kiçik &quot;canary&quot; qruplarına tətbiq edirlər.</p>
+<p>Bu problemlər daha əvvəl müəyyən etməli olduğumuz kritik boşluqları üzə çıxardı. Apardığımız qiymətləndirmələr istifadəçilərin bildirdiyi deqradasiyanı sadəcə tutmadı, qismən ona görə ki, Claude tək-tük səhvlərdən yaxşı bərpa olunur. Öz məxfilik təcrübələrimiz də hesabatların araşdırılmasında çətinliklər yaratdı. Daxili məxfilik və təhlükəsizlik nəzarətlərimiz mühəndislərin Claude ilə istifadəçi qarşılıqlı əlaqələrinə necə və nə vaxt daxil ola biləcəyini məhdudlaşdırır, xüsusən bu qarşılıqlı əlaqələr bizə rəy olaraq bildirilmədikdə. Bu, istifadəçi məxfiliyini qoruyur, lakin mühəndislərin xətaları müəyyən etmək və ya təkrarlamaq üçün lazım olan problemli qarşılıqlı əlaqələri araşdırmasının qarşısını alır.</p>
+<p>Hər bir xəta fərqli platformalarda fərqli əlamətlər və fərqli nisbətlərdə yaradırdı. Bu, heç bir tək səbəbə işarə etməyən qarışıq hesabatlar yaratdı. Təsadüfi, qeyri-ardıcıl deqradasiya kimi görünürdü.</p>
+<p>Daha əsaslı olaraq, biz həddindən artıq səs-küylü qiymətləndirmələrə güvənirdik. Onlayn hesabatların artdığından xəbərdar olsaq da, bunları son dəyişikliklərimizin hər biri ilə əlaqələndirməyin aydın yolu yox idi. Avqustun 29-da mənfi hesabatlar kəskin artdığında, bunu standart yük balanslaşdırma dəyişikliyi ilə dərhal əlaqələndirmədik.</p>
+<h2>Nəyi dəyişdiririk</h2>
+<p>İnfrastrukturumuzu yaxşılaşdırmağa davam edərkən, Claude-a xidmət göstərdiyimiz bütün platformalarda yuxarıda müzakirə edilən kimi xətaları qiymətləndirmə və qarşısını alma üsullarımızı da təkmilləşdiririk. Dəyişdirdiklərimiz bunlardır:</p>
+<ul>
+<li><strong>Daha həssas qiymətləndirmələr:</strong> İstənilən problemin əsas səbəbini tapmağa kömək etmək üçün işləyən və xarab tətbiqləri daha etibarlı şəkildə fərqləndirə bilən qiymətləndirmələr hazırladıq. Model keyfiyyətinə daha yaxından nəzarət etmək üçün bu qiymətləndirmələri yaxşılaşdırmağa davam edəcəyik.</li>
+<li><strong>Daha çox yerdə keyfiyyət qiymətləndirmələri:</strong> Sistemlərimizdə müntəzəm qiymətləndirmələr aparsaq da, kontekst pəncərəsi yük balanslaşdırma xətası kimi problemləri tutmaq üçün həqiqi istehsal sistemlərində davamlı olaraq işlədəcəyik.</li>
+<li><strong>Daha sürətli debugginq alətləri:</strong> İstifadəçi məxfiliyini qurban vermədən icma tərəfindən təqdim edilən rəyləri daha yaxşı araşdırmaq üçün infrastruktur və alətlər hazırlayacağıq. Bundan əlavə, burada hazırlanan bəzi xüsusi alətlər gələcək oxşar insidentlərdə, əgər baş verərsə, aradan qaldırma müddətini azaltmaq üçün istifadə ediləcək.</li>
+</ul>
+<p>Qiymətləndirmələr və monitorinq vacibdir. Lakin bu insidentlər göstərdi ki, Claude-dan gələn cavablar adi standartlara uyğun olmadıqda istifadəçilərdən davamlı siqnala da ehtiyacımız var. Müşahidə edilən spesifik dəyişikliklərin hesabatları, gözlənilməz davranış nümunələri və müxtəlif istifadə halları üzrə nümunələr — bunların hamısı problemləri təcrid etməyimizə kömək etdi.</p>
+<p>İstifadəçilərin rəylərini birbaşa göndərməyə davam etmələri xüsusilə faydalı olaraq qalır. Bunun üçün Claude Code-da <code>/bug</code> əmrindən və ya Claude tətbiqlərindəki &quot;bəyənmədim&quot; düyməsindən istifadə edə bilərsiniz. Tərtibatçılar və araşdırmaçılar tez-tez daxili testlərimizi tamamlayan model keyfiyyətinin qiymətləndirilməsinin yeni və maraqlı yollarını yaradırlar. Öz yanaşmanızı paylaşmaq istəyirsinizsə, <a href="mailto:feedback@anthropic.com">feedback@anthropic.com</a> ünvanına müraciət edin.</p>
+<p>İcmamıza bu töhfələrə görə minnətdarıq.</p>
+<h4>Təşəkkürlər</h4>
+<p>Sam McAllister tərəfindən yazılıb, Stuart Ritchie, Jonathan Gray, Kashyap Murali, Brennan Saeta, Oliver Rausch, Alex Palcuie və bir çox başqalarına təşəkkürlə.</p>
+<p>[1] XLA:TPU, <a href="https://openxla.org/xla/architecture">XLA</a> High Level Optimizing dilini — tez-tez <a href="https://docs.jax.dev/en/latest">JAX</a> istifadə edərək yazılır — TPU maşın təlimatlarına çevirən optimallaşdırıcı kompilyatordur.</p>
+<p>[2] Modellərimiz tək çiplər üçün çox böyükdür və onlarla çip və ya daha çoxu üzrə bölüşdürülür, bu da sıralama əməliyyatımızı paylanmış sıralamaya çevirir. TPU-lar (GPU-lar və Trainium kimi) CPU-lardan fərqli performans xüsusiyyətlərinə malikdir və serial alqoritmlər əvəzinə vektorlaşdırılmış əməliyyatlardan istifadə edən fərqli tətbiq texnikaları tələb edir.</p>
+<p>[3] Bu approximate əməliyyatı əhəmiyyətli performans yaxşılaşdırmaları verdiyi üçün istifadə edirdik. Yaxınlaşdırma ən aşağı ehtimallı tokenlərdə potensial qeyri-dəqiqlikləri qəbul etməklə işləyir ki, bu da keyfiyyətə təsir etməməlidir — xəta ən yüksək ehtimallı tokeni əvəzinə atmasına səbəb olduğu hallar istisna olmaqla.</p>
+<p>[4] Qeyd edək ki, indi düzgün işləyən top-k tətbiqi top-p həddinə yaxın tokenlərin daxil edilməsində cüzi fərqlərə gətirib çıxara bilər və nadir hallarda istifadəçilər top-p seçimlərini yenidən tənzimləməkdən faydalana bilərlər.</p>
+
+            </div>
+
+            <aside class="attribution-box" role="complementary" aria-label="Mənbə məlumatı">
+                <div class="attribution-header">
+                    <span class="ai-badge" title="AI ilə tərcümə edilib">AI</span>
+                    <span class="attribution-title">Tərcümə və Mənbə Məlumatı</span>
+                </div>
+                <p class="attribution-source">
+                    <strong>Orijinal məqalə:</strong>
+                    <a href="https://www.anthropic.com/engineering/a-postmortem-of-three-recent-issues" target="_blank" rel="noopener noreferrer" title="Orijinal məqaləni oxuyun">
+                        Anthropic Engineering - "A postmortem of three recent issues"
+                    </a>
+                </p>
+                <p class="ai-notice">
+                    <strong>Tərcümə:</strong> Bu məqalə Claude AI tərəfindən avtomatik tərcümə edilmişdir.
+                    Texniki terminlər orijinal (İngilis) dilində saxlanılmışdır.
+                </p>
+                <p class="attribution-copyright">
+                    <small>&copy; 2025 Anthropic Engineering. Orijinal məzmunun bütün hüquqları müəllifə məxsusdur.</small>
+                </p>
+            </aside>
+
+            <!-- Share Buttons -->
+            <div class="share-buttons" aria-label="Paylaşma düymələri">
+                <span class="share-label">Paylaş:</span>
+                <a href="https://twitter.com/intent/tweet?url=https://nometa.az/news/a-postmortem-of-three-recent-issues/&text=Son%20%C3%BC%C3%A7%20problemin%20post-mortem%20t%C9%99hlili"
+                   target="_blank" rel="noopener noreferrer" class="share-btn share-twitter" title="Twitter-da paylaş">
+                    Twitter
+                </a>
+                <a href="https://www.linkedin.com/sharing/share-offsite/?url=https://nometa.az/news/a-postmortem-of-three-recent-issues/"
+                   target="_blank" rel="noopener noreferrer" class="share-btn share-linkedin" title="LinkedIn-də paylaş">
+                    LinkedIn
+                </a>
+                <a href="https://t.me/share/url?url=https://nometa.az/news/a-postmortem-of-three-recent-issues/&text=Son%20%C3%BC%C3%A7%20problemin%20post-mortem%20t%C9%99hlili"
+                   target="_blank" rel="noopener noreferrer" class="share-btn share-telegram" title="Telegram-da paylaş">
+                    Telegram
+                </a>
+            </div>
+
+            <nav class="article-nav" aria-label="Məqalə naviqasiyası">
+                <a href="/news/" class="back-to-list">&larr; Bütün məqalələr</a>
+                <a href="https://www.anthropic.com/engineering/a-postmortem-of-three-recent-issues" target="_blank" rel="noopener noreferrer" class="view-original">
+                    Orijinalı oxu (EN) &rarr;
+                </a>
+            </nav>
+
+            {{relatedArticles}}
+        </article>
+    </main>
+
+    <footer role="contentinfo">
+        <nav class="footer-nav" aria-label="Sayt naviqasiyası">
+            <a href="/">Ana səhifə</a>
+            <a href="/news/">Xəbərlər</a>
+            <a href="/news/feed.xml">RSS</a>
+        </nav>
+        <p>
+            <a href="https://nometa.xyz" target="_blank" rel="me noopener noreferrer">nometa.xyz</a>,
+            <a href="https://nohello.com" target="_blank" rel="noopener noreferrer">nohello.com</a>,
+            <a href="https://xyproblem.info" target="_blank" rel="noopener noreferrer">xyproblem.info</a> və
+            <a href="https://dontasktoask.com" target="_blank" rel="noopener noreferrer">dontasktoask.com</a> saytlarından ilhamlanıb.
+        </p>
+        <p class="copyright">
+            <small>&copy; <span id="year">2026</span> NoMeta Azərbaycan. Bütün hüquqlar qorunur.</small>
+        </p>
+    </footer>
+    <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>

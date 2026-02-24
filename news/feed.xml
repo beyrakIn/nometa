@@ -5,9 +5,17 @@
     <link>https://nometa.az/news/</link>
     <description>Texnologiya şirkətlərinin mühəndislik bloqlarından Azərbaycan dilinə tərcümə edilmiş məqalələr.</description>
     <language>az</language>
-    <lastBuildDate>Tue, 24 Feb 2026 17:47:09 GMT</lastBuildDate>
+    <lastBuildDate>Tue, 24 Feb 2026 17:47:23 GMT</lastBuildDate>
     <atom:link href="https://nometa.az/news/feed.xml" rel="self" type="application/rss+xml"/>
     
+    <item>
+      <title><![CDATA[Son üç problemin post-mortem təhlili]]></title>
+      <link>https://nometa.az/news/a-postmortem-of-three-recent-issues/</link>
+      <guid>https://nometa.az/news/a-postmortem-of-three-recent-issues/</guid>
+      <pubDate>Wed, 17 Sep 2025 00:00:00 GMT</pubDate>
+      <description><![CDATA[Avqust və sentyabrın əvvəlləri arasında üç infrastruktur xətası fasilələrlə Claude-un cavab keyfiyyətini aşağı saldı. Biz indi bu problemləri həll etdik və nə baş verdiyini izah etmək istəyirik. Avqustun əvvəlində bir sıra istifadəçilər Claude-dan alınan cavabların keyfiyyətinin aşağı düşdüyünü...]]></description>
+      <source url="https://www.anthropic.com/engineering">Anthropic Engineering</source>
+    </item>
     <item>
       <title><![CDATA[AI agentləri üçün effektiv kontekst mühəndisliyi]]></title>
       <link>https://nometa.az/news/effective-context-engineering-for-ai-agents/</link>
