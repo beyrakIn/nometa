@@ -5,9 +5,17 @@
     <link>https://nometa.az/news/</link>
     <description>Texnologiya şirkətlərinin mühəndislik bloqlarından Azərbaycan dilinə tərcümə edilmiş məqalələr.</description>
     <language>az</language>
-    <lastBuildDate>Mon, 16 Feb 2026 07:40:00 GMT</lastBuildDate>
+    <lastBuildDate>Tue, 24 Feb 2026 17:47:09 GMT</lastBuildDate>
     <atom:link href="https://nometa.az/news/feed.xml" rel="self" type="application/rss+xml"/>
     
+    <item>
+      <title><![CDATA[AI agentləri üçün effektiv kontekst mühəndisliyi]]></title>
+      <link>https://nometa.az/news/effective-context-engineering-for-ai-agents/</link>
+      <guid>https://nometa.az/news/effective-context-engineering-for-ai-agents/</guid>
+      <pubDate>Mon, 29 Sep 2025 00:00:00 GMT</pubDate>
+      <description><![CDATA[Tətbiqi süni intellektdə diqqətin mərkəzində bir neçə il prompt mühəndisliyi olduqdan sonra, yeni bir termin ön plana çıxdı: kontekst mühəndisliyi. Dil modelləri ilə qurmaq artıq promptlarınız üçün düzgün söz və ifadələr tapmaqdan daha az, "modelin arzu olunan davranışını yaratmaq üçün ən çox...]]></description>
+      <source url="https://www.anthropic.com/engineering">Anthropic Engineering</source>
+    </item>
     <item>
       <title><![CDATA[Effektiv agentlərin yaradılması]]></title>
       <link>https://nometa.az/news/building-effective-agents/</link>

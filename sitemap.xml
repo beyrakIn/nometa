@@ -2,110 +2,116 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
         <loc>https://nometa.az/</loc>
-        <lastmod>2026-02-16T00:00:00+04:00</lastmod>
+        <lastmod>2026-02-24</lastmod>
         <changefreq>weekly</changefreq>
         <priority>1.0</priority>
     </url>
     <url>
         <loc>https://nometa.az/news/</loc>
-        <lastmod>2026-02-16T00:00:00+04:00</lastmod>
+        <lastmod>2026-02-24</lastmod>
         <changefreq>daily</changefreq>
         <priority>0.9</priority>
     </url>
     
     <url>
+        <loc>https://nometa.az/news/effective-context-engineering-for-ai-agents/</loc>
+        <lastmod>2026-02-10</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    <url>
         <loc>https://nometa.az/news/building-effective-agents/</loc>
-        <lastmod>2026-02-10T00:00:00+04:00</lastmod>
+        <lastmod>2026-02-10</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.7</priority>
     </url>
     <url>
         <loc>https://nometa.az/news/building-ai-for-cyber-defenders/</loc>
-        <lastmod>2026-02-10T00:00:00+04:00</lastmod>
+        <lastmod>2026-02-10</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.7</priority>
     </url>
     <url>
         <loc>https://nometa.az/news/beyond-permission-prompts-making-claude-code-more-secure-and-autonomous/</loc>
-        <lastmod>2026-02-10T00:00:00+04:00</lastmod>
+        <lastmod>2026-02-10</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.7</priority>
     </url>
     <url>
         <loc>https://nometa.az/news/agent-failure-modes-and-solutions/</loc>
-        <lastmod>2026-02-10T00:00:00+04:00</lastmod>
+        <lastmod>2026-02-10</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.7</priority>
     </url>
     <url>
         <loc>https://nometa.az/news/demystifying-evals-for-ai-agents/</loc>
-        <lastmod>2026-02-10T00:00:00+04:00</lastmod>
+        <lastmod>2026-02-10</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.7</priority>
     </url>
     <url>
         <loc>https://nometa.az/news/designing-ai-resistant-technical-evaluations/</loc>
-        <lastmod>2026-02-10T00:00:00+04:00</lastmod>
+        <lastmod>2026-02-10</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.7</priority>
     </url>
     <url>
         <loc>https://nometa.az/news/mastering-efficiency-best-practices-for-embracing-the-dry-principle/</loc>
-        <lastmod>2026-02-06T00:00:00+04:00</lastmod>
+        <lastmod>2026-02-06</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.7</priority>
     </url>
     <url>
         <loc>https://nometa.az/news/memory-layout-in-embedded-systems-how-c-code-really-ends-up-in-flash-and-ram/</loc>
-        <lastmod>2026-01-29T00:00:00+04:00</lastmod>
+        <lastmod>2026-01-29</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.7</priority>
     </url>
     <url>
         <loc>https://nometa.az/news/before-adopting-ai/</loc>
-        <lastmod>2026-01-24T00:00:00+04:00</lastmod>
+        <lastmod>2026-01-24</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.7</priority>
     </url>
     <url>
         <loc>https://nometa.az/news/how-to-choose-task-management-software-for-startups-and-small-businesses/</loc>
-        <lastmod>2026-01-23T00:00:00+04:00</lastmod>
+        <lastmod>2026-01-23</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.7</priority>
     </url>
     <url>
         <loc>https://nometa.az/news/how-a-livewire-vulnerability-led-to-crypto-mining-on-our-servers/</loc>
-        <lastmod>2026-01-22T00:00:00+04:00</lastmod>
+        <lastmod>2026-01-22</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.7</priority>
     </url>
     <url>
         <loc>https://nometa.az/news/building-optimistic-ui-in-rails-powered-by-turbo/</loc>
-        <lastmod>2026-01-22T00:00:00+04:00</lastmod>
+        <lastmod>2026-01-22</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.7</priority>
     </url>
     <url>
         <loc>https://nometa.az/news/binja-finally-a-fast-jinja2django-template-engine-for-bun/</loc>
-        <lastmod>2026-01-22T00:00:00+04:00</lastmod>
+        <lastmod>2026-01-22</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.7</priority>
     </url>
     <url>
         <loc>https://nometa.az/news/from-static-to-smart-designing-an-ai-first-developer-portfolio-with-renderer-gem/</loc>
-        <lastmod>2026-01-22T00:00:00+04:00</lastmod>
+        <lastmod>2026-01-22</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.7</priority>
     </url>
     <url>
         <loc>https://nometa.az/news/gitlab-bug-bounty-program-policy-updates/</loc>
-        <lastmod>2026-01-22T00:00:00+04:00</lastmod>
+        <lastmod>2026-01-22</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.7</priority>
     </url>
     <url>
         <loc>https://nometa.az/news/the-cost-of-not-knowing-mongodb-introduction/</loc>
-        <lastmod>2026-01-22T00:00:00+04:00</lastmod>
+        <lastmod>2026-01-22</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.7</priority>
     </url>
