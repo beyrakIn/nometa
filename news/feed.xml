@@ -5,9 +5,17 @@
     <link>https://nometa.az/news/</link>
     <description>Texnologiya şirkətlərinin mühəndislik bloqlarından Azərbaycan dilinə tərcümə edilmiş məqalələr.</description>
     <language>az</language>
-    <lastBuildDate>Tue, 24 Feb 2026 18:00:43 GMT</lastBuildDate>
+    <lastBuildDate>Mon, 02 Mar 2026 18:23:17 GMT</lastBuildDate>
     <atom:link href="https://nometa.az/news/feed.xml" rel="self" type="application/rss+xml"/>
     
+    <item>
+      <title><![CDATA[Agentlər üçün effektiv alətlər yazmaq — agentlərlə birlikdə]]></title>
+      <link>https://nometa.az/news/writing-effective-tools-for-agents-with-agents/</link>
+      <guid>https://nometa.az/news/writing-effective-tools-for-agents-with-agents/</guid>
+      <pubDate>Thu, 11 Sep 2025 00:00:00 GMT</pubDate>
+      <description><![CDATA[Model Context Protocol (MCP)(https://modelcontextprotocol.io/docs/getting-started/intro) LLM agentlərini real dünya tapşırıqlarını həll etmək üçün potensial olaraq yüzlərlə alətlə gücləndirə bilər. Bəs bu alətləri maksimum effektiv necə edə bilərik? Bu yazıda müxtəlif agent əsaslı süni intellekt...]]></description>
+      <source url="https://www.anthropic.com/engineering">Anthropic Engineering</source>
+    </item>
     <item>
       <title><![CDATA[Claude Code: Agentli kodlaşdırma üçün ən yaxşı təcrübələr]]></title>
       <link>https://nometa.az/news/claude-code-best-practices-for-agentic-coding/</link>
