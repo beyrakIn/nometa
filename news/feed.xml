@@ -5,9 +5,17 @@
     <link>https://nometa.az/news/</link>
     <description>Texnologiya şirkətlərinin mühəndislik bloqlarından Azərbaycan dilinə tərcümə edilmiş məqalələr.</description>
     <language>az</language>
-    <lastBuildDate>Mon, 02 Mar 2026 18:23:17 GMT</lastBuildDate>
+    <lastBuildDate>Sat, 04 Apr 2026 10:52:25 GMT</lastBuildDate>
     <atom:link href="https://nometa.az/news/feed.xml" rel="self" type="application/rss+xml"/>
     
+    <item>
+      <title><![CDATA[MCP ilə kod icrası: Daha səmərəli agentlərin qurulması]]></title>
+      <link>https://nometa.az/news/code-execution-with-mcp-building-more-efficient-agents/</link>
+      <guid>https://nometa.az/news/code-execution-with-mcp-building-more-efficient-agents/</guid>
+      <pubDate>Tue, 04 Nov 2025 00:00:00 GMT</pubDate>
+      <description><![CDATA[Model Context Protocol (MCP)(https://modelcontextprotocol.io/) AI agentlərini xarici sistemlərə qoşmaq üçün açıq standartdır. Agentləri alətlərə və məlumatlara qoşmaq ənənəvi olaraq hər cüt üçün xüsusi inteqrasiya tələb edirdi ki, bu da parçalanma və təkrarlanan səylər yaradır və həqiqətən əlaqəli...]]></description>
+      <source url="https://www.anthropic.com/engineering">Anthropic Engineering</source>
+    </item>
     <item>
       <title><![CDATA[Agentlər üçün effektiv alətlər yazmaq — agentlərlə birlikdə]]></title>
       <link>https://nometa.az/news/writing-effective-tools-for-agents-with-agents/</link>
@@ -159,14 +167,6 @@
       <pubDate>Tue, 20 Jan 2026 00:00:00 GMT</pubDate>
       <description><![CDATA[GitLab HackerOne Bug Bounty proqramını ilk dəfə 2018-ci ildə təqdim etdi . O vaxtdan bəri, hərtərəfli süni intellektlə gücləndirilmiş DevSecOps platformamızı təhlükəsiz saxlamaq üçün tədqiqatçı icması ilə birlikdə çalışırıq. Şəffaflığa sadiqliyimizi, tədqiqatçılardan gələn rəyləri və aydın...]]></description>
       <source url="https://about.gitlab.com/blog">GitLab</source>
-    </item>
-    <item>
-      <title><![CDATA[MongoDB-ni Bilməməyin Dəyəri – Giriş]]></title>
-      <link>https://nometa.az/news/the-cost-of-not-knowing-mongodb-introduction/</link>
-      <guid>https://nometa.az/news/the-cost-of-not-knowing-mongodb-introduction/</guid>
-      <pubDate>Thu, 22 Jan 2026 16:49:52 GMT</pubDate>
-      <description><![CDATA[MongoDB-nu Bilməməyin Dəyəri – Giriş Bu seriyanın əsas məqsədi MongoDB-ni düzgün istifadə etməklə əldə edə biləcəyiniz əhəmiyyətli performans artımlarını və qənaət edə biləcəyiniz xərcləri nümayiş etdirməkdir. Buna ən yaxşı təcrübələrə əməl etmək, tətbiqinizin spesifik ehtiyaclarını öyrənmək və bu...]]></description>
-      <source url="https://dev.to">Dev.to</source>
     </item>
   </channel>
 </rss>
