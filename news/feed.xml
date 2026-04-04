@@ -5,9 +5,17 @@
     <link>https://nometa.az/news/</link>
     <description>Texnologiya şirkətlərinin mühəndislik bloqlarından Azərbaycan dilinə tərcümə edilmiş məqalələr.</description>
     <language>az</language>
-    <lastBuildDate>Sat, 04 Apr 2026 10:52:51 GMT</lastBuildDate>
+    <lastBuildDate>Sat, 04 Apr 2026 10:52:58 GMT</lastBuildDate>
     <atom:link href="https://nometa.az/news/feed.xml" rel="self" type="application/rss+xml"/>
     
+    <item>
+      <title><![CDATA[Paylanmış Təqdimatlar: Kompozisiya və Superpozisiya]]></title>
+      <link>https://nometa.az/news/distributed-representations-composition-superposition/</link>
+      <guid>https://nometa.az/news/distributed-representations-composition-superposition/</guid>
+      <pubDate>Thu, 04 May 2023 07:00:00 GMT</pubDate>
+      <description><![CDATA[Xülasə Paylanmış təqdimatlar həm neyroelmdə, həm də süni intellektə konneksionist yanaşmalarda klassik bir fikirdir. Bizdən tez-tez superpozisiya üzərindəki işimizin bununla necə əlaqəli olduğu soruşulur. Superpozisiya haqqında ilk...]]></description>
+      <source url="https://www.anthropic.com/research">Anthropic Research</source>
+    </item>
     <item>
       <title><![CDATA[SWE-bench Verified-də Claude 3.5 Sonnet ilə səviyyəni yüksəltmək]]></title>
       <link>https://nometa.az/news/raising-the-bar-on-swe-bench-verified-with-claude-35-sonnet/</link>
@@ -158,14 +166,6 @@
       <guid>https://nometa.az/news/how-a-livewire-vulnerability-led-to-crypto-mining-on-our-servers/</guid>
       <pubDate>Thu, 22 Jan 2026 18:17:53 GMT</pubDate>
       <description><![CDATA[Necə Livewire Zəifliyi Serverlərimizdə Kriptovalyuta Mayninqinə Səbəb Oldu Keçən həftə performans problemi kimi başlayan və kriptovalyuta mayninqi araşdırmasına çevrilən bir təhlükəsizlik insidenti yaşadıq. Baş verənləri və Livewire-i prodakşında işlədirsinizsə bilməli olduqlarınızı sizinlə...]]></description>
-      <source url="https://dev.to">Dev.to</source>
-    </item>
-    <item>
-      <title><![CDATA[Turbo ilə Rails-də Optimistik UI Qurma]]></title>
-      <link>https://nometa.az/news/building-optimistic-ui-in-rails-powered-by-turbo/</link>
-      <guid>https://nometa.az/news/building-optimistic-ui-in-rails-powered-by-turbo/</guid>
-      <pubDate>Thu, 22 Jan 2026 18:15:00 GMT</pubDate>
-      <description><![CDATA[Rails-də Turbo ilə İşləyən Optimist UI Yaratmaq Bu məqalə əvvəlcə Rails Designer bloqunda(https://railsdesigner.com/turbo-powered-optimistic-ui/) dərc edilmişdir. Bir müddət əvvəl sizə custom elements istifadə edərək optimist UI necə yaradılır(https://railsdesigner.com/custom-elements/)...]]></description>
       <source url="https://dev.to">Dev.to</source>
     </item>
   </channel>
