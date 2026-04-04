@@ -5,9 +5,17 @@
     <link>https://nometa.az/news/</link>
     <description>Texnologiya şirkətlərinin mühəndislik bloqlarından Azərbaycan dilinə tərcümə edilmiş məqalələr.</description>
     <language>az</language>
-    <lastBuildDate>Sat, 04 Apr 2026 10:52:25 GMT</lastBuildDate>
+    <lastBuildDate>Sat, 04 Apr 2026 10:52:34 GMT</lastBuildDate>
     <atom:link href="https://nometa.az/news/feed.xml" rel="self" type="application/rss+xml"/>
     
+    <item>
+      <title><![CDATA[Desktop Extensions: Claude Desktop üçün bir kliklə MCP server quraşdırılması]]></title>
+      <link>https://nometa.az/news/desktop-extensions-one-click-mcp-server-installation-for-claude-desktop/</link>
+      <guid>https://nometa.az/news/desktop-extensions-one-click-mcp-server-installation-for-claude-desktop/</guid>
+      <pubDate>Thu, 26 Jun 2025 00:00:00 GMT</pubDate>
+      <description><![CDATA[— Keçən il Model Context Protocol (MCP) buraxanda gördük ki, developerlər Claude-a fayl sistemlərindən verilənlər bazalarına qədər hər şeyə giriş imkanı verən möhtəşəm lokal serverlər yaradırlar. Lakin eyni rəyi davamlı eşidirdik: quraşdırma çox mürəkkəb idi. İstifadəçilərin developer alətlərinə...]]></description>
+      <source url="https://www.anthropic.com/engineering">Anthropic Engineering</source>
+    </item>
     <item>
       <title><![CDATA[MCP ilə kod icrası: Daha səmərəli agentlərin qurulması]]></title>
       <link>https://nometa.az/news/code-execution-with-mcp-building-more-efficient-agents/</link>
@@ -159,14 +167,6 @@
       <pubDate>Thu, 22 Jan 2026 18:16:15 GMT</pubDate>
       <description><![CDATA[Statikdən Ağıllıya: Renderer, Gemini və MCP ilə Süni İntellekt Əsaslı Developer Portfoliosu Dizaynı 🚀🚀 Google Gemini AI və Model Context Protocol ilə portfolio yaradılmasının transformasiyası https://www.youtube.com/watch?v=Txzplqg6oJo 🚀 İcmal Xülasəsi Renderer developerlərin onlayn varlıqlarını...]]></description>
       <source url="https://dev.to">Dev.to</source>
-    </item>
-    <item>
-      <title><![CDATA[GitLab Bug Bounty Proqramı siyasət yeniləmələri]]></title>
-      <link>https://nometa.az/news/gitlab-bug-bounty-program-policy-updates/</link>
-      <guid>https://nometa.az/news/gitlab-bug-bounty-program-policy-updates/</guid>
-      <pubDate>Tue, 20 Jan 2026 00:00:00 GMT</pubDate>
-      <description><![CDATA[GitLab HackerOne Bug Bounty proqramını ilk dəfə 2018-ci ildə təqdim etdi . O vaxtdan bəri, hərtərəfli süni intellektlə gücləndirilmiş DevSecOps platformamızı təhlükəsiz saxlamaq üçün tədqiqatçı icması ilə birlikdə çalışırıq. Şəffaflığa sadiqliyimizi, tədqiqatçılardan gələn rəyləri və aydın...]]></description>
-      <source url="https://about.gitlab.com/blog">GitLab</source>
     </item>
   </channel>
 </rss>
