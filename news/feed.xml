@@ -5,9 +5,17 @@
     <link>https://nometa.az/news/</link>
     <description>Texnologiya şirkətlərinin mühəndislik bloqlarından Azərbaycan dilinə tərcümə edilmiş məqalələr.</description>
     <language>az</language>
-    <lastBuildDate>Sat, 04 Apr 2026 10:52:58 GMT</lastBuildDate>
+    <lastBuildDate>Sat, 04 Apr 2026 10:53:06 GMT</lastBuildDate>
     <atom:link href="https://nometa.az/news/feed.xml" rel="self" type="application/rss+xml"/>
     
+    <item>
+      <title><![CDATA[Transformer Residual Stream-də İmtiyazlı Bazislər]]></title>
+      <link>https://nometa.az/news/privileged-bases-in-the-transformer-residual-stream/</link>
+      <guid>https://nometa.az/news/privileged-bases-in-the-transformer-residual-stream/</guid>
+      <pubDate>Thu, 16 Mar 2023 07:00:00 GMT</pubDate>
+      <description><![CDATA[Xülasə Transformer arxitekturasının riyazi nəzəriyyələri göstərir ki, residual stream-dəki ayrı-ayrı koordinatların heç bir xüsusi əhəmiyyəti olmamalıdır (yəni, bazis istiqamətləri müəyyən mənada "ixtiyari" olmalı və təsadüfi istiqamətlərdən daha çox informasiya kodlaşdırma ehtimalı olmamalıdır)....]]></description>
+      <source url="https://www.anthropic.com/research">Anthropic Research</source>
+    </item>
     <item>
       <title><![CDATA[Paylanmış Təqdimatlar: Kompozisiya və Superpozisiya]]></title>
       <link>https://nometa.az/news/distributed-representations-composition-superposition/</link>
@@ -158,14 +166,6 @@
       <guid>https://nometa.az/news/how-to-choose-task-management-software-for-startups-and-small-businesses/</guid>
       <pubDate>Fri, 23 Jan 2026 15:26:19 GMT</pubDate>
       <description><![CDATA[Startaplar və Kiçik Bizneslər üçün Tapşırıq İdarəetmə Proqramını Necə Seçməli Müəllif: Konstantin, Vaiz-ın həmtəsisçisi. On ildən artıqdır ki, mühəndis, komanda rəhbəri və məhsul sahibi kimi rəqəmsal məhsullar yaradır. Çərşənbə axşamı günortadan sonradır və komanda rəhbəriniz tapşırıq izləyicisində...]]></description>
-      <source url="https://dev.to">Dev.to</source>
-    </item>
-    <item>
-      <title><![CDATA[Livewire Zəifliyi Serverlərimizdə Kripto Mayninqinə Necə Səbəb Oldu]]></title>
-      <link>https://nometa.az/news/how-a-livewire-vulnerability-led-to-crypto-mining-on-our-servers/</link>
-      <guid>https://nometa.az/news/how-a-livewire-vulnerability-led-to-crypto-mining-on-our-servers/</guid>
-      <pubDate>Thu, 22 Jan 2026 18:17:53 GMT</pubDate>
-      <description><![CDATA[Necə Livewire Zəifliyi Serverlərimizdə Kriptovalyuta Mayninqinə Səbəb Oldu Keçən həftə performans problemi kimi başlayan və kriptovalyuta mayninqi araşdırmasına çevrilən bir təhlükəsizlik insidenti yaşadıq. Baş verənləri və Livewire-i prodakşında işlədirsinizsə bilməli olduqlarınızı sizinlə...]]></description>
       <source url="https://dev.to">Dev.to</source>
     </item>
   </channel>
