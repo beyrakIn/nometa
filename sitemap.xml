@@ -14,6 +14,12 @@
     </url>
     
     <url>
+        <loc>https://nometa.az/news/raising-the-bar-on-swe-bench-verified-with-claude-35-sonnet/</loc>
+        <lastmod>2026-02-10</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    <url>
         <loc>https://nometa.az/news/how-we-built-our-multi-agent-research-system/</loc>
         <lastmod>2026-02-10</lastmod>
         <changefreq>monthly</changefreq>

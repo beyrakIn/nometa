@@ -5,9 +5,17 @@
     <link>https://nometa.az/news/</link>
     <description>Texnologiya şirkətlərinin mühəndislik bloqlarından Azərbaycan dilinə tərcümə edilmiş məqalələr.</description>
     <language>az</language>
-    <lastBuildDate>Sat, 04 Apr 2026 10:52:42 GMT</lastBuildDate>
+    <lastBuildDate>Sat, 04 Apr 2026 10:52:51 GMT</lastBuildDate>
     <atom:link href="https://nometa.az/news/feed.xml" rel="self" type="application/rss+xml"/>
     
+    <item>
+      <title><![CDATA[SWE-bench Verified-də Claude 3.5 Sonnet ilə səviyyəni yüksəltmək]]></title>
+      <link>https://nometa.az/news/raising-the-bar-on-swe-bench-verified-with-claude-35-sonnet/</link>
+      <guid>https://nometa.az/news/raising-the-bar-on-swe-bench-verified-with-claude-35-sonnet/</guid>
+      <pubDate>Mon, 06 Jan 2025 00:00:00 GMT</pubDate>
+      <description><![CDATA[Ən son modelimiz, təkmilləşdirilmiş Claude 3.5 Sonnet(https://www.anthropic.com/news/3-5-models-and-computer-use), proqram mühəndisliyi qiymətləndirməsi olan SWE-bench Verified-də 49% nəticə göstərərək, əvvəlki ən yaxşı modelin 45%-lik nəticəsini üstələdi. Bu yazı modelin ətrafında qurduğumuz...]]></description>
+      <source url="https://www.anthropic.com/engineering">Anthropic Engineering</source>
+    </item>
     <item>
       <title><![CDATA[Çox agentli tədqiqat sistemimizi necə qurduq]]></title>
       <link>https://nometa.az/news/how-we-built-our-multi-agent-research-system/</link>
@@ -158,14 +166,6 @@
       <guid>https://nometa.az/news/building-optimistic-ui-in-rails-powered-by-turbo/</guid>
       <pubDate>Thu, 22 Jan 2026 18:15:00 GMT</pubDate>
       <description><![CDATA[Rails-də Turbo ilə İşləyən Optimist UI Yaratmaq Bu məqalə əvvəlcə Rails Designer bloqunda(https://railsdesigner.com/turbo-powered-optimistic-ui/) dərc edilmişdir. Bir müddət əvvəl sizə custom elements istifadə edərək optimist UI necə yaradılır(https://railsdesigner.com/custom-elements/)...]]></description>
-      <source url="https://dev.to">Dev.to</source>
-    </item>
-    <item>
-      <title><![CDATA[Binja: Nəhayət, Bun üçün Sürətli Jinja2/Django Şablon Mühərriki]]></title>
-      <link>https://nometa.az/news/binja-finally-a-fast-jinja2django-template-engine-for-bun/</link>
-      <guid>https://nometa.az/news/binja-finally-a-fast-jinja2django-template-engine-for-bun/</guid>
-      <pubDate>Thu, 22 Jan 2026 18:18:46 GMT</pubDate>
-      <description><![CDATA[Binja: Nəhayət, Bun üçün Sürətli Jinja2/Django Şablon Mühərriki JavaScript ekosistemində Django üslublu şablonlardan istifadə etməyə çalışmısınızsa, bu ağrını bilirsiniz. Nunjucks əsas seçimdir, lakin yavaşdır və funksiyaları çatışmır. Bun layihəsi üçün daha yaxşı bir şeyə ehtiyacım var idi, ona...]]></description>
       <source url="https://dev.to">Dev.to</source>
     </item>
   </channel>
