@@ -5,9 +5,17 @@
     <link>https://nometa.az/news/</link>
     <description>Texnologiya şirkətlərinin mühəndislik bloqlarından Azərbaycan dilinə tərcümə edilmiş məqalələr.</description>
     <language>az</language>
-    <lastBuildDate>Sat, 04 Apr 2026 10:52:34 GMT</lastBuildDate>
+    <lastBuildDate>Sat, 04 Apr 2026 10:52:42 GMT</lastBuildDate>
     <atom:link href="https://nometa.az/news/feed.xml" rel="self" type="application/rss+xml"/>
     
+    <item>
+      <title><![CDATA[Çox agentli tədqiqat sistemimizi necə qurduq]]></title>
+      <link>https://nometa.az/news/how-we-built-our-multi-agent-research-system/</link>
+      <guid>https://nometa.az/news/how-we-built-our-multi-agent-research-system/</guid>
+      <pubDate>Fri, 13 Jun 2025 00:00:00 GMT</pubDate>
+      <description><![CDATA[Claude indi veb, Google Workspace və istənilən inteqrasiya üzərindən axtarış apararaq mürəkkəb tapşırıqları yerinə yetirməyə imkan verən Tədqiqat imkanlarına(https://www.anthropic.com/news/research) malikdir. Bu çox agentli sistemin prototipdan istehsala keçid yolu bizə sistem arxitekturası, alət...]]></description>
+      <source url="https://www.anthropic.com/engineering">Anthropic Engineering</source>
+    </item>
     <item>
       <title><![CDATA[Desktop Extensions: Claude Desktop üçün bir kliklə MCP server quraşdırılması]]></title>
       <link>https://nometa.az/news/desktop-extensions-one-click-mcp-server-installation-for-claude-desktop/</link>
@@ -158,14 +166,6 @@
       <guid>https://nometa.az/news/binja-finally-a-fast-jinja2django-template-engine-for-bun/</guid>
       <pubDate>Thu, 22 Jan 2026 18:18:46 GMT</pubDate>
       <description><![CDATA[Binja: Nəhayət, Bun üçün Sürətli Jinja2/Django Şablon Mühərriki JavaScript ekosistemində Django üslublu şablonlardan istifadə etməyə çalışmısınızsa, bu ağrını bilirsiniz. Nunjucks əsas seçimdir, lakin yavaşdır və funksiyaları çatışmır. Bun layihəsi üçün daha yaxşı bir şeyə ehtiyacım var idi, ona...]]></description>
-      <source url="https://dev.to">Dev.to</source>
-    </item>
-    <item>
-      <title><![CDATA[Statikdən Ağıllıya: Renderer, Gemini və MCP ilə AI-First Developer Portfoliosu Dizayn Etmək 🚀🚀]]></title>
-      <link>https://nometa.az/news/from-static-to-smart-designing-an-ai-first-developer-portfolio-with-renderer-gem/</link>
-      <guid>https://nometa.az/news/from-static-to-smart-designing-an-ai-first-developer-portfolio-with-renderer-gem/</guid>
-      <pubDate>Thu, 22 Jan 2026 18:16:15 GMT</pubDate>
-      <description><![CDATA[Statikdən Ağıllıya: Renderer, Gemini və MCP ilə Süni İntellekt Əsaslı Developer Portfoliosu Dizaynı 🚀🚀 Google Gemini AI və Model Context Protocol ilə portfolio yaradılmasının transformasiyası https://www.youtube.com/watch?v=Txzplqg6oJo 🚀 İcmal Xülasəsi Renderer developerlərin onlayn varlıqlarını...]]></description>
       <source url="https://dev.to">Dev.to</source>
     </item>
   </channel>
