@@ -5,9 +5,17 @@
     <link>https://nometa.az/news/</link>
     <description>Texnologiya şirkətlərinin mühəndislik bloqlarından Azərbaycan dilinə tərcümə edilmiş məqalələr.</description>
     <language>az</language>
-    <lastBuildDate>Sat, 04 Apr 2026 10:53:15 GMT</lastBuildDate>
+    <lastBuildDate>Sat, 04 Apr 2026 10:53:25 GMT</lastBuildDate>
     <atom:link href="https://nometa.az/news/feed.xml" rel="self" type="application/rss+xml"/>
     
+    <item>
+      <title><![CDATA[Superpozisiya, Yaddaşa Yazma və İkiqat Enmə]]></title>
+      <link>https://nometa.az/news/superposition-memorization-and-double-descent/</link>
+      <guid>https://nometa.az/news/superposition-memorization-and-double-descent/</guid>
+      <pubDate>Thu, 05 Jan 2023 08:00:00 GMT</pubDate>
+      <description><![CDATA[Superpozisiya, Yaddaşa Yazma və İkiqat Enmə  Xülasə Bu yaxınlarda nəşr etdiyimiz bir məqalədə biz sadə oyuncaq tapşırıqlar üzərində təlim keçən sadə neyron şəbəkələrinin tez-tez superpozisiya adlanan bir fenomen nümayiş etdirdiyini aşkar etdik - burada şəbəkələr malik olduqları neyronların sayından...]]></description>
+      <source url="https://www.anthropic.com/research">Anthropic Research</source>
+    </item>
     <item>
       <title><![CDATA[Böyük Dil Modellərində Mənəvi Özünütəshih Qabiliyyəti]]></title>
       <link>https://nometa.az/news/the-capacity-for-moral-self-correction-in-large-language-models/</link>
@@ -158,14 +166,6 @@
       <guid>https://nometa.az/news/memory-layout-in-embedded-systems-how-c-code-really-ends-up-in-flash-and-ram/</guid>
       <pubDate>Thu, 29 Jan 2026 05:34:20 GMT</pubDate>
       <description><![CDATA[Gömülü Sistemlərdə Yaddaş Strukturu: C Kodu Həqiqətən FLASH və RAM-a Necə Yerləşdirilir CPU dəyişənləri, tipləri və ya bölmələri anlamır. O, yalnız "X ünvanını oxu" və ya "Y ünvanına yaz" kimi xam əmrləri icra edir. O, yalnız yaddaş ünvanlarını başa düşür. Dəyişən elan etdikdə, əslində saxlama yeri...]]></description>
-      <source url="https://dev.to">Dev.to</source>
-    </item>
-    <item>
-      <title><![CDATA[AI-ni Tətbiq Etməzdən Əvvəl]]></title>
-      <link>https://nometa.az/news/before-adopting-ai/</link>
-      <guid>https://nometa.az/news/before-adopting-ai/</guid>
-      <pubDate>Sat, 24 Jan 2026 09:14:38 GMT</pubDate>
-      <description><![CDATA[AI-ni Tətbiq Etməzdən Əvvəl Bu günlərdə AI platforması inkişafı üzərində işləyərkən çox şey haqqında düşünürəm. Tez-tez AI-nin tətbiqinin hansısa inqilabi dəyişiklik gətirəcəyi gözləntisi ilə qarşılaşıram, lakin sahədə işləyərkən bəzən fərqli bir mənzərə görürəm. Tez-tez eşidirəm ki, AI sehrli...]]></description>
       <source url="https://dev.to">Dev.to</source>
     </item>
   </channel>
