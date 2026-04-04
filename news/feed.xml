@@ -5,9 +5,17 @@
     <link>https://nometa.az/news/</link>
     <description>Texnologiya şirkətlərinin mühəndislik bloqlarından Azərbaycan dilinə tərcümə edilmiş məqalələr.</description>
     <language>az</language>
-    <lastBuildDate>Sat, 04 Apr 2026 10:53:06 GMT</lastBuildDate>
+    <lastBuildDate>Sat, 04 Apr 2026 10:53:15 GMT</lastBuildDate>
     <atom:link href="https://nometa.az/news/feed.xml" rel="self" type="application/rss+xml"/>
     
+    <item>
+      <title><![CDATA[Böyük Dil Modellərində Mənəvi Özünütəshih Qabiliyyəti]]></title>
+      <link>https://nometa.az/news/the-capacity-for-moral-self-correction-in-large-language-models/</link>
+      <guid>https://nometa.az/news/the-capacity-for-moral-self-correction-in-large-language-models/</guid>
+      <pubDate>Wed, 15 Feb 2023 08:00:00 GMT</pubDate>
+      <description><![CDATA[Biz insan rəyi əsasında gücləndirilmiş öyrənmə (RLHF) ilə öyrədilmiş dil modellərinin "mənəvi özünütəshih" qabiliyyətinə malik olduğu — yəni belə təlimat verildikdə zərərli nəticələr yaratmaqdan qaça bildiyi fərziyyəsini sınaqdan keçiririk. Bu fərziyyəni dəstəkləyən güclü sübutlar tapırıq — hər...]]></description>
+      <source url="https://www.anthropic.com/research">Anthropic Research</source>
+    </item>
     <item>
       <title><![CDATA[Transformer Residual Stream-də İmtiyazlı Bazislər]]></title>
       <link>https://nometa.az/news/privileged-bases-in-the-transformer-residual-stream/</link>
@@ -158,14 +166,6 @@
       <guid>https://nometa.az/news/before-adopting-ai/</guid>
       <pubDate>Sat, 24 Jan 2026 09:14:38 GMT</pubDate>
       <description><![CDATA[AI-ni Tətbiq Etməzdən Əvvəl Bu günlərdə AI platforması inkişafı üzərində işləyərkən çox şey haqqında düşünürəm. Tez-tez AI-nin tətbiqinin hansısa inqilabi dəyişiklik gətirəcəyi gözləntisi ilə qarşılaşıram, lakin sahədə işləyərkən bəzən fərqli bir mənzərə görürəm. Tez-tez eşidirəm ki, AI sehrli...]]></description>
-      <source url="https://dev.to">Dev.to</source>
-    </item>
-    <item>
-      <title><![CDATA[Startuplar və Kiçik Bizneslər üçün Tapşırıq İdarəetmə Proqramını Necə Seçməli]]></title>
-      <link>https://nometa.az/news/how-to-choose-task-management-software-for-startups-and-small-businesses/</link>
-      <guid>https://nometa.az/news/how-to-choose-task-management-software-for-startups-and-small-businesses/</guid>
-      <pubDate>Fri, 23 Jan 2026 15:26:19 GMT</pubDate>
-      <description><![CDATA[Startaplar və Kiçik Bizneslər üçün Tapşırıq İdarəetmə Proqramını Necə Seçməli Müəllif: Konstantin, Vaiz-ın həmtəsisçisi. On ildən artıqdır ki, mühəndis, komanda rəhbəri və məhsul sahibi kimi rəqəmsal məhsullar yaradır. Çərşənbə axşamı günortadan sonradır və komanda rəhbəriniz tapşırıq izləyicisində...]]></description>
       <source url="https://dev.to">Dev.to</source>
     </item>
   </channel>
